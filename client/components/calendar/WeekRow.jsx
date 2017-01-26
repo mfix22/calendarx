@@ -1,7 +1,7 @@
 import React from 'react'
 import DateColumn from './DateColumn'
 
-const WeekRow = ({ days, events, numSibs }) => {
+const WeekRow = ({ days, events, numSibs, referenceDate, daysInView }) => {
   return (
     <div
       className="weekRow"
@@ -17,6 +17,8 @@ const WeekRow = ({ days, events, numSibs }) => {
               key={day}
               day={day}
               events={events}
+              referenceDate={referenceDate}
+              daysInView={daysInView}
             />
           )
         })

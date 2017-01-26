@@ -15,19 +15,16 @@ const durationPercentage = (duration) => {
   return percent
 }
 
-const Event = ({ details, view, style }) => {
+const Event = ({ details, daysInView, style }) => {
   const getStyle = () => {
-    if (view === 'MONTH') {
+    if (daysInView > 10) {
       return {
-        color: 'rgba(0,0,0,0.54)',
-        backgroundColor: details.color || '#CBD5EA',
         width: '92%',
       }
     }
+    // Relative time and duration offsets
     return {
-      color: 'rgba(0,0,0,0.54)',
-      backgroundColor: details.color || '#CBD5EA',
-      position: (view !== 'MONTH') ? 'absolute' : 'static',
+      position: (daysInView < 10) ? 'absolute' : 'static',
       width: '93%',
       top: `${timePercentage(details.time)}%`,
       minHeight: `${durationPercentage(details.duration)}%`

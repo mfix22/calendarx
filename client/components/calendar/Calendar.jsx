@@ -3,14 +3,16 @@ import WeekRow from './WeekRow'
 
 import { getChunkedDays } from '../../helpers/calendarUtil'
 
-require('../../styles/app.scss')
+require('../../styles/index.scss')
 
 const Calendar = ({ events, referenceDate, daysInView }) => {
   const days = getChunkedDays(referenceDate, daysInView)
   return (
     <div className="module calendar">
       {
-        days.map((week, key) => (<WeekRow key={key} events={events} numSibs={days.length} days={week} />))
+        days.map((week, key) => (
+          <WeekRow key={key} events={events} numSibs={days.length} days={week} />
+        ))
       }
     </div>
   )

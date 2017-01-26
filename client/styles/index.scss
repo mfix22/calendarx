@@ -1,16 +1,8 @@
-// Globals
-@import 'reset';
+@import 'base';
+@import 'Calendar';
 
-// Base imports
-@import 'base/global';
-@import 'base/grid';
-@import 'base/variables';
-@import 'base/typography';
-
-// Components
-@import 'components/material';
-@import 'components/header';
-@import 'components/hero';
-@import 'components/info';
-@import 'components/footer';
-@import 'components/process';
+// Global
+body {
+  background-color: $bg;
+  font-size: 16px;
+}
