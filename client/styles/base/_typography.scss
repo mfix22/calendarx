@@ -1,0 +1,108 @@
+/*! Typebase.scss v0.1.0 | MIT License */
+
+/* Setup */
+html {
+  /* Change default typefaces here */
+  font-family: $sans-serif;
+  font-size: $baseFontSize / 16 * 100%;
+  // Make everything look a little nicer in webkit
+  -webkit-font-smoothing: antialiased;
+  // -webkit-text-size-adjust: auto
+  // -moz-text-size-adjust: auto
+  // -ms-text-size-adjust: auto
+  // -o-text-size-adjust: auto
+  // text-size-adjust: auto
+
+}
+
+/* Copy & Lists */
+p {
+  line-height: $leading;
+  margin-top: $leading;
+  margin-bottom: 0;
+}
+
+ol,
+ul {
+  li {
+    line-height: $leading;
+  }
+
+  ol,
+  ul {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+blockquote {
+  line-height: $leading;
+  // margin-top: $leading;
+  margin-bottom: $leading;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $black;
+  font-family: $sans-serif;
+  // margin-top: $leading;
+  line-height: $leading;
+  margin-bottom: 0;
+}
+
+h1 {
+  font-size: $scale * $scale * $scale * 1rem;
+  line-height: $baseLineHeight;
+  // margin-top: 2 * $leading;
+}
+
+h2 {
+  font-size: $scale * $scale * 1rem;
+  line-height: $baseLineHeight * .8;
+  // margin-top: 2 * $leading;
+}
+
+h3 {
+  font-size: $scale * 1rem;
+}
+
+h4 {
+  font-size: $scale / 1.2 * 1rem;
+}
+
+h5 {
+  font-size: $scale / 3 * 1rem;
+}
+
+h6 {
+  font-size: $scale / 4 * 1rem;
+}
+
+/* Tables */
+table {
+  // margin-top: $leading;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 0;
+  line-height: $baseLineHeight * $baseFontSize - 0;
+}
+
+/* Code blocks */
+code {
+  // Forces text to constrain to the line-height. Not ideal, but works.
+  vertical-align: bottom;
+}
+/* Leading paragraph text */
+
+.lead {
+  font-size: $scale * 1rem;
+}

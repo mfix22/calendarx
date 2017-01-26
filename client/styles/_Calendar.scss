@@ -1,0 +1,191 @@
+.full-black-cover {
+  background-color: black;
+  opacity: 0.5;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: 999;
+}
+.calendar {
+  // min-height: 700px;
+  width: 100%;
+}
+
+.controlBar {
+  .rangeHeader {
+    font-size: 16px;
+  }
+
+  .buttonContainer {
+    float: right;
+  }
+}
+
+.weekRow {
+  width: 100%;
+}
+
+.dateColumn {
+  position: relative;
+  display: inline-block;
+  border-right: 1px solid $border;
+  height: 100%;
+  vertical-align: top;
+  padding: 0 0;
+
+  &:last-of-type {
+    border-right-width: 0;
+  }
+
+  .header {
+    font-size: 12px;
+    color: $grey;
+    position: relative;
+
+    &.today {
+      font-weight: 600;
+      color: $green;
+    }
+  }
+  &.weekView, .dayView {
+    .header {
+      height: 36px;
+      z-index: 999;
+      vertical-align: middle;
+      background: #F3F3F3;
+    }
+  }
+}
+
+.calendarEvent {
+  padding: 4px;
+  font-size: 12px;
+
+  overflow-y: hidden;
+  max-height: 30px;
+
+  text-align: left;
+  transition: all 300ms ease-in-out;
+}
+
+.longEvent {
+  padding-top: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  p {
+    margin: 1px 0;
+  }
+}
+
+.shortEvent {
+  p {
+    display: inline-block;
+  }
+
+  .event_time {
+    float: right;
+  }
+
+  .event_title {
+    float: left;
+    // width: 54%; TODO
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .event_location {
+    display: none;
+  }
+}
+
+// 4 day or weekly view
+.dayView, .weekView {
+  p.header {
+    text-align: center;
+    padding: 12px 0px 0px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    background: #F3F3F3;
+    height: 36px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .calendarEvent {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      background: rgba(0,0,0,0.34);
+      height: 4px;
+      width: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .shortEvent {
+    padding-top: 8px;
+  }
+  .event_title {
+    font-weight: 600;
+  }
+}
+
+.dayView {
+  .event_title {
+    width: 69%;
+  }
+}
+
+.weekView {
+  .event_title {
+    width: 100%;
+  }
+  .event_time {
+    display: none;
+  }
+}
+
+.monthView {
+  border-bottom: 1px solid $border;
+
+  .header {
+    text-align: left;
+    padding-left: 7px;
+    margin-top: 8px;
+  }
+}
+
+.calendarEvent:hover {
+  max-height: 192px;
+  height: none;
+  padding: 8px 8px 4px;
+  transition: all 300ms ease-in-out;
+  .event_time, .event_location, .event_title {
+    margin-bottom: 4px;
+    text-overflow: unset;
+    width: 100%;
+    display: block;
+    white-space: pre-wrap;      /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap;     /* Opera <7 */
+    white-space: -o-pre-wrap;   /* Opera 7 */
+    word-wrap: break-word;      /* IE */
+  }
+}

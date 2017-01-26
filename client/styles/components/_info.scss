@@ -1,0 +1,24 @@
+.info {
+  display: flex;
+  align-items: center;
+
+  img {
+    pointer-events: none;
+  }
+}
+
+.info-detail {
+  // padding: 3rem;
+
+  p {
+    color: $grey;
+  }
+}
+
+.info-form {
+  margin-right: 2rem;
+}
+
+.info-application {
+  margin-left: 2rem;
+}

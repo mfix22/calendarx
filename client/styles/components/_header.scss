@@ -1,0 +1,37 @@
+.site-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+
+  nav {
+    display: inline-block;
+  }
+}
+
+.site-logo {
+  display: inline-block;
+}
+
+.nav-links {
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+
+  li {
+    display: inline-block;
+    margin-left: 1rem;
+  }
+
+  a {
+    color: $light-grey;
+    font-family: $sans-serif;
+    line-height: $leading;
+    text-decoration: none;
+
+    &:hover {
+      color: $dark-grey;
+    }
+  }
+}
