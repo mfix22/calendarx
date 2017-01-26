@@ -1,8 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import moment from 'moment'
 import Event from './Event'
-import Moon from '../embeddables/Moon'
 
 import { isThisMonth } from '../../helpers/calendarUtil'
 
@@ -28,7 +26,7 @@ const setViewClasses = (window) => {
   }
 }
 
-const DateColumn = ({ refDate, window, day, events, width, settings }) => {
+const DateColumn = ({ refDate, window, day, events, width }) => {
   return (
     <div
       className={`dateColumn ${setViewClasses(window)}`}
@@ -41,13 +39,6 @@ const DateColumn = ({ refDate, window, day, events, width, settings }) => {
       <p className={`header ${moment(day).isSame(moment(), 'day') ? 'today' : ''}`}>
         {moment(day).format(getHeaderFormat(window)).toUpperCase()}
       </p>
-      <ul className="embeddables">
-        {
-          settings && settings.embeddables && settings.embeddables.length ?
-            <Moon date={day} settings={settings.embeddables.moon} /> :
-            null
-        }
-      </ul>
       {
         events.filter((e) => {
           return moment(e.time).isSame(day, 'day')
@@ -66,12 +57,7 @@ const DateColumn = ({ refDate, window, day, events, width, settings }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    refDate: state.view.date,
-    window: state.view.window,
-    settings: state.settings
-  }
-}
+// refDate: state.view.date,
+// window: state.view.window,
 
-export default connect(mapStateToProps)(DateColumn)
+export default DateColumn
