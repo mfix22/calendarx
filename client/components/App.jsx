@@ -5,55 +5,35 @@ import Calendar from './calendar/Calendar'
 
 // configureGlobalKeyPress(store)
 
-const fakeEvents = {
-  title: 'My Event',
-  location: 'HOME',
-  emails: [
-    'test@test.com',
-    'boaty@mcboatface.coms'
-  ],
-  duration: 3600000,
-  options: [
-    {
-      '2016-11-17T16:30:00-05:00': 4
-    },
-    {
-      '2016-11-17T17:30:00-05:00': 1
-    },
-    {
-      '2016-11-17T18:00:00-05:00': 0
-    }
-  ],
-  events: [
-    {
-      id: 1,
-      title: 'Birthday',
-      time: '2016-11-17T16:30:00-05:00',
-      location: 'Home',
-      color: '#f284a8'
-    },
-    {
-      id: 2,
-      title: "Meeting @ Aldo's",
-      time: '2016-11-18T17:30:00-05:00',
-      location: "Aldo's Cafe"
-    },
-    {
-      id: 3,
-      title: 'Test Meeting w/ some B',
-      time: '2016-11-18T18:30:00-05:00',
-      location: 'ECB',
-      color: '#239207'
-    },
-    {
-      id: 4,
-      title: 'HELP',
-      time: '2016-11-19T13:00:00-05:00',
-      location: 'ECB',
-      color: '#cced00'
-    }
-  ]
-}
+const fakeEvents = [
+  {
+    id: 1,
+    title: 'Birthday',
+    time: '2016-11-17T16:30:00-05:00',
+    location: 'Home',
+    color: '#f284a8'
+  },
+  {
+    id: 2,
+    title: "Meeting @ Aldo's",
+    time: '2016-11-18T17:30:00-05:00',
+    location: "Aldo's Cafe"
+  },
+  {
+    id: 3,
+    title: 'Test Meeting w/ some B',
+    time: '2016-11-18T18:30:00-05:00',
+    location: 'ECB',
+    color: '#239207'
+  },
+  {
+    id: 4,
+    title: 'HELP',
+    time: '2016-11-19T13:00:00-05:00',
+    location: 'ECB',
+    color: '#cced00'
+  }
+]
 
 const App = () => (
   <Calendar

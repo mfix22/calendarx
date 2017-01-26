@@ -4,16 +4,17 @@
   "description": "All in one calendar plugin",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "concurrently --kill-others \"npm run build:watch\" \"npm run dev-server\"",
+    "dev": "concurrently --kill-others \"npm run build:watch\"",
     "dev-server": "node server.js",
     "build": "webpack",
     "build:watch": "webpack -w"
   },
   "dependencies": {
+    "extract-text-webpack-plugin": "^1.0.1",
     "moment": "^2.13.0",
     "react": "^15.4.0",
-    "react-dom": "^15.3.1"
+    "react-dom": "^15.3.1",
+    "webpack": "^1.14.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -30,12 +31,10 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.7.0",
-    "extract-text-webpack-plugin": "^1.0.1",
     "node-sass": "^3.8.0",
     "path": "^0.12.7",
     "sass-loader": "^4.0.0",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.14.0"
+    "style-loader": "^0.13.1"
   },
   "repository": {
     "type": "git",
