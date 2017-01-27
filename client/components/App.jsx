@@ -22,14 +22,14 @@ const fakeEvents = [
   {
     id: 3,
     title: 'Test Meeting w/ some B',
-    time: moment().add(3, 'd').format(),
+    time: moment().add(-2, 'd').format(),
     location: 'ECB',
     color: '#239207'
   },
   {
     id: 4,
     title: 'HELP',
-    time: moment().add(-1, 'd').format(),
+    time: moment().add(1, 'd').format(),
     location: 'ECB',
     color: '#cced00'
   }
@@ -39,7 +39,7 @@ const App = () => (
   <Calendar
     events={fakeEvents}
     referenceDate={moment().format()}
-    daysInView={35}
+    daysInView={4}
   />
 )
 

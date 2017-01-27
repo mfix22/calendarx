@@ -19,13 +19,12 @@ const Event = ({ details, daysInView, style }) => {
   const getStyle = () => {
     if (daysInView > 10) {
       return {
-        width: '92%',
+        position: 'static',
       }
     }
     // Relative time and duration offsets
     return {
-      position: (daysInView < 10) ? 'absolute' : 'static',
-      width: '93%',
+      position: 'absolute',
       top: `${timePercentage(details.time)}%`,
       minHeight: `${durationPercentage(details.duration)}%`
     }
@@ -36,13 +35,11 @@ const Event = ({ details, daysInView, style }) => {
       className={`calendarEvent ${durationPercentage(details.duration) < 8 ? 'shortEvent' : 'longEvent'}`}
       style={Object.assign(getStyle(), style)}
     >
-      <p className="event_time">{moment(details.time).format('LT')}</p>
-      <p className="event_title">{ details.title }</p>
-      <p className="event_location">{ details.location }</p>
-      {
-        /* <p className="event_time">{ moment(details.time).format('LT YYYY ddd, MMM Do') }</p>
-        <p className="event_location">{ details.location }</p>*/
-      }
+      <p className="event_details">
+        {moment(details.time).format('LT')}<br />
+        { details.title }<br />
+        { details.location }<br />
+      </p>
     </div>
   )
 }

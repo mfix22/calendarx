@@ -8,28 +8,12 @@ const getHeaderFormat = (numDays) => {
   if (numDays <= 4) return 'dddd M/D'
   if (numDays <= 10) return 'ddd M/D'
   return 'M/D'
-  // switch (window) {
-  //   case 'MONTH':
-  //     return 'M/D'
-  //   case 'WEEK':
-  //     return 'ddd M/D'
-  //   default:
-  //     return 'dddd M/D'
-  // }
 }
 
 const setViewClasses = (numDays) => {
   if (numDays <= 4) return 'dayView'
   if (numDays <= 10) return 'weekView'
   return 'monthView'
-  // switch (window) {
-  //   case 'MONTH':
-  //     return 'monthView'
-  //   case 'WEEK':
-  //     return 'weekView'
-  //   default:
-  //     return 'dayView'
-  // }
 }
 
 const DateColumn = ({ referenceDate, daysInView, day, events, width }) => {
@@ -63,8 +47,5 @@ const DateColumn = ({ referenceDate, daysInView, day, events, width }) => {
     </div>
   )
 }
-
-// referenceDate: state.view.date,
-// window: state.view.window,
 
 export default DateColumn

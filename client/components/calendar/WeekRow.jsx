@@ -6,7 +6,7 @@ const WeekRow = ({ days, events, numSibs, referenceDate, daysInView }) => {
     <div
       className="weekRow"
       style={{
-        height: `${(600) / numSibs}px`
+        height: `${(100) / numSibs}%`
       }}
     >
       {
