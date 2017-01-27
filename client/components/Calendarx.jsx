@@ -4,23 +4,35 @@ import WeekRow from './WeekRow'
 
 
 import { getChunkedDays } from '../helpers/calendarUtil'
-import { CALENDAR_HEIGHT, NUMBER_OF_DAYS } from '../defaults'
+import {
+  CALENDAR_WIDTH,
+  CALENDAR_HEIGHT,
+  NUMBER_OF_DAYS,
+  DEFAULT_EVENTS,
+  TODAY_CLASS,
+  PREV_MONTH_CLASS,
+  NEXT_MONTH_CLASS,
+  TODAY_STYLE,
+  PREV_MONTH_STYLE,
+  NEXT_MONTH_STYLE,
+} from '../defaults'
 
 require('../styles/index.scss')
 
-const Calendarx = ({
-  events,
-  referenceDate,
-  daysInView,
-  width,
-  height
-  // todayClass,
-  // todayStyle,
-  // prevMonthClass,
-  // prevMonthStyle,
-  // nextMonthClass,
-  // nextMonthStyle,
-}) => {
+const Calendarx = (props) => {
+  const {
+    events,
+    referenceDate,
+    daysInView,
+    width,
+    height,
+    todayClass,
+    todayStyle,
+    prevMonthClass,
+    prevMonthStyle,
+    nextMonthClass,
+    nextMonthStyle,
+  } = props
   const numDaysInView = daysInView || NUMBER_OF_DAYS
   const referenceDateToUse = referenceDate || moment().format()
   const days = getChunkedDays(referenceDateToUse, numDaysInView)
@@ -30,7 +42,7 @@ const Calendarx = ({
       if (typeof width === 'number') return `${width}px`
       return width
     }
-    return '100%'
+    return CALENDAR_WIDTH
   }
 
   const getHeight = () => {
@@ -57,11 +69,17 @@ const Calendarx = ({
         days.map((week, key) => (
           <WeekRow
             key={key}
-            events={events}
-            numSibs={days.length}
             days={week}
-            daysInView={numDaysInView}
+            numSibs={days.length}
+            events={events || DEFAULT_EVENTS}
             referenceDate={referenceDateToUse}
+            daysInView={numDaysInView}
+            todayClass={todayClass || TODAY_CLASS}
+            prevMonthClass={prevMonthClass || PREV_MONTH_CLASS}
+            nextMonthClass={nextMonthClass || NEXT_MONTH_CLASS}
+            todayStyle={todayStyle || TODAY_STYLE}
+            prevMonthStyle={prevMonthStyle || PREV_MONTH_STYLE}
+            nextMonthStyle={nextMonthStyle || NEXT_MONTH_STYLE}
           />
         ))
       }

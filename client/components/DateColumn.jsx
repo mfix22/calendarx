@@ -16,7 +16,8 @@ const setViewClasses = (numDays) => {
   return 'monthView'
 }
 
-const DateColumn = ({ referenceDate, daysInView, day, events, width }) => {
+const DateColumn = (props) => {
+  const { referenceDate, daysInView, day, events, width, todayClass } = props
   const getWhichMonthClass = () => {
     if (daysInView < 10) return ''
     if (isThisMonth(referenceDate, day)) return 'currMonth'
@@ -30,7 +31,7 @@ const DateColumn = ({ referenceDate, daysInView, day, events, width }) => {
         [
           'dateColumn',
           setViewClasses(daysInView),
-          moment(day).isSame(moment(), 'day') ? 'today' : '',
+          moment(day).isSame(moment(), 'day') ? todayClass : '',
           getWhichMonthClass()
         ].join(' ')
       }
@@ -40,7 +41,7 @@ const DateColumn = ({ referenceDate, daysInView, day, events, width }) => {
         overflow: 'hidden'
       }}
     >
-      <p className={`header ${moment(day).isSame(moment(), 'day') ? 'today' : ''}`}>
+      <p className={`header ${moment(day).isSame(moment(), 'day') ? todayClass : ''}`}>
         {moment(day).format(getHeaderFormat(daysInView)).toUpperCase()}
       </p>
       {
@@ -51,8 +52,6 @@ const DateColumn = ({ referenceDate, daysInView, day, events, width }) => {
             <Event
               key={calEvent.id}
               details={calEvent}
-              view={'MONTH'}
-              daysInView={daysInView}
               style={{ zIndex: 500 - index }}
             />
           )

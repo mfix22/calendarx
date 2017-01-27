@@ -30,6 +30,7 @@ const Event = ({ details, daysInView, style }) => {
     }
   }
 
+  console.log(daysInView)
   return (
     <div
       className={
