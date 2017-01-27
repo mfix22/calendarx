@@ -1,19 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 
-const timePercentage = (time) => {
-  const timeMoment = moment(time)
-  const hour = timeMoment.hour()
-  const minute = timeMoment.minute()
-
-  const percent = ((((60 * hour) + minute) - (7 * 60)) * 100) / (14 * 60)
-  return percent
-}
-
-const durationPercentage = (duration) => {
-  const percent = ((duration || 1 * 60 * 60 * 1000) * 100) / (24 * 60 * 60 * 1000)
-  return percent
-}
+import { timePercentage, durationPercentage } from '../helpers/calendarUtil'
 
 const Event = ({ details, daysInView, style }) => {
   const getStyle = () => {
