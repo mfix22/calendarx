@@ -17,31 +17,54 @@ const setViewClasses = (numDays) => {
 }
 
 const DateColumn = (props) => {
-  const { referenceDate, daysInView, day, events, width, todayClass } = props
+  const {
+    referenceDate,
+    daysInView,
+    day,
+    events,
+    width,
+    todayClass,
+    currMonthClass,
+    nextMonthClass,
+    prevMonthClass,
+    nextMonthStyle,
+    prevMonthStyle
+  } = props
   const getWhichMonthClass = () => {
     if (daysInView < 10) return ''
-    if (isThisMonth(referenceDate, day)) return 'currMonth'
-    if (moment(referenceDate).isBefore(day)) return 'nextMonth'
-    return 'prevMonth'
+    if (isThisMonth(referenceDate, day)) return currMonthClass
+    if (moment(referenceDate).isBefore(day)) return nextMonthClass
+    return prevMonthClass
+  }
+
+  const getStyle = () => {
+    const base = {
+      width,
+      overflow: 'hidden'
+    }
+    if (daysInView < 10 || isThisMonth(referenceDate, day)) return base
+    if (moment(referenceDate).isBefore(day))
+      return Object.assign(base, nextMonthStyle)
+
+    return Object.assign(base, prevMonthStyle)
   }
 
   return (
     <div
-      className={
-        [
-          'dateColumn',
-          setViewClasses(daysInView),
-          moment(day).isSame(moment(), 'day') ? todayClass : '',
-          getWhichMonthClass()
-        ].join(' ')
-      }
-      style={{
-        width,
-        opacity: (isThisMonth(referenceDate, day) || daysInView < 10) ? 1 : 0.4,
-        overflow: 'hidden'
-      }}
+      className={[
+        'dateColumn',
+        setViewClasses(daysInView),
+        moment(day).isSame(moment(), 'day') ? todayClass : '',
+        getWhichMonthClass()
+      ].join(' ')}
+      style={getStyle()}
     >
-      <p className={`header ${moment(day).isSame(moment(), 'day') ? todayClass : ''}`}>
+      <p
+        className={[
+          'header',
+          moment(day).isSame(moment(), 'day') ? todayClass : ''
+        ].join(' ')}
+      >
         {moment(day).format(getHeaderFormat(daysInView)).toUpperCase()}
       </p>
       {

@@ -10,6 +10,7 @@ import {
   NUMBER_OF_DAYS,
   DEFAULT_EVENTS,
   TODAY_CLASS,
+  CURR_MONTH_CLASS,
   PREV_MONTH_CLASS,
   NEXT_MONTH_CLASS,
   TODAY_STYLE,
@@ -28,6 +29,7 @@ const Calendarx = (props) => {
     height,
     todayClass,
     todayStyle,
+    currMonthClass,
     prevMonthClass,
     prevMonthStyle,
     nextMonthClass,
@@ -75,6 +77,7 @@ const Calendarx = (props) => {
             referenceDate={referenceDateToUse}
             daysInView={numDaysInView}
             todayClass={todayClass || TODAY_CLASS}
+            currMonthClass={currMonthClass || CURR_MONTH_CLASS}
             prevMonthClass={prevMonthClass || PREV_MONTH_CLASS}
             nextMonthClass={nextMonthClass || NEXT_MONTH_CLASS}
             todayStyle={todayStyle || TODAY_STYLE}
