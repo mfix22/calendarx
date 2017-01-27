@@ -17,18 +17,26 @@ const setViewClasses = (numDays) => {
 }
 
 const DateColumn = ({ referenceDate, daysInView, day, events, width }) => {
+  const getWhichMonthClass = () => {
+    if (daysInView < 10) return ''
+    if (isThisMonth(referenceDate, day)) return 'currMonth'
+    if (moment(referenceDate).isBefore(day)) return 'nextMonth'
+    return 'prevMonth'
+  }
+
   return (
     <div
       className={
         [
           'dateColumn',
           setViewClasses(daysInView),
-          moment(day).isSame(moment(), 'day') ? 'today' : ''
+          moment(day).isSame(moment(), 'day') ? 'today' : '',
+          getWhichMonthClass()
         ].join(' ')
       }
       style={{
         width,
-        opacity: (isThisMonth(referenceDate, day) || daysInView > 10) ? 1 : 0.4,
+        opacity: (isThisMonth(referenceDate, day) || daysInView < 10) ? 1 : 0.4,
         overflow: 'hidden'
       }}
     >

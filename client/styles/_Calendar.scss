@@ -1,5 +1,6 @@
 .calendar {
   width: 100%;
+  background-color: $bg;
 }
 
 .weekRow {
@@ -25,7 +26,7 @@
 
     &.today {
       font-weight: 600;
-      color: $green;
+      color: darken($light-blue, 20%);
     }
   }
   &.weekView, .dayView {
@@ -47,7 +48,7 @@
   text-align: left;
   transition: all 300ms ease-in-out;
 
-  background-color: rgba(0,0,0,0.5);
+  background-color: $light-blue;
 }
 
 // 4 day or weekly view

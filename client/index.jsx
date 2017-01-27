@@ -35,10 +35,6 @@ const fakeEvents = [
 ]
 
 render(
-  <Calendar
-    events={fakeEvents}
-    referenceDate={moment().format()}
-    daysInView={35}
-  />,
+  <Calendar events={fakeEvents} />,
   document.getElementById('root')
 )

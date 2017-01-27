@@ -12,7 +12,7 @@ export const getColor = (id) => {
     '#FFDFAE ',
     '#D6CBC6 ',
     '#E1E1E1 ',
-    '#CED7DC',
+    '#CED7DC ',
   ]
   return (id) ? colors[id % colors.length] : colors[0]
 }

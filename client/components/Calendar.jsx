@@ -1,8 +1,10 @@
 import React from 'react'
+import moment from 'moment'
 import WeekRow from './WeekRow'
 
+
 import { getChunkedDays } from '../helpers/calendarUtil'
-import { CALENDAR_HEIGHT } from '../defaults'
+import { CALENDAR_HEIGHT, NUMBER_OF_DAYS } from '../defaults'
 
 require('../styles/index.scss')
 
@@ -19,13 +21,36 @@ const Calendar = ({
   // nextMonthClass,
   // nextMonthStyle,
 }) => {
-  const days = getChunkedDays(referenceDate, daysInView)
+  const numDaysInView = daysInView || NUMBER_OF_DAYS
+  const referenceDateToUse = referenceDate || moment().format()
+  const days = getChunkedDays(referenceDateToUse, numDaysInView)
+
+  const getWidth = () => {
+    if (width) {
+      if (typeof width === 'number') return `${width}px`
+      return width
+    }
+    return '100%'
+  }
+
+  const getHeight = () => {
+    if (height) {
+      if (typeof width === 'number') return `${height}px`
+      return height
+    }
+    if (width) {
+      if (typeof width === 'number') return `${width}px`
+      return width
+    }
+    return CALENDAR_HEIGHT
+  }
+
   return (
     <div
       className="module calendar"
       style={{
-        width: width || '100%',
-        height: height || width || CALENDAR_HEIGHT
+        width: getWidth(),
+        height: getHeight()
       }}
     >
       {
@@ -35,16 +60,13 @@ const Calendar = ({
             events={events}
             numSibs={days.length}
             days={week}
-            daysInView={daysInView}
+            daysInView={numDaysInView}
+            referenceDate={referenceDateToUse}
           />
         ))
       }
     </div>
   )
 }
-
-// referenceDate: state.view.date,
-// events: [...getProposedOptions(state), ...state.events],
-// daysInView: getNumDaysInView(state.view.window)
 
 export default Calendar
