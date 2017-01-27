@@ -32,7 +32,13 @@ const Event = ({ details, daysInView, style }) => {
 
   return (
     <div
-      className={`calendarEvent ${durationPercentage(details.duration) < 8 ? 'shortEvent' : 'longEvent'}`}
+      className={
+        [
+          'calendarEvent',
+          durationPercentage(details.duration) < 8 ? 'shortEvent' : 'longEvent',
+          moment(details.time).isSame(moment(), 'day') ? 'today' : ''
+        ].join(' ')
+      }
       style={Object.assign(getStyle(), style)}
     >
       <p className="event_details">

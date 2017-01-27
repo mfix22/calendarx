@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import Event from './Event'
 
-import { isThisMonth } from '../../helpers/calendarUtil'
+import { isThisMonth } from '../helpers/calendarUtil'
 
 const getHeaderFormat = (numDays) => {
   if (numDays <= 4) return 'dddd M/D'
@@ -19,7 +19,13 @@ const setViewClasses = (numDays) => {
 const DateColumn = ({ referenceDate, daysInView, day, events, width }) => {
   return (
     <div
-      className={`dateColumn ${setViewClasses(daysInView)}`}
+      className={
+        [
+          'dateColumn',
+          setViewClasses(daysInView),
+          moment(day).isSame(moment(), 'day') ? 'today' : ''
+        ].join(' ')
+      }
       style={{
         width,
         opacity: (isThisMonth(referenceDate, day) || daysInView > 10) ? 1 : 0.4,

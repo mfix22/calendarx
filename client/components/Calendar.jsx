@@ -1,9 +1,9 @@
 import React from 'react'
 import WeekRow from './WeekRow'
 
-import { getChunkedDays } from '../../helpers/calendarUtil'
+import { getChunkedDays } from '../helpers/calendarUtil'
 
-require('../../styles/index.scss')
+require('../styles/index.scss')
 
 const Calendar = ({
   events,
