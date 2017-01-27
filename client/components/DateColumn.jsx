@@ -44,7 +44,7 @@ const DateColumn = ({ referenceDate, daysInView, day, events, width }) => {
         {moment(day).format(getHeaderFormat(daysInView)).toUpperCase()}
       </p>
       {
-        events.filter((e) => {
+        events && events.filter((e) => {
           return moment(e.time).isSame(day, 'day')
         }).map((calEvent, index) => {
           return (

@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import moment from 'moment'
 
-import Calendar from './components/Calendar'
+import Calendarx from './components/Calendarx'
 
 const fakeEvents = [
   {
@@ -35,6 +35,6 @@ const fakeEvents = [
 ]
 
 render(
-  <Calendar events={fakeEvents} />,
+  <Calendarx />,
   document.getElementById('root')
 )

@@ -8,7 +8,7 @@ import { CALENDAR_HEIGHT, NUMBER_OF_DAYS } from '../defaults'
 
 require('../styles/index.scss')
 
-const Calendar = ({
+const Calendarx = ({
   events,
   referenceDate,
   daysInView,
@@ -69,4 +69,4 @@ const Calendar = ({
   )
 }
 
-export default Calendar
+export default Calendarx
