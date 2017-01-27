@@ -2,6 +2,7 @@ import React from 'react'
 import WeekRow from './WeekRow'
 
 import { getChunkedDays } from '../helpers/calendarUtil'
+import { CALENDAR_HEIGHT } from '../defaults'
 
 require('../styles/index.scss')
 
@@ -24,7 +25,7 @@ const Calendar = ({
       className="module calendar"
       style={{
         width: width || '100%',
-        height: height || width || '600px'
+        height: height || width || CALENDAR_HEIGHT
       }}
     >
       {
