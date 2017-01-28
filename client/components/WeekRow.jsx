@@ -7,6 +7,7 @@ const WeekRow = (props) => {
     <div
       className="weekRow"
       style={{
+        width: '100%',
         height: `${(100) / numSibs}%`
       }}
     >

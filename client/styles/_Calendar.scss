@@ -1,20 +1,4 @@
-.calendar {
-  width: 100%;
-  background-color: $bg;
-}
-
-.weekRow {
-  width: 100%;
-}
-
 .dateColumn {
-  position: relative;
-  display: inline-block;
-  border-right: 1px solid $border;
-  height: 100%;
-  vertical-align: top;
-  padding: 0 0;
-
   &:last-of-type {
     border-right-width: 0;
   }
@@ -23,11 +7,6 @@
     font-size: 12px;
     color: $grey;
     position: relative;
-
-    &.today {
-      font-weight: 600;
-      color: darken($light-blue, 20%);
-    }
   }
   &.weekView, .dayView {
     .header {

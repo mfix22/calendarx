@@ -19,7 +19,7 @@ const setViewClasses = (numDays) => {
 const DateColumn = (props) => {
   const {
     referenceDate,
-    daysInView,
+    numDays,
     day,
     events,
     width,
@@ -31,7 +31,7 @@ const DateColumn = (props) => {
     prevMonthStyle
   } = props
   const getWhichMonthClass = () => {
-    if (daysInView < 10) return ''
+    if (numDays < 10) return ''
     if (isThisMonth(referenceDate, day)) return currMonthClass
     if (moment(referenceDate).isBefore(day)) return nextMonthClass
     return prevMonthClass
@@ -40,20 +40,27 @@ const DateColumn = (props) => {
   const getStyle = () => {
     const base = {
       width,
-      overflow: 'hidden'
+      overflow: 'hidden',
+      position: 'relative',
+      display: 'inline-block',
+      borderRight: '1px solid #dbdbdb',
+      height: '100%',
+      verticalAlign: 'top',
+      padding: 0
     }
-    if (daysInView < 10 || isThisMonth(referenceDate, day)) return base
+    if (numDays < 10 || isThisMonth(referenceDate, day)) return base
     if (moment(referenceDate).isBefore(day))
       return Object.assign(base, nextMonthStyle)
 
     return Object.assign(base, prevMonthStyle)
   }
+  const IS_TODAY = moment(day).isSame(moment(), 'day')
 
   return (
     <div
       className={[
         'dateColumn',
-        setViewClasses(daysInView),
+        setViewClasses(numDays),
         moment(day).isSame(moment(), 'day') ? todayClass : '',
         getWhichMonthClass()
       ].join(' ')}
@@ -62,10 +69,16 @@ const DateColumn = (props) => {
       <p
         className={[
           'header',
-          moment(day).isSame(moment(), 'day') ? todayClass : ''
+          IS_TODAY ? todayClass : ''
         ].join(' ')}
+        style={
+          IS_TODAY ? {
+            fontWeight: 600,
+            color: '#4dc2fa'
+          } : null
+        }
       >
-        {moment(day).format(getHeaderFormat(daysInView)).toUpperCase()}
+        {moment(day).format(getHeaderFormat(numDays)).toUpperCase()}
       </p>
       {
         events && events.filter((e) => {

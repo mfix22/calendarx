@@ -24,7 +24,7 @@ const Calendarx = (props) => {
   const {
     events,
     referenceDate,
-    daysInView,
+    numDays,
     width,
     height,
     todayClass,
@@ -35,7 +35,7 @@ const Calendarx = (props) => {
     nextMonthClass,
     nextMonthStyle,
   } = props
-  const numDaysInView = daysInView || NUMBER_OF_DAYS
+  const numDaysInView = numDays || NUMBER_OF_DAYS
   const referenceDateToUse = referenceDate || moment().format()
   const days = getChunkedDays(referenceDateToUse, numDaysInView)
 
@@ -64,7 +64,8 @@ const Calendarx = (props) => {
       className="module calendar"
       style={{
         width: getWidth(),
-        height: getHeight()
+        height: getHeight(),
+        backgroundColor: '#e9e9e9'
       }}
     >
       {
@@ -75,7 +76,7 @@ const Calendarx = (props) => {
             numSibs={days.length}
             events={events || DEFAULT_EVENTS}
             referenceDate={referenceDateToUse}
-            daysInView={numDaysInView}
+            numDays={numDaysInView}
             todayClass={todayClass || TODAY_CLASS}
             currMonthClass={currMonthClass || CURR_MONTH_CLASS}
             prevMonthClass={prevMonthClass || PREV_MONTH_CLASS}

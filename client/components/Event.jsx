@@ -3,9 +3,9 @@ import moment from 'moment'
 
 import { timePercentage, durationPercentage } from '../helpers/calendarUtil'
 
-const Event = ({ details, daysInView, style }) => {
+const Event = ({ details, numDays, style }) => {
   const getStyle = () => {
-    if (daysInView > 10) {
+    if (numDays > 10) {
       return {
         position: 'static',
       }

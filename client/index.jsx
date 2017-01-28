@@ -35,6 +35,6 @@ const fakeEvents = [
 ]
 
 render(
-  <Calendarx />,
+  <Calendarx numDays={42} />,
   document.getElementById('root')
 )
