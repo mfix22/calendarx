@@ -16,6 +16,8 @@ import {
   TODAY_STYLE,
   PREV_MONTH_STYLE,
   NEXT_MONTH_STYLE,
+  THEME_COLOR,
+  FONT
 } from '../defaults'
 
 require('../styles/index.scss')
@@ -34,6 +36,7 @@ const Calendarx = (props) => {
     prevMonthStyle,
     nextMonthClass,
     nextMonthStyle,
+    themeColor
   } = props
   const numDaysInView = numDays || NUMBER_OF_DAYS
   const referenceDateToUse = referenceDate || moment().format()
@@ -65,7 +68,10 @@ const Calendarx = (props) => {
       style={{
         width: getWidth(),
         height: getHeight(),
-        backgroundColor: '#e9e9e9'
+        backgroundColor: '#e9e9e9',
+        boxSizing: 'border-box',
+        fontFamily: FONT,
+        fontSize: '16px'
       }}
     >
       {
@@ -84,6 +90,7 @@ const Calendarx = (props) => {
             todayStyle={todayStyle || TODAY_STYLE}
             prevMonthStyle={prevMonthStyle || PREV_MONTH_STYLE}
             nextMonthStyle={nextMonthStyle || NEXT_MONTH_STYLE}
+            themeColor={themeColor || THEME_COLOR}
           />
         ))
       }

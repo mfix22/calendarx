@@ -1,4 +1,5 @@
 export const ABSOLUTE_POS_CUTOFF = 10
+export const FONT = "'San Francisco', 'BlinkMacSystemFont', -apple-system, 'Helvetica Neue', Helvetica, sans-serif"
 
 export const CALENDAR_WIDTH = '100%'
 export const CALENDAR_HEIGHT = '600px'
@@ -15,3 +16,4 @@ export const PREV_MONTH_STYLE = {
 export const NEXT_MONTH_STYLE = {
   opacity: 0.4
 }
+export const THEME_COLOR = '#4dc2fa'

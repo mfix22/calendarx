@@ -28,7 +28,8 @@ const DateColumn = (props) => {
     nextMonthClass,
     prevMonthClass,
     nextMonthStyle,
-    prevMonthStyle
+    prevMonthStyle,
+    themeColor
   } = props
   const getWhichMonthClass = () => {
     if (numDays < 10) return ''
@@ -46,7 +47,8 @@ const DateColumn = (props) => {
       borderRight: '1px solid #dbdbdb',
       height: '100%',
       verticalAlign: 'top',
-      padding: 0
+      padding: 0,
+      boxSizing: 'border-box'
     }
     if (numDays < 10 || isThisMonth(referenceDate, day)) return base
     if (moment(referenceDate).isBefore(day))
@@ -74,8 +76,11 @@ const DateColumn = (props) => {
         style={
           IS_TODAY ? {
             fontWeight: 600,
-            color: '#4dc2fa'
-          } : null
+            color: themeColor,
+            boxSizing: 'border-box'
+          } : {
+            boxSizing: 'border-box'
+          }
         }
       >
         {moment(day).format(getHeaderFormat(numDays)).toUpperCase()}

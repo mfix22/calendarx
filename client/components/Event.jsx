@@ -8,10 +8,12 @@ const Event = ({ details, numDays, style }) => {
     if (numDays > 10) {
       return {
         position: 'static',
+        boxSizing: 'border-box'
       }
     }
     // Relative time and duration offsets
     return {
+      boxSizing: 'border-box',
       position: 'absolute',
       top: `${timePercentage(details.time)}%`,
       minHeight: `${durationPercentage(details.duration)}%`

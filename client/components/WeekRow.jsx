@@ -8,7 +8,8 @@ const WeekRow = (props) => {
       className="weekRow"
       style={{
         width: '100%',
-        height: `${(100) / numSibs}%`
+        height: `${(100) / numSibs}%`,
+        boxSizing: 'border-box'
       }}
     >
       {
