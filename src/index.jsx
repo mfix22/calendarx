@@ -36,8 +36,8 @@ const fakeEvents = [
 
 render(
   <div>
-    <Calendarx numDays={42} />
-    <Calendarx numDays={7} />
+    <Calendarx numDays={42} width={600} events={fakeEvents} />
+    <Calendarx numDays={7} events={fakeEvents} />
   </div>,
   document.getElementById('root')
 )

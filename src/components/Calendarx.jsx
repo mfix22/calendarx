@@ -20,8 +20,6 @@ import {
   FONT
 } from '../defaults'
 
-require('../styles/index.scss')
-
 const Calendarx = (props) => {
   const {
     events,

@@ -18,6 +18,7 @@ const setViewClasses = (numDays) => {
 
 const DateColumn = (props) => {
   const {
+    last,
     referenceDate,
     numDays,
     day,
@@ -31,6 +32,8 @@ const DateColumn = (props) => {
     prevMonthStyle,
     themeColor
   } = props
+  const IS_TODAY = moment(day).isSame(moment(), 'day')
+
   const getWhichMonthClass = () => {
     if (numDays < 10) return ''
     if (isThisMonth(referenceDate, day)) return currMonthClass
@@ -50,13 +53,50 @@ const DateColumn = (props) => {
       padding: 0,
       boxSizing: 'border-box'
     }
-    if (numDays < 10 || isThisMonth(referenceDate, day)) return base
-    if (moment(referenceDate).isBefore(day))
-      return Object.assign(base, nextMonthStyle)
+    const monthViewStyle = {
+      borderBottom: '1px solid #dbdbdb'
+    }
+    const lastStyle = last ? {
+      borderRightWidth: 0
+    } : {}
 
-    return Object.assign(base, prevMonthStyle)
+    if (numDays < 10) return base
+    if (isThisMonth(referenceDate, day))
+      return Object.assign(base, lastStyle, monthViewStyle)
+    if (moment(referenceDate).isBefore(day))
+      return Object.assign(base, lastStyle, monthViewStyle, nextMonthStyle)
+
+    return Object.assign(base, lastStyle, monthViewStyle, prevMonthStyle)
   }
-  const IS_TODAY = moment(day).isSame(moment(), 'day')
+
+  const getHeaderStyle = () => {
+    const base = {
+      boxSizing: 'border-box',
+      fontSize: '12px',
+      color: '#757575',
+      position: 'relative'
+    }
+
+    const todayStyle = IS_TODAY ? {
+      fontWeight: 600,
+      color: themeColor,
+      boxSizing: 'border-box'
+    } : {}
+
+    if (numDays <= 10) return Object.assign(base, todayStyle, {
+      textAlign: 'center',
+      padding: '12px 0px 0px',
+      height: '36px',
+      zIndex: 999,
+      verticalAlign: 'middle'
+    })
+
+    return Object.assign(base, todayStyle, {
+      textAlign: 'left',
+      paddingLeft: '7px',
+      marginTop: '8px'
+    })
+  }
 
   return (
     <div
@@ -73,15 +113,7 @@ const DateColumn = (props) => {
           'header',
           IS_TODAY ? todayClass : ''
         ].join(' ')}
-        style={
-          IS_TODAY ? {
-            fontWeight: 600,
-            color: themeColor,
-            boxSizing: 'border-box'
-          } : {
-            boxSizing: 'border-box'
-          }
-        }
+        style={getHeaderStyle()}
       >
         {moment(day).format(getHeaderFormat(numDays)).toUpperCase()}
       </p>
@@ -94,6 +126,7 @@ const DateColumn = (props) => {
               key={calEvent.id}
               details={calEvent}
               style={{ zIndex: 500 - index }}
+              numDays={numDays}
             />
           )
         })
