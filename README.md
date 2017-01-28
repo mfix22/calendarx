@@ -1,4 +1,4 @@
-## <CALENDARx />
+## &lt;CalendRx /&gt;
 
 As easy as putting `<Calendarx />` in your React app.
 
