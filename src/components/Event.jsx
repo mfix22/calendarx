@@ -5,19 +5,29 @@ import { timePercentage, durationPercentage } from '../helpers/calendarUtil'
 
 const Event = ({ details, numDays, style }) => {
   const getStyle = () => {
-    if (numDays > 10) {
-      return {
-        position: 'static',
-        boxSizing: 'border-box'
-      }
+    const base = {
+      width: '100%',
+      padding: '4px',
+      fontSize: '12px',
+      overflowY: 'hidden',
+      textAlign: 'left',
+      backgroundColor: '#B0E4FD',
     }
+    if (numDays > 10) return Object.assign(base, {
+      position: 'static',
+      boxSizing: 'border-box',
+      top: 0,
+    })
+
     // Relative time and duration offsets
-    return {
+    return Object.assign(base, {
       boxSizing: 'border-box',
       position: 'absolute',
       top: `${timePercentage(details.time)}%`,
-      minHeight: `${durationPercentage(details.duration)}%`
-    }
+      minHeight: `${durationPercentage(details.duration)}%`,
+      paddingLeft: '8px',
+      paddingRight: '8px'
+    })
   }
 
   return (
