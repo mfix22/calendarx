@@ -2,6 +2,19 @@
 
 As easy as putting `<Calendarx />` in your React app.
 
+## Usage
+```javascript
+import Calendarx from 'calendarx'
+// or
+const Calendarx = require('calendarx')
+
+ReactDOM.render(
+  <App>
+    <Calendarx />
+  </App>
+)
+```
+
 ## Options
 
 | Option         | Default              |  Type              |  Description              |

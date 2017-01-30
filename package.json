@@ -1,6 +1,6 @@
 {
-  "name": "calenadarx",
-  "version": "1.0.0",
+  "name": "calendarx",
+  "version": "0.0.2",
   "description": "All in one calendar plugin",
   "main": "src/index.jsx",
   "scripts": {
