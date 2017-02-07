@@ -44,7 +44,8 @@ const DateColumn = (props) => {
   const getStyle = () => {
     const base = {
       width,
-      overflow: 'hidden',
+      overflowX: 'hidden',
+      overflowY: 'scroll',
       position: 'relative',
       display: 'inline-block',
       borderRight: '1px solid #dbdbdb',
@@ -54,7 +55,9 @@ const DateColumn = (props) => {
       boxSizing: 'border-box'
     }
     const monthViewStyle = {
-      borderBottom: '1px solid #dbdbdb'
+      borderBottom: '1px solid #dbdbdb',
+      overflowX: 'hidden',
+      overflowY: 'hidden'
     }
     const lastStyle = last ? {
       borderRightWidth: 0
