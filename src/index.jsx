@@ -34,6 +34,12 @@ const fakeEvents = [
   }
 ]
 
+// const NewEvent = details => (
+//   <p>
+//     {details.time}
+//   </p>
+// )
+
 render(
   <div>
     <Calendarx numDays={42} width={600} events={fakeEvents} />

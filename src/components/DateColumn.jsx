@@ -30,7 +30,8 @@ const DateColumn = (props) => {
     prevMonthClass,
     nextMonthStyle,
     prevMonthStyle,
-    themeColor
+    themeColor,
+    EventComponent
   } = props
   const IS_TODAY = moment(day).isSame(moment(), 'day')
 
@@ -126,10 +127,12 @@ const DateColumn = (props) => {
         }).map((calEvent, index) => {
           return (
             <Event
-              key={calEvent.id}
+              key={index}
               details={calEvent}
+              themeColor={themeColor}
               style={{ zIndex: 500 - index }}
               numDays={numDays}
+              EventComponent={EventComponent}
             />
           )
         })
