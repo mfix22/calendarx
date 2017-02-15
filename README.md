@@ -91,7 +91,7 @@ render(
 )
 ```
 
-### Kuddos (I thought 'Props' would be confusing)
+## Kuddos (I thought 'Props' would be confusing)
 This project was inspired by Kyle Stetz's [CLNDR](http://kylestetz.github.io/CLNDR/).
 
 ## Test
