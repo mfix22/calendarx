@@ -3,7 +3,9 @@ import moment from 'moment'
 
 import { timePercentage, durationPercentage } from '../helpers/calendarUtil'
 
-const Event = ({ details, numDays, style }) => {
+const Event = ({ details, numDays, style, themeColor, EventComponent }) => {
+  if (!details.time || !moment(details.time).isValid())
+    throw new Error(`Event: ${details} does not have a valid \`time\` property. See http://momentjs.com/docs for valid time options.`)
   const getStyle = () => {
     const base = {
       width: '100%',
@@ -11,7 +13,8 @@ const Event = ({ details, numDays, style }) => {
       fontSize: '12px',
       overflowY: 'hidden',
       textAlign: 'left',
-      backgroundColor: '#B0E4FD',
+      opacity: 0.8,
+      backgroundColor: details.color || themeColor,
     }
     if (numDays > 10) return Object.assign(base, {
       position: 'static',
@@ -30,21 +33,36 @@ const Event = ({ details, numDays, style }) => {
     })
   }
 
-  return (
+  const getClassNames = () => {
+    return [
+      'calendarEvent',
+      durationPercentage(details.duration) < 8 ? 'shortEvent' : 'longEvent',
+      moment(details.time).isSame(moment(), 'day') ? 'today' : ''
+    ].join(' ')
+  }
+
+  const DefaultEvent = () => (
     <div
-      className={[
-        'calendarEvent',
-        durationPercentage(details.duration) < 8 ? 'shortEvent' : 'longEvent',
-        moment(details.time).isSame(moment(), 'day') ? 'today' : ''
-      ].join(' ')}
-      style={Object.assign(getStyle(), style)}
+      className={getClassNames()}
+      style={details.style || Object.assign(getStyle(), style)}
     >
-      <p className="event_details">
+      <p
+        className="event_details"
+        style={{
+          margin: 0
+        }}
+      >
         {moment(details.time).format('LT')}<br />
         { details.title }<br />
         { details.location }<br />
       </p>
     </div>
+  )
+
+  return (
+    EventComponent ?
+      <EventComponent {...details} className={getClassNames()} /> :
+      <DefaultEvent {...details} />
   )
 }
 

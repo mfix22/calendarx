@@ -34,7 +34,8 @@ const Calendarx = (props) => {
     prevMonthStyle,
     nextMonthClass,
     nextMonthStyle,
-    themeColor
+    themeColor,
+    EventComponent
   } = props
   const numDaysInView = numDays || NUMBER_OF_DAYS
   const referenceDateToUse = referenceDate || moment().format()
@@ -89,6 +90,7 @@ const Calendarx = (props) => {
             prevMonthStyle={prevMonthStyle || PREV_MONTH_STYLE}
             nextMonthStyle={nextMonthStyle || NEXT_MONTH_STYLE}
             themeColor={themeColor || THEME_COLOR}
+            EventComponent={EventComponent}
           />
         ))
       }

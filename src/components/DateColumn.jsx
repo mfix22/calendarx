@@ -30,7 +30,8 @@ const DateColumn = (props) => {
     prevMonthClass,
     nextMonthStyle,
     prevMonthStyle,
-    themeColor
+    themeColor,
+    EventComponent
   } = props
   const IS_TODAY = moment(day).isSame(moment(), 'day')
 
@@ -44,7 +45,8 @@ const DateColumn = (props) => {
   const getStyle = () => {
     const base = {
       width,
-      overflow: 'hidden',
+      overflowX: 'hidden',
+      overflowY: 'scroll',
       position: 'relative',
       display: 'inline-block',
       borderRight: '1px solid #dbdbdb',
@@ -54,7 +56,9 @@ const DateColumn = (props) => {
       boxSizing: 'border-box'
     }
     const monthViewStyle = {
-      borderBottom: '1px solid #dbdbdb'
+      borderBottom: '1px solid #dbdbdb',
+      overflowX: 'hidden',
+      overflowY: 'hidden'
     }
     const lastStyle = last ? {
       borderRightWidth: 0
@@ -123,10 +127,12 @@ const DateColumn = (props) => {
         }).map((calEvent, index) => {
           return (
             <Event
-              key={calEvent.id}
+              key={index}
               details={calEvent}
+              themeColor={themeColor}
               style={{ zIndex: 500 - index }}
               numDays={numDays}
+              EventComponent={EventComponent}
             />
           )
         })
