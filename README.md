@@ -11,7 +11,8 @@ const Calendarx = require('calendarx')
 ReactDOM.render(
   <App>
     <Calendarx />
-  </App>
+  </App>,
+  document.getElementById('root')
 )
 ```
 
@@ -30,7 +31,10 @@ ReactDOM.render(
 | nextMonthClass | `'nextMonth'`        | `String`           | Class to be applied to dates of next month                  |
 | prevMonthStyle | `{ opacity: 0.4 }`   | `Object` - follow React style syntax | Style to be applied to dates of previous month |
 | nextMonthStyle | `{ opacity: 0.4 }`   | `Object` - follow React style syntax | Style to be applied to dates of next month |
-| themeColor     | `'#4dc2fa'`          | `String` - CSS     | Accents things like today's date                            |        
+| themeColor     | `'#4dc2fa'`          | `String` - CSS     | Accents things like today's date                            |
+| EventComponent | see [Overriding Event Component](#options) | `React Class` | Component to display react class                     |        
+
+## Overriding Event Component
 
 ### Props
 This project was inspired by Kyle Stetz's [CLNDR](http://kylestetz.github.io/CLNDR/)
