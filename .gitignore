@@ -1,9 +1,4 @@
-*.docx
-*.vpp
-*.vux
-*.zip
 *.log
-*.log.*
 node_modules
 .DS_Store
 npm-debug.log
@@ -16,9 +11,3 @@ public/styles/*
 public/scripts/*
 *.sass-cache
 *.css.map
-[._]*.s[a-w][a-z]
-[._]s[a-w][a-z]
-*.un~
-Session.vim
-.netrwhist
-*~
