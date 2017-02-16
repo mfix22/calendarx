@@ -32,7 +32,7 @@ ReactDOM.render(
 | prevMonthStyle | `{ opacity: 0.4 }`   | `Object` - follow React style syntax | Style to be applied to dates of previous month |
 | nextMonthStyle | `{ opacity: 0.4 }`   | `Object` - follow React style syntax | Style to be applied to dates of next month |
 | themeColor     | `'#4dc2fa'`          | `String` - CSS     | Accents things like today's date and events                  |
-| EventComponent | see [Overriding Event Component](#overriding-event-component) | `React Class` | Component to display react class |        
+| EventComponent | see [Overriding Event Component](#overriding-event-component) | `React Class` | Component to display events |        
 
 ## Calendar Events
 Passing an `events` array to `<Calendarx />` will create an `EventComponent`
