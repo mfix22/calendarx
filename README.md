@@ -15,6 +15,12 @@ ReactDOM.render(
 )
 ```
 
+The `Calendarx` view will adapt depending on the number of days that are specified
+in `numDays`. If 4 is passed in, the first column will start with your
+`referenceDate`, where if 7 is passed in the calendar will align itself to a
+week view, and if say 35 is passed in, the calendar will pivot to show the entire
+month.
+
 ## Options
 
 | Option         | Default              |  Type              |  Description              |
