@@ -1,7 +1,7 @@
 {
   "name": "calendarx",
-  "version": "0.1.1",
-  "description": "All in one calendar plugin",
+  "version": "0.1.2",
+  "description": "A simple, customizable, extensible, reactive calendar plugin for React",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
