@@ -1,12 +1,11 @@
-## &lt;CalendaRx /&gt;
+## &lt;Calenda**Rx** /&gt;
 
 As easy as putting `<Calendarx />` in your React app.
+First of many _prescribed_ React solutions.
 
 ## Usage
 ```javascript
 import Calendarx from 'calendarx'
-// or
-const Calendarx = require('calendarx')
 
 ReactDOM.render(
   <App>
@@ -22,7 +21,7 @@ ReactDOM.render(
 | :------------- | :-------------       | :-------------     | :-------------            |
 | events         | `[]`                 | `Array`            | Events passed into the calendar |
 | referenceDate  | `Date.now()`         | UTC Timestamp `String`, `Date`, `Moment` | Where the calendar is centered around |
-| numDays        | `35`                 | `Number`           | Number of Days the calendar should display.                 |
+| numDays        | `35`                 | `Number`           | Number of days the calendar should display.                 |
 | width          | `'100%'`             | `String` - CSS string, `Number` - number of pixels | Width of the calendar       |
 | height         | `width` or `'600px'` | `String` - CSS string, `Number` - number of pixels | Height of the calendar      |
 | todayClass     | `'today'`            | `String`           | Class to be applied to the `DateColumn` with today's date   |
