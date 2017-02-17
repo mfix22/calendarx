@@ -122,20 +122,17 @@ const DateColumn = (props) => {
         {moment(day).format(getHeaderFormat(numDays)).toUpperCase()}
       </p>
       {
-        events && events.filter((e) => {
-          return moment(e.time).isSame(day, 'day')
-        }).map((calEvent, index) => {
-          return (
-            <Event
-              key={index}
-              details={calEvent}
-              themeColor={themeColor}
-              style={{ zIndex: 500 - index }}
-              numDays={numDays}
-              EventComponent={EventComponent}
-            />
-          )
-        })
+        events.filter(e => moment(e.time).isSame(day, 'day'))
+              .map((calEvent, index) => (
+                <Event
+                  key={index}
+                  details={calEvent}
+                  themeColor={themeColor}
+                  style={{ zIndex: 500 - index }}
+                  numDays={numDays}
+                  EventComponent={EventComponent}
+                />
+              ))
       }
     </div>
   )
