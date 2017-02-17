@@ -13,17 +13,15 @@ const WeekRow = (props) => {
       }}
     >
       {
-        days.map((day, index) => {
-          return (
-            <DateColumn
-              width={`${100 / days.length}%`}
-              key={day}
-              day={day}
-              {...props}
-              last={index === days.length - 1}
-            />
-          )
-        })
+        days.map((day, index) => (
+          <DateColumn
+            width={`${100 / days.length}%`}
+            key={day}
+            day={day}
+            {...props}
+            last={index === days.length - 1}
+          />
+        ))
       }
     </div>
   )
