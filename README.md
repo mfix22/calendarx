@@ -98,8 +98,11 @@ render(
 )
 ```
 
-## Kuddos (I thought 'Props' would be confusing)
-This project was inspired by Kyle Stetz's [CLNDR](http://kylestetz.github.io/CLNDR/).
+## Contributing
+Please do! This is definitely just a start, and we could use some help. If you have ideas, fixes, or inspirations, please [submit a PR](https://github.com/mfix22/calendarx/pulls).
 
 ## Test
 [We need some!](https://github.com/mfix22/calendarx/issues/1)
+
+## Kuddos (I thought 'Props' would be confusing)
+This project was inspired by Kyle Stetz's [CLNDR](http://kylestetz.github.io/CLNDR/).
