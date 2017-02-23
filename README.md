@@ -3,6 +3,11 @@
 As easy as putting `<Calendarx />` in your React app.
 First of many _prescribed_ React solutions.
 
+<video width="632" autoplay loop>
+  <source src="public/screencap.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ## Usage
 ```javascript
 import Calendarx from 'calendarx'
