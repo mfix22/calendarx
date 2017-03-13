@@ -27,7 +27,7 @@
     "eslint-plugin-react": "^6.7.0",
     "webpack": "^1.14.0"
   },
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mfix22/calendarx.git"
