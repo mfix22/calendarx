@@ -2,23 +2,54 @@
 
 _Prescribed_ React Calendar component.
 
-![Calendarx Screen Capture](./public/screencap.gif)
+## Getting Started
+
+```sh
+yarn add calendarx
+```
+
+or
+
+```sh
+npm install calendarx
+```
 
 ## Usage
 
 ```javascript
 import Calendar from 'calendarx'
 
-export default () => <Calendar />
+import { Row, Column, Events } from './components'
+
+const events = [{ date: new Date(), id: 'birthday-1' }]
+
+export default () => (
+  <Calendar events={events}>
+    {({ days, goToNext, goToPrev, goToToday }) => (
+      <div>
+        <Row>
+          <button onClick={goToPrev}>Prev</Button>
+          <button onClick={goToToday}>Today</Button>
+          <button onClick={goToNext}>Next</Button>
+        </Row>
+        {days.map((week, i) => (
+          <Row key={i}>
+            {week.map((day, j) => (
+              <Column key={j}>
+                {day.events.map(event => (
+                  <Event key={event.id} {...event} />
+                ))}
+              </Column>
+            ))}
+          </Row>
+        ))}
+      </div>
+    )}
+  </Calendar>
+)
 ```
 
-The `Calendarx` view will adapt depending on the number of days that are specified
-in `numDays`. If 4 is passed in, the first column will start with your
-`referenceDate`, where if 7 is passed in the calendar will align itself to a
-week view, and if say 35 is passed in, the calendar will pivot to show the entire
-month.
-
-## Options
+## Props
 
 | Option        | Default      | Type                                     | Description                                 |
 | :------------ | :----------- | :--------------------------------------- | :------------------------------------------ |
@@ -26,27 +57,22 @@ month.
 | numDays       | `35`         | `Number`                                 | Number of days the calendar should display. |
 | events        | `[]`         | `Array`                                  | Events passed into the calendar             |
 
-### Example
+**Note**: the `Calendarx` days grid will adapt depending on the number of days that are specified
+in `numDays`. If 4 is passed in, the first column will start with your
+`referenceDate`, where if 7 is passed in the calendar will align itself to a
+week view, and if >7 (the default is 35) is passed in, the calendar will pivot to return the entire
+month. This is useful for displaying a full month in an even 5x7 grid.
 
-```javascript
-const events = [
-  {
-    date: moment()
-      .add(0, 'd')
-      .format(),
-    id: 1,
-    title: 'Birthday',
-    location: 'Home',
-    color: '#f284a8'
-  }
-]
-const App = () => <Calendarx events={events} />
-```
+## Returned from `props.children()`
 
 ## Contributing
 
-Please do! If you have ideas, fixes, or inspirations, please [submit a PR](https://github.com/mfix22/calendarx/pulls).
+Please do! If you have ideas, bug fixes, or examples to showcase, please [submit a PR/issue](https://github.com/mfix22/calendarx/pulls).
 
-## Inspiration (I thought 'Props' would be confusing)
+1. `yarn`
+2. `yarn test`
+3. `yarn build`
+
+## Inspiration
 
 This project was inspired by Kyle Stetz's [CLNDR](http://kylestetz.github.io/CLNDR/).
