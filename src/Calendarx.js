@@ -75,7 +75,8 @@ class Calendarx extends React.Component {
           jump: this.jump,
           goToNext: this.next,
           goToPrev: this.prev,
-          goToToday: this.today
+          goToToday: this.today,
+          goToDate: this.updateReferenceDate
         }}
       />
     )

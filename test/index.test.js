@@ -61,7 +61,8 @@ test('basic rendering', () => {
       jump: expect.any(Function),
       goToNext: expect.any(Function),
       goToPrev: expect.any(Function),
-      goToToday: expect.any(Function)
+      goToToday: expect.any(Function),
+      goToDate: expect.any(Function)
     }),
     expect.anything()
   )

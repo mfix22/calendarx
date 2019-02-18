@@ -33,9 +33,8 @@ function getDays(refDate, numDays) {
   const correctedNumDays = Math.ceil(numDays / 7) * 7
 
   // chunks days into week arrays of day arrays
-  return countMap(i => i - moment(refDate).date(), correctedNumDays).map(offset =>
-    moment(refDate).day(offset)
-  )
+  const pivotDate = moment(refDate).date()
+  return countMap(i => moment(refDate).day(i - pivotDate), correctedNumDays)
 }
 
 export function getChunkedDays(refDate, numDays) {
