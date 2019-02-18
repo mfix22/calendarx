@@ -64,9 +64,9 @@ const BASIC_CASES = [
   ]
 ]
 
-test.each(BASIC_CASES)('basic rendering with  %i days in view', (numDays, daysInView) => {
+test.each(BASIC_CASES)('basic rendering with (%i days)', (numDays, daysInView) => {
   const children = jest.fn(() => null)
-  const referenceDate = moment('02-18-2019', 'MM-DD-YYYY')
+  const referenceDate = moment('2019-02-18', 'YYYY-MM-DD')
   render({ initialReferenceDate: referenceDate, numDays, children })
 
   const firstCall = children.mock.calls[0][0]
@@ -86,4 +86,19 @@ test.each(BASIC_CASES)('basic rendering with  %i days in view', (numDays, daysIn
     }),
     expect.anything()
   )
+})
+
+test.each([35])('day information (%i days)', numDays => {
+  const children = jest.fn(() => null)
+  const date = '2019-02-18'
+  const referenceDate = moment(date, 'YYYY-MM-DD')
+  render({ initialReferenceDate: referenceDate, numDays, children })
+
+  const firstCall = children.mock.calls[0][0]
+
+  const flattenedDays = [].concat(...firstCall.days)
+
+  const today = flattenedDays.find(d => d.date.split('T')[0] === date)
+  expect(today.isToday).toBe(true)
+  expect(today.events).toEqual([])
 })

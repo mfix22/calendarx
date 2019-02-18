@@ -27,9 +27,9 @@ function countMap(f, c, step = 1) {
   }, 0)
 }
 
-function getDays(refDate, numDays) {
+function getDays(refDate, numDays, { startOfWeek }) {
   if (numDays <= 4) return countMap(offset => moment(refDate).add(offset, 'd'), numDays)
-  if (numDays <= 10) return countMap(offset => moment(refDate).day(offset), numDays)
+  if (numDays <= 10) return countMap(offset => moment(refDate).day(offset + startOfWeek), numDays)
   const correctedNumDays = Math.ceil(numDays / 7) * 7
 
   // chunks days into week arrays of day arrays
@@ -37,16 +37,15 @@ function getDays(refDate, numDays) {
   return countMap(i => moment(refDate).day(i - pivotDate), correctedNumDays)
 }
 
-export function getChunkedDays(refDate, numDays) {
+export function getChunkedDays(refDate, numDays, { startOfWeek }) {
   // if numDays < 10, create a week view with dayOfTheWeek offset
-  const today = moment()
-  const days = getDays(refDate, numDays).map(mom => {
+  const days = getDays(refDate, numDays, { startOfWeek }).map(mom => {
     return {
       date: mom.format(),
-      isToday: mom.isSame(today, 'day'),
-      isThisWeek: mom.isSame(today, 'week'),
-      isThisMonth: mom.isSame(today, 'month'),
-      isThisYear: mom.isSame(today, 'year')
+      isToday: mom.isSame(new Date(), 'day')
+      // isThisWeek: mom.isSame(today, 'week'),
+      // isThisMonth: mom.isSame(today, 'month'),
+      // isThisYear: mom.isSame(today, 'year')
       // isPreviousDay: mom.isBefore(today, 'day'),
       // isPreviousWeek: mom.isBefore(today, 'week'),
       // isPreviousMonth: mom.isBefore(today, 'month'),

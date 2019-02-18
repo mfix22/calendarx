@@ -6,7 +6,18 @@ import { getChunkedDays } from './util'
 class Calendarx extends React.Component {
   static defaultProps = {
     numDays: 35,
-    events: []
+    events: [],
+    startOfWeek: 0
+  }
+
+  static days = {
+    SUNDAY: 0,
+    MONDAY: 1,
+    TUESDAY: 2,
+    WEDNESDAY: 3,
+    THURSDAY: 4,
+    FRIDAY: 5,
+    SATURDAY: 6
   }
 
   state = {
@@ -35,9 +46,9 @@ class Calendarx extends React.Component {
 
   render() {
     const { referenceDate } = this.state
-    const { events, numDays } = this.props
+    const { events, numDays, startOfWeek } = this.props
 
-    const days = getChunkedDays(referenceDate, numDays)
+    const days = getChunkedDays(referenceDate, numDays, { startOfWeek })
 
     // TODO create this during construction and add addEvent and removeEvent hooks?
     const eventCache = events.reduce((map, event) => {
