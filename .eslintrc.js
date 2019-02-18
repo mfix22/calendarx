@@ -19,7 +19,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
-    'import/no-unresolved': 2,
+    'import/no-unresolved': 'error',
     'react-hooks/rules-of-hooks': 'error'
   },
   settings: {

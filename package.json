@@ -9,11 +9,12 @@
   "scripts": {
     "test": "jest",
     "build": "microbundle --name Calendarx --jsx React.createElement --target web",
-    "watch": "yarn build watch"
+    "watch": "yarn build watch",
+    "lint": "eslint src test"
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "^16"
+    "react": "^15"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
@@ -25,7 +26,7 @@
     "eslint": "^5.14.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-react-hooks": "^1.0.2",
+    "eslint-plugin-react-hooks": "^1.1.0-alpha.1",
     "jest": "^24.1.0",
     "microbundle": "^0.9.0",
     "moment": "^2.24.0",
