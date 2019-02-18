@@ -7,6 +7,18 @@ export const chunk = (a, c) => {
   }, Array(Math.ceil(a.length / c)).fill([]))
 }
 
+// function chunk(a, c) {
+//   const chunks = []
+//   let i = 0
+//   let n = a.length
+
+//   while (i < n) {
+//     chunks.push(arr.slice(i, (i += c)))
+//   }
+
+//   return chunks
+// }
+
 export const unfold = (func, s) => {
   const go = (f, seed, acc) => {
     const res = f(seed)
@@ -15,15 +27,8 @@ export const unfold = (func, s) => {
   return go(func, s, [])
 }
 
-export const range = (i, end) => {
-  return unfold((x) => {
-    if (x < end) return [x, x + 1]
-    return null
-  }, i)
-}
-
 export function countMap(f, c, step = 1) {
-  return unfold((x) => {
+  return unfold(x => {
     if (x < c * step) return [f(x), x + step]
     return null
   }, 0)
