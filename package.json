@@ -2,10 +2,13 @@
   "name": "calendarx",
   "version": "1.0.0-beta.0",
   "description": "A simple, extensible calendar component for React",
-  "main": "index.js",
+  "main": "dist/calendarx.js",
+  "umd:main": "dist/calendarx.umd.js",
+  "module": "dist/calendarx.mjs",
+  "source": "src/index.js",
   "scripts": {
     "test": "jest",
-    "build": "microbundle --name Calendarx --jsx React.createElement",
+    "build": "microbundle --name Calendarx --jsx React.createElement --target web",
     "watch": "yarn build watch"
   },
   "dependencies": {},

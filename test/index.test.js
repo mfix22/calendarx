@@ -2,7 +2,7 @@ import React from 'react'
 import { render as rtlRender } from 'react-testing-library'
 import moment from 'moment'
 
-import Calendar from '..'
+import Calendar from '../src'
 
 function render(options) {
   return rtlRender(React.createElement(Calendar, options, options.children))
