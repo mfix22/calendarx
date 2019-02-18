@@ -88,6 +88,23 @@ test.each(BASIC_CASES)('basic rendering with (%i days)', (numDays, daysInView) =
   )
 })
 
+test.each([[35, 5, 7], [7, 1, 7], [4, 1, 4]])(
+  'grid size is correct (%i days)',
+  (numDays, numWeeks, weekLength) => {
+    const children = jest.fn(() => null)
+    const date = '2019-02-18'
+    const referenceDate = moment(date, 'YYYY-MM-DD')
+    render({ initialReferenceDate: referenceDate, numDays, children })
+
+    const { days } = children.mock.calls[0][0]
+
+    expect(days.length).toBe(numWeeks)
+    days.map(week => {
+      expect(week.length).toBe(weekLength)
+    })
+  }
+)
+
 test.each([35])('day information (%i days)', numDays => {
   const children = jest.fn(() => null)
   const date = '2019-02-18'
