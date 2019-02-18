@@ -1,7 +1,12 @@
 import React from 'react'
-import moment from 'moment'
 
 import { getMappedDays, getChunkedDays } from './util'
+
+function addDays(date, n) {
+  const newDate = new Date(date)
+  newDate.setDate(date.getDate() + n)
+  return date
+}
 
 const DAY_MAP = {
   SUNDAY: 0,
@@ -26,10 +31,9 @@ class Calendarx extends React.Component {
     referenceDate: this.props.initialReferenceDate || new Date()
   }
 
-  updateReferenceDate = newDate => this.setState({ referenceDate: moment(newDate).format() })
+  updateReferenceDate = newDate => this.setState({ referenceDate: new Date(newDate).toISOString() })
 
-  jump = (n, unit = 'days') =>
-    this.updateReferenceDate(moment(this.state.referenceDate).add(n, unit))
+  jump = (n, unit = 'days') => this.updateReferenceDate(addDays(this.state.referenceDate, n))
 
   next = (x = 1) => {
     const { numDays } = this.props
@@ -52,12 +56,12 @@ class Calendarx extends React.Component {
 
     // TODO create this during construction and add addEvent and removeEvent hooks?
     const eventCache = events.reduce((map, event) => {
-      const mom = moment(event.date)
-      if (!event.date || !mom.isValid()) {
+      if (!event.date) {
         throw new Error('Event does not have a valid `date` property')
       }
 
-      const key = mom.format('YYYY-MM-DD')
+      const date = new Date(event.date)
+      const key = date.toISOString().split('T')[0]
 
       const list = map.get(key) || []
       list.push(event)
