@@ -1,19 +1,36 @@
 {
   "name": "calendarx",
-  "version": "0.1.5",
-  "description": "A simple, customizable, extensible, reactive calendar plugin for React",
+  "version": "1.0.0-beta.0",
+  "description": "A simple, extensible calendar component for React",
   "main": "index.js",
   "scripts": {
-    "build": "microbundle",
-    "build:watch": "microbundle watch"
+    "test": "jest",
+    "build": "microbundle --name Calendarx --jsx React.createElement",
+    "watch": "yarn build watch"
   },
   "dependencies": {
-    "moment": "^2.13.0",
-    "ms": "^2.1.1",
-    "react": "^15.4.0",
-    "react-dom": "^15.3.1"
+    "moment": "^2.13.0"
   },
-  "devDependencies": {},
+  "peerDependencies": {
+    "react": "^16"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/plugin-proposal-class-properties": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
+    "eslint": "^5.14.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.0.2",
+    "jest": "^24.1.0",
+    "microbundle": "^0.9.0",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-testing-library": "^5.8.0"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -27,5 +44,11 @@
   "bugs": {
     "url": "https://github.com/mfix22/calendarx/issues"
   },
-  "homepage": "https://github.com/mfix22/calendarx#readme"
+  "homepage": "https://github.com/mfix22/calendarx#readme",
+  "jest": {
+    "clearMocks": true,
+    "setupFilesAfterEnv": [
+      "react-testing-library/cleanup-after-each"
+    ]
+  }
 }

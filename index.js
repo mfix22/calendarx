@@ -1,3 +1,3 @@
-import Calendarx from './src/components/Calendarx'
+import Calendarx from './src/Calendarx'
 
 export default Calendarx
