@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 
-import { chunk, getMappedDays, getChunkedDays } from './util'
+import { getMappedDays, getChunkedDays } from './util'
 
 const DAY_MAP = {
   SUNDAY: 0,
@@ -68,8 +68,7 @@ class Calendarx extends React.Component {
     const days = getMappedDays(referenceDate, numDays, { startOfWeek })
 
     const daysWithEvents = days.map(day => {
-      const mom = moment(day.date)
-      const key = mom.format('YYYY-MM-DD')
+      const key = day.date.split('T')[0]
       const events = eventCache.get(key) || []
       return {
         ...day,
@@ -84,7 +83,7 @@ class Calendarx extends React.Component {
       <Component
         {...{
           referenceDate,
-          unix: moment(referenceDate).valueOf(),
+          unix: new Date(referenceDate).valueOf(),
           days: chunkedDays,
           jump: this.jump,
           goToNext: this.next,
