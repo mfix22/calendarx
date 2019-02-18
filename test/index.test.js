@@ -1,6 +1,6 @@
 import React from 'react'
 import { render as rtlRender } from 'react-testing-library'
-import moment from 'moment'
+import moment, { calendarFormat } from 'moment'
 
 import Calendar from '../src'
 
@@ -120,3 +120,22 @@ test.each([35])('day information (%i days)', numDays => {
   expect(today.isToday).toBe(true)
   expect(today.events).toEqual([event])
 })
+
+test.each([[Calendar.days.MONDAY, 0], [Calendar.days.TUESDAY, 6], [Calendar.days.SATURDAY, 2]])(
+  'start of the week is variable',
+  (startOfWeek, index) => {
+    const children = jest.fn(() => null)
+    const date = '2019-02-18'
+    const referenceDate = moment(date, 'YYYY-MM-DD')
+
+    render({
+      initialReferenceDate: referenceDate,
+      numDays: 7,
+      children,
+      startOfWeek
+    })
+
+    const firstCall = children.mock.calls[0][0]
+    expect(firstCall.days[0][index].date.split('T')[0]).toBe(date)
+  }
+)

@@ -61,12 +61,14 @@ function countMap(f, c, step = 1) {
   }, 0)
 }
 
-function getDays(refDate, numDays, { startOfWeek }) {
+export function getDays(refDate, numDays, { startOfWeek }) {
   if (numDays <= 4) return countMap(offset => add(refDate, offset, 'd'), numDays)
   if (numDays <= 10)
-    return countMap(offset => {
+    return countMap(index => {
       const currDayOfWeek = new Date(refDate).getDay()
-      return add(refDate, offset - currDayOfWeek + startOfWeek, 'd')
+
+      const correction = startOfWeek > currDayOfWeek ? startOfWeek - 7 : startOfWeek
+      return add(refDate, index - currDayOfWeek + correction, 'd')
     }, numDays)
   const correctedNumDays = Math.ceil(numDays / 7) * 7
 
@@ -77,7 +79,7 @@ function getDays(refDate, numDays, { startOfWeek }) {
 
 export function getMappedDays(refDate, numDays, { startOfWeek }) {
   // if numDays < 10, create a week view with dayOfTheWeek offset
-  const days = getDays(refDate, numDays, { startOfWeek }).map(date => {
+  return getDays(refDate, numDays, { startOfWeek }).map(date => {
     return {
       date: date.toISOString(),
       isToday: isSame(date, new Date())
@@ -94,8 +96,6 @@ export function getMappedDays(refDate, numDays, { startOfWeek }) {
       // isNextYear: mom.isAfter(today, 'year')
     }
   })
-
-  return days
 }
 
 export function getChunkedDays(days, numDays) {
