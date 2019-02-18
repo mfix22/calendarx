@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-function chunk(a, c) {
+export function chunk(a, c) {
   const chunks = []
   let i = 0
   let n = a.length
@@ -37,7 +37,7 @@ function getDays(refDate, numDays, { startOfWeek }) {
   return countMap(i => moment(refDate).day(i - pivotDate), correctedNumDays)
 }
 
-export function getChunkedDays(refDate, numDays, { startOfWeek }) {
+export function getMappedDays(refDate, numDays, { startOfWeek }) {
   // if numDays < 10, create a week view with dayOfTheWeek offset
   const days = getDays(refDate, numDays, { startOfWeek }).map(mom => {
     return {
@@ -57,7 +57,11 @@ export function getChunkedDays(refDate, numDays, { startOfWeek }) {
     }
   })
 
-  if (numDays <= 10) return [days]
+  return days
+}
+
+export function getChunkedDays(days, numDays) {
+  if (numDays <= 10) return chunk(days, 1)
   // chunks days into week arrays of day arrays
   return chunk(days, 7)
 }

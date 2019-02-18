@@ -1,27 +1,29 @@
 import React from 'react'
 import moment from 'moment'
 
-import { getChunkedDays } from './util'
+import { chunk, getMappedDays, getChunkedDays } from './util'
+
+const DAY_MAP = {
+  SUNDAY: 0,
+  MONDAY: 1,
+  TUESDAY: 2,
+  WEDNESDAY: 3,
+  THURSDAY: 4,
+  FRIDAY: 5,
+  SATURDAY: 6
+}
 
 class Calendarx extends React.Component {
   static defaultProps = {
     numDays: 35,
     events: [],
-    startOfWeek: 0
+    startOfWeek: DAY_MAP.SUNDAY
   }
 
-  static days = {
-    SUNDAY: 0,
-    MONDAY: 1,
-    TUESDAY: 2,
-    WEDNESDAY: 3,
-    THURSDAY: 4,
-    FRIDAY: 5,
-    SATURDAY: 6
-  }
+  static days = DAY_MAP
 
   state = {
-    referenceDate: this.props.initialReferenceDate || moment().format()
+    referenceDate: this.props.initialReferenceDate || new Date()
   }
 
   updateReferenceDate = newDate => this.setState({ referenceDate: moment(newDate).format() })
@@ -42,7 +44,7 @@ class Calendarx extends React.Component {
 
   prev = (x = -1) => this.next(x)
 
-  today = () => this.updateReferenceDate(moment())
+  today = () => this.updateReferenceDate(new Date())
 
   render() {
     const { referenceDate } = this.state
@@ -63,26 +65,27 @@ class Calendarx extends React.Component {
       return map.set(key, list)
     }, new Map())
 
-    const days = getChunkedDays(referenceDate, numDays, { startOfWeek })
+    const days = getMappedDays(referenceDate, numDays, { startOfWeek })
 
-    const daysWithEvents = days.map(week =>
-      week.map(day => {
-        const mom = moment(day.date)
-        const key = mom.format('YYYY-MM-DD')
-        const events = eventCache.get(key) || []
-        return {
-          ...day,
-          events
-        }
-      })
-    )
+    const daysWithEvents = days.map(day => {
+      const mom = moment(day.date)
+      const key = mom.format('YYYY-MM-DD')
+      const events = eventCache.get(key) || []
+      return {
+        ...day,
+        events
+      }
+    })
+
+    const chunkedDays = getChunkedDays(daysWithEvents, numDays)
 
     const Component = this.props.children
     return (
       <Component
         {...{
           referenceDate,
-          days: daysWithEvents,
+          unix: moment(referenceDate).valueOf(),
+          days: chunkedDays,
           jump: this.jump,
           goToNext: this.next,
           goToPrev: this.prev,
