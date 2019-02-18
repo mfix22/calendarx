@@ -1,5 +1,3 @@
-import moment from 'moment'
-
 export function add(date, n, units) {
   const newDate = new Date(date)
   switch (units) {
@@ -15,12 +13,12 @@ export function add(date, n, units) {
       newDate.setMonth(newDate.getMonth() + n)
       return newDate
     }
-    // case 'weeks':
-    // case 'month':
-    // case 'M': {
-    //   newDate.setDate(date.getDate() + n)
-    //   return newDate
-    // }
+    case 'weeks':
+    case 'week':
+    case 'w': {
+      newDate.setDate(date.getDate() + n * 7)
+      return newDate
+    }
     case 'days':
     case 'day':
     case 'd': {
@@ -28,6 +26,12 @@ export function add(date, n, units) {
       return newDate
     }
   }
+}
+
+export function isSame(date1, date2) {
+  const d1 = new Date(date1)
+  const d2 = new Date(date2)
+  return d1.setHours(0, 0, 0, 0) === d2.setHours(0, 0, 0, 0)
 }
 
 export function chunk(a, c) {
@@ -58,21 +62,25 @@ function countMap(f, c, step = 1) {
 }
 
 function getDays(refDate, numDays, { startOfWeek }) {
-  if (numDays <= 4) return countMap(offset => moment(refDate).add(offset, 'd'), numDays)
-  if (numDays <= 10) return countMap(offset => moment(refDate).day(offset + startOfWeek), numDays)
+  if (numDays <= 4) return countMap(offset => add(refDate, offset, 'd'), numDays)
+  if (numDays <= 10)
+    return countMap(offset => {
+      const currDayOfWeek = new Date(refDate).getDay()
+      return add(refDate, offset - currDayOfWeek + startOfWeek, 'd')
+    }, numDays)
   const correctedNumDays = Math.ceil(numDays / 7) * 7
 
   // chunks days into week arrays of day arrays
-  const pivotDate = moment(refDate).date()
-  return countMap(i => moment(refDate).day(i - pivotDate), correctedNumDays)
+  const pivotDate = new Date(refDate).getDate()
+  return countMap(i => add(refDate, i - pivotDate - 1, 'd'), correctedNumDays)
 }
 
 export function getMappedDays(refDate, numDays, { startOfWeek }) {
   // if numDays < 10, create a week view with dayOfTheWeek offset
-  const days = getDays(refDate, numDays, { startOfWeek }).map(mom => {
+  const days = getDays(refDate, numDays, { startOfWeek }).map(date => {
     return {
-      date: mom.format(),
-      isToday: mom.isSame(new Date(), 'day')
+      date: date.toISOString(),
+      isToday: isSame(date, new Date())
       // isThisWeek: mom.isSame(today, 'week'),
       // isThisMonth: mom.isSame(today, 'month'),
       // isThisYear: mom.isSame(today, 'year')
