@@ -51,7 +51,7 @@ class Calendarx extends React.Component {
     // TODO create this during construction and add addEvent and removeEvent hooks?
     const eventCache = events.reduce((map, event) => {
       if (!event.date) {
-        throw new Error('Event does not have a valid `date` property')
+        return map
       }
 
       const date = new Date(event.date)
