@@ -109,13 +109,14 @@ test.each([35])('day information (%i days)', numDays => {
   const children = jest.fn(() => null)
   const date = '2019-02-18'
   const referenceDate = moment(date, 'YYYY-MM-DD')
-  render({ initialReferenceDate: referenceDate, numDays, children })
+  const event = { date: referenceDate, title: 'Event Title' }
+  render({ initialReferenceDate: referenceDate, numDays, children, events: [event] })
 
   const firstCall = children.mock.calls[0][0]
 
   const flattenedDays = [].concat(...firstCall.days)
 
-  const today = flattenedDays.find(d => d.date.split('T')[0] === date)
+  const today = flattenedDays[19]
   expect(today.isToday).toBe(true)
-  expect(today.events).toEqual([])
+  expect(today.events).toEqual([event])
 })
