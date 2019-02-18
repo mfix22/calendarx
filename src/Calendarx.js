@@ -1,12 +1,6 @@
 import React from 'react'
 
-import { getMappedDays, getChunkedDays } from './util'
-
-function addDays(date, n) {
-  const newDate = new Date(date)
-  newDate.setDate(date.getDate() + n)
-  return date
-}
+import { add, getMappedDays, getChunkedDays } from './util'
 
 const DAY_MAP = {
   SUNDAY: 0,
@@ -33,7 +27,7 @@ class Calendarx extends React.Component {
 
   updateReferenceDate = newDate => this.setState({ referenceDate: new Date(newDate).toISOString() })
 
-  jump = (n, unit = 'days') => this.updateReferenceDate(addDays(this.state.referenceDate, n))
+  jump = (n, unit = 'days') => this.updateReferenceDate(add(this.state.referenceDate, n, unit))
 
   next = (x = 1) => {
     const { numDays } = this.props

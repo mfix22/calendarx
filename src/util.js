@@ -1,5 +1,35 @@
 import moment from 'moment'
 
+export function add(date, n, units) {
+  const newDate = new Date(date)
+  switch (units) {
+    case 'years':
+    case 'year':
+    case 'y': {
+      newDate.setFullYear(newDate.getFullYear() + n)
+      return newDate
+    }
+    case 'months':
+    case 'month':
+    case 'M': {
+      newDate.setMonth(newDate.getMonth() + n)
+      return newDate
+    }
+    // case 'weeks':
+    // case 'month':
+    // case 'M': {
+    //   newDate.setDate(date.getDate() + n)
+    //   return newDate
+    // }
+    case 'days':
+    case 'day':
+    case 'd': {
+      newDate.setDate(newDate.getDate() + n)
+      return newDate
+    }
+  }
+}
+
 export function chunk(a, c) {
   const chunks = []
   let i = 0
