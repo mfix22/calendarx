@@ -48,8 +48,6 @@ class Calendarx extends React.Component {
     const { referenceDate } = this.state
     const { events, numDays, startOfWeek } = this.props
 
-    const days = getChunkedDays(referenceDate, numDays, { startOfWeek })
-
     // TODO create this during construction and add addEvent and removeEvent hooks?
     const eventCache = events.reduce((map, event) => {
       const mom = moment(event.date)
@@ -64,6 +62,8 @@ class Calendarx extends React.Component {
 
       return map.set(key, list)
     }, new Map())
+
+    const days = getChunkedDays(referenceDate, numDays, { startOfWeek })
 
     const daysWithEvents = days.map(week =>
       week.map(day => {
