@@ -99,7 +99,7 @@ export function getMappedDays(refDate, numDays, { startOfWeek }) {
 }
 
 export function getChunkedDays(days, numDays) {
-  if (numDays <= 10) return chunk(days, 1)
+  if (numDays <= 10) return [days]
   // chunks days into week arrays of day arrays
   return chunk(days, 7)
 }
