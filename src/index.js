@@ -13,6 +13,11 @@ const DAY_MAP = {
   SATURDAY: 6
 }
 
+function format(dateLike) {
+  const date = dateLike ? new Date(dateLike) : new Date()
+  return date.toISOString()
+}
+
 class Calendarx extends React.Component {
   static defaultProps = {
     numDays: 35,
@@ -23,13 +28,10 @@ class Calendarx extends React.Component {
   static days = DAY_MAP
 
   state = {
-    referenceDate: (this.props.initialReferenceDate
-      ? new Date(this.props.initialReferenceDate)
-      : new Date()
-    ).toISOString()
+    referenceDate: format(this.props.initialReferenceDate)
   }
 
-  updateReferenceDate = newDate => this.setState({ referenceDate: new Date(newDate).toISOString() })
+  updateReferenceDate = newDate => this.setState({ referenceDate: format(newDate) })
 
   jump = (n, unit = 'days') => this.updateReferenceDate(add(this.state.referenceDate, n, unit))
 
@@ -54,8 +56,7 @@ class Calendarx extends React.Component {
         return map
       }
 
-      const date = new Date(event.date)
-      const key = date.toISOString().split('T')[0]
+      const key = format(event.date).split('T')[0]
 
       const list = map.get(key) || []
       list.push(event)
