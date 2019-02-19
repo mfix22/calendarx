@@ -36,15 +36,17 @@ class Calendarx extends React.Component {
   jump = (n, unit = 'days') => this.updateReferenceDate(add(this.state.referenceDate, n, unit))
 
   next = (x = 1) => {
+    const jumpBy = typeof x === 'number' ? x : 1
+
     const { numDays } = this.props
     if (numDays <= 4) {
-      return this.jump(x, 'days')
+      return this.jump(jumpBy, 'days')
     }
     if (numDays <= 10) {
-      return this.jump(x, 'weeks')
+      return this.jump(jumpBy, 'weeks')
     }
 
-    return this.jump(x, 'months')
+    return this.jump(jumpBy, 'months')
   }
 
   prev = (x = -1) => this.next(x)

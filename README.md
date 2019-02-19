@@ -38,9 +38,9 @@ export default () => (
       <div>
         <Row>
           <span>{new Date(isoDate).toDateString()}</span>
-          <button onClick={goToPrev}>Prev</button>
+          <button onClick={() => goToPrev()}>&lt;</button>
           <button onClick={goToToday}>Today</button>
-          <button onClick={goToNext}>Next</button>
+          <button onClick={() => goToNext()}>&gt;</button>
         </Row>
         {days.map((week, i) => (
           <Row key={i}>
