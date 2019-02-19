@@ -29,10 +29,29 @@ export function add(date, n, units) {
   return newDate
 }
 
-export function isSame(date1, date2) {
+export function isSame(date1, date2, precision = 'day') {
   const d1 = new Date(date1)
   const d2 = new Date(date2)
-  return d1.setHours(0, 0, 0, 0) === d2.setHours(0, 0, 0, 0)
+
+  if (d1.getFullYear() !== d2.getFullYear()) {
+    return false
+  }
+
+  if (precision === 'year') {
+    return true
+  }
+
+  if (d1.getMonth() !== d2.getMonth()) {
+    return false
+  }
+
+  if (precision === 'month') {
+    return true
+  }
+
+  // TODO calculate same week
+
+  return d1.getDate() === d2.getDate()
 }
 
 export function chunk(a, c) {
@@ -62,7 +81,7 @@ function countMap(f, c, step = 1) {
   }, 0)
 }
 
-export function getDays(refDate, numDays, { startOfWeek }) {
+function getDays(refDate, numDays, { startOfWeek }) {
   if (numDays <= 4) {
     return countMap(offset => add(refDate, offset, 'd'), numDays)
   }
@@ -78,6 +97,7 @@ export function getDays(refDate, numDays, { startOfWeek }) {
 
   const correctedNumDays = Math.ceil(numDays / 7) * 7
 
+  // TODO implement startOfWeek for month view
   // chunks days into week arrays of day arrays
   const pivotDate = new Date(refDate).getDate()
   return countMap(i => add(refDate, i - pivotDate - 1, 'd'), correctedNumDays)
@@ -85,27 +105,41 @@ export function getDays(refDate, numDays, { startOfWeek }) {
 
 export function getMappedDays(refDate, numDays, { startOfWeek }) {
   // if numDays < 10, create a week view with dayOfTheWeek offset
-  return getDays(refDate, numDays, { startOfWeek }).map(date => {
-    return {
-      date: date.toISOString()
-      // isToday: isSame(date, new Date())
-      // isThisWeek: mom.isSame(today, 'week'),
-      // isThisMonth: mom.isSame(today, 'month'),
-      // isThisYear: mom.isSame(today, 'year')
-      // isPreviousDay: mom.isBefore(today, 'day'),
-      // isPreviousWeek: mom.isBefore(today, 'week'),
-      // isPreviousMonth: mom.isBefore(today, 'month'),
-      // isPreviousYear: mom.isBefore(today, 'year'),
-      // isNextDay: mom.isAfter(today, 'day'),
-      // isNextWeek: mom.isAfter(today, 'week'),
-      // isNextMonth: mom.isAfter(today, 'month'),
-      // isNextYear: mom.isAfter(today, 'year')
-    }
-  })
+  return getDays(refDate, numDays, { startOfWeek }).map(date => new ComparativeDate(refDate, date))
 }
 
-export function getChunkedDays(days, numDays) {
+export function chunkDays(days, numDays) {
   if (numDays <= 10) return [days]
   // chunks days into week arrays of day arrays
   return chunk(days, 7)
+}
+
+class ComparativeDate {
+  constructor(referenceDate, date) {
+    this.referenceDate = referenceDate
+    this.date = new Date(date)
+  }
+
+  get isToday() {
+    return isSame(this.referenceDate, this.date)
+  }
+
+  get isThisMonth() {
+    return isSame(this.referenceDate, this.date, 'month')
+  }
+
+  get isThisYear() {
+    return isSame(this.referenceDate, this.date, 'year')
+  }
+
+  // TODO custom getters:
+  // isPreviousDay: mom.isBefore(today, 'day'),
+  // isPreviousMonth: mom.isBefore(today, 'month'),
+  // isPreviousYear: mom.isBefore(today, 'year'),
+  // isNextDay: mom.isAfter(today, 'day'),
+  // isNextMonth: mom.isAfter(today, 'month'),
+  // isNextYear: mom.isAfter(today, 'year')
+  // isThisWeek: mom.isSame(today, 'week'),),
+  // isNextWeek: mom.isAfter(today, 'week'),
+  // isPreviousWeek: mom.isBefore(today, 'week'),
 }

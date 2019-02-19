@@ -10,6 +10,10 @@ function render(options) {
   return { children, days: children.mock.calls[0][0].days }
 }
 
+function getDateKey(date) {
+  return date.toISOString().split('T')[0]
+}
+
 const BASIC_CASES = {
   35: [
     '2019-01-30',
@@ -69,13 +73,11 @@ describe.each([35, 7, 4])('%i day view', numDays => {
     const flattenedDays = [].concat(...days)
 
     expect(flattenedDays.length).toBe(numDays)
-    expect(flattenedDays.map(d => d.date).map(iso => iso.split('T')[0])).toEqual(
-      BASIC_CASES[numDays]
-    )
+    expect(flattenedDays.map(d => getDateKey(d.date))).toEqual(BASIC_CASES[numDays])
     expect(children).toHaveBeenCalledWith(
       expect.objectContaining({
-        isoDate: '2019-02-18T08:00:00.000Z',
-        unixDate: 1550476800000,
+        date: new Date('2019-02-18T08:00:00.000Z'),
+        days: expect.any(Array),
         jump: expect.any(Function),
         goToNext: expect.any(Function),
         goToPrev: expect.any(Function),
@@ -124,6 +126,10 @@ describe.each([35, 7, 4])('%i day view', numDays => {
     const flattenedDays = [].concat(...days)
 
     const today = flattenedDays[dayInformationMap[numDays]]
+
+    expect(today.isToday).toBe(true)
+    expect(today.isThisMonth).toBe(true)
+    expect(today.isThisYear).toBe(true)
     expect(today.events).toEqual([event])
   })
 })
@@ -142,7 +148,7 @@ describe('props', () => {
         startOfWeek
       })
 
-      expect(days[0][index].date.split('T')[0]).toBe(date)
+      expect(getDateKey(days[0][index].date)).toBe(date)
     }
   )
 })

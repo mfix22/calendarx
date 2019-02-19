@@ -1,7 +1,7 @@
 import React from 'react'
 import memoizeOne from 'memoize-one'
 
-import { add, getMappedDays, getChunkedDays } from './util'
+import { add, getMappedDays, chunkDays } from './util'
 
 const DAY_MAP = {
   SUNDAY: 0,
@@ -11,6 +11,10 @@ const DAY_MAP = {
   THURSDAY: 4,
   FRIDAY: 5,
   SATURDAY: 6
+}
+
+function getDateKey(date) {
+  return date.toISOString().split('T')[0]
 }
 
 function format(dateLike) {
@@ -59,7 +63,7 @@ class Calendarx extends React.Component {
         return map
       }
 
-      const key = format(event.date).split('T')[0]
+      const key = getDateKey(event.date)
 
       const list = map.get(key) || []
       list.push(event)
@@ -74,15 +78,12 @@ class Calendarx extends React.Component {
     const days = getMappedDays(referenceDate, numDays, { startOfWeek })
 
     const daysWithEvents = days.map(day => {
-      const key = day.date.split('T')[0]
-      const events = eventCache.get(key) || []
-      return {
-        ...day,
-        events
-      }
+      const key = getDateKey(day.date)
+      day.events = eventCache.get(key) || []
+      return day
     })
 
-    return getChunkedDays(daysWithEvents, numDays)
+    return chunkDays(daysWithEvents, numDays)
   })
 
   render() {
@@ -98,8 +99,6 @@ class Calendarx extends React.Component {
       <Component
         {...{
           date,
-          isoDate: referenceDate,
-          unixDate: date.valueOf(),
           days,
           jump: this.jump,
           goToNext: this.next,

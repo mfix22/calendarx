@@ -34,10 +34,10 @@ const events = [{ date: new Date(), id: 'birthday-1' }] // optional
 
 export default () => (
   <Calendar events={events}>
-    {({ days, isoDate, goToNext, goToPrev, goToToday }) => (
+    {({ days, date, goToNext, goToPrev, goToToday }) => (
       <div>
         <Row>
-          <span>{new Date(isoDate).toDateString()}</span>
+          <span>{date.toDateString()}</span>
           <button onClick={() => goToPrev()}>&lt;</button>
           <button onClick={goToToday}>Today</button>
           <button onClick={() => goToNext()}>&gt;</button>
@@ -61,14 +61,14 @@ export default () => (
 
 ## Props
 
-| Option                 | Default      | Type                                 | Description                                                                   |
-| :--------------------- | :----------- | :----------------------------------- | :---------------------------------------------------------------------------- |
-| **`children`**         | `Function`   | `undefined`                          | Render prop component. See [docs below](#render-props) for the options passed |
-| `initialReferenceDate` | `new Date()` | `Date`, `String`, `Number`, `Moment` | Sets the initial state of `referenceDate` for uncontrolled usage              |
-| `numDays`              | `35`         | `Number`                             | Number of days the calendar should display.                                   |
-| `events`               | `[]`         | `Array`                              | Events passed into the calendar                                               |
-| `startOfWeek`          | `0`          | `Number[0-6]`                        | Weekday to start the week on. Sunday (0) - Saturday (6)                       |
-| `render`               | `Function`   | `undefined`                          | Optional, same as `children`                                                  |
+| Option                 | Default      | Type                                  | Description                                                                                     |
+| :--------------------- | :----------- | :------------------------------------ | :---------------------------------------------------------------------------------------------- |
+| **`children`**         | `Function`   | `undefined`                           | Render prop component. See [docs below](#render-props) for the options passed                   |
+| `initialReferenceDate` | `new Date()` | `Date`, `String`, `Number`, `Moment`  | Sets the initial state of `referenceDate` for uncontrolled usage                                |
+| `numDays`              | `35`         | `Number`                              | Number of days the calendar should display.                                                     |
+| `events`               | `[]`         | `Array<{ date: Date|String|Number }>` | Events passed into the calendar. These objects will be injected into the correct array by date. |
+| `startOfWeek`          | `0`          | `Number[0-6]`                         | Weekday to start the week on. Sunday (0) - Saturday (6)                                         |
+| `render`               | `Function`   | `undefined`                           | Optional, same as `children`                                                                    |
 
 **Note**: the `Calendarx` days grid will adapt depending on the number of days that are specified
 in `numDays`. If 4 is passed in, the first column will start with your
@@ -80,14 +80,29 @@ month. This is useful for displaying a full month in an even 5x7 grid.
 
 | Option      | Type                                                          | Description                                                                                       |
 | :---------- | :------------------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
-| `days`      | `{ date: String, events: [] }[][]`                            | 2-dimentional grid of objects representing each calendar day                                      |
-| `isoDate`   | `String`                                                      | ISO representation of current date state                                                          |
-| `unixDate`  | `Number`                                                      | Unix representation of current date state                                                         |
+| `days`      | `Day[][]`                                                     | 2-dimentional grid of objects representing each calendar day                                      |
+| `date`      | `Date`                                                        | Current date state                                                                                |
 | `jump`      | `Function(n: Number, units: 'years'|'months'|'weeks'|'days')` | Function to jump a specific amount of time                                                        |
 | `goToNext`  | `Function()`                                                  | Sets `referenceDate` to next day if `numDays` is <= 4, next week if <= 10, and next month if > 10 |
 | `goToToday` | `Function()`                                                  | Set the `referenceDate` to today                                                                  |
 | `goToPrev`  | `Function()`                                                  | Save as `goToNext`, but in reverse                                                                |
-| `goToDate`  | `Function(date: Date | String | Number)`                      | Set `referenceDate` to arbitrary date                                                             |
+| `goToDate`  | `Function(date: Date|String|Number)`                          | Set `referenceDate` to arbitrary date                                                             |
+
+## Types
+
+### `Day`
+
+This object contains the following fields/getters:
+
+- `date`: `Date`
+- `events`: `Event[]`
+- `isToday`: `Boolean`
+- `isThisMonth`: `Boolean`
+- `isThisYear`: `Boolean`
+
+### `Event`:
+
+`Event`s will include the other properties you pass alongside `date` in your `events` prop.
 
 ## Contributing
 
