@@ -3,7 +3,7 @@ import memoizeOne from 'memoize-one'
 
 import { add, getMappedDays, chunkDays } from './util'
 
-const DAY_MAP = {
+const DAYS = {
   SUNDAY: 0,
   MONDAY: 1,
   TUESDAY: 2,
@@ -26,10 +26,10 @@ class Calendarx extends React.Component {
   static defaultProps = {
     numDays: 35,
     events: [],
-    startOfWeek: DAY_MAP.SUNDAY
+    startOfWeek: DAYS.SUNDAY
   }
 
-  static days = DAY_MAP
+  static days = DAYS
 
   state = {
     referenceDate: format(this.props.initialReferenceDate)
@@ -43,6 +43,8 @@ class Calendarx extends React.Component {
     const jumpBy = typeof x === 'number' ? x : 1
 
     const { numDays } = this.props
+
+    // TODO set cutoff points in props
     if (numDays <= 4) {
       return this.jump(jumpBy, 'days')
     }
@@ -90,7 +92,9 @@ class Calendarx extends React.Component {
     const { referenceDate } = this.state
     const { events, numDays, startOfWeek } = this.props
 
-    const days = this.getChunkedDays(referenceDate, numDays, startOfWeek, events)
+    const adjustedNumDays = Math.max(numDays, 0)
+
+    const days = this.getChunkedDays(referenceDate, adjustedNumDays, startOfWeek, events)
 
     const date = new Date(referenceDate)
 

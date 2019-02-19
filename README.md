@@ -23,8 +23,6 @@ npm install calendarx
 
 ## Example usage
 
-[![Edit CalendarX Sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/q7x1mpy5xj)
-
 ```javascript
 import Calendar from 'calendarx'
 
@@ -59,16 +57,18 @@ export default () => (
 )
 ```
 
+[![Edit CalendarX Sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/q7x1mpy5xj)
+
 ## Props
 
 | Option                 | Default      | Type                                  | Description                                                                                     |
 | :--------------------- | :----------- | :------------------------------------ | :---------------------------------------------------------------------------------------------- |
-| **`children`**         | `Function`   | `undefined`                           | Render prop component. See [docs below](#render-props) for the options passed                   |
+| **`children`**         | `undefined`  | `Function`                            | Render prop component. See [docs below](#render-props) for the options passed                   |
 | `initialReferenceDate` | `new Date()` | `Date`, `String`, `Number`, `Moment`  | Sets the initial state of `referenceDate` for uncontrolled usage                                |
 | `numDays`              | `35`         | `Number`                              | Number of days the calendar should display.                                                     |
 | `events`               | `[]`         | `Array<{ date: Date|String|Number }>` | Events passed into the calendar. These objects will be injected into the correct array by date. |
 | `startOfWeek`          | `0`          | `Number[0-6]`                         | Weekday to start the week on. Sunday (0) - Saturday (6)                                         |
-| `render`               | `Function`   | `undefined`                           | Optional, same as `children`                                                                    |
+| `render`               | `undefined`  | `Function`                            | Optional, same as `children`                                                                    |
 
 **Note**: the `Calendarx` days grid will adapt depending on the number of days that are specified
 in `numDays`. If 4 is passed in, the first column will start with your
@@ -76,7 +76,7 @@ in `numDays`. If 4 is passed in, the first column will start with your
 week view, and if >10 (the default is 35) is passed in, the calendar will pivot to return the entire
 month. This is useful for displaying a full month in an even 5x7 grid.
 
-## Render Props
+## Children Properties
 
 | Option      | Type                                                          | Description                                                                                       |
 | :---------- | :------------------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
@@ -109,8 +109,9 @@ This object contains the following fields/getters:
 Please do! If you have ideas, bug fixes, or examples to showcase, please [submit a PR/issue](https://github.com/mfix22/calendarx/pulls).
 
 1. `yarn`
-2. `yarn test`
-3. `yarn build`
+2. Make your changes
+3. `yarn test`
+4. Push a [PR](https://github.com/mfix22/calendarx/pulls)
 
 ## License
 
