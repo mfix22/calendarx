@@ -68,7 +68,7 @@ describe.each([35, 7, 4])('%i day view', numDays => {
   test('basic rendering ', () => {
     const referenceDate = moment('2019-02-18', 'YYYY-MM-DD')
 
-    const { children, days } = render({ initialReferenceDate: referenceDate, numDays })
+    const { children, days } = render({ initialDate: referenceDate, numDays })
 
     const flattenedDays = [].concat(...days)
 
@@ -96,7 +96,7 @@ describe.each([35, 7, 4])('%i day view', numDays => {
   test('grid size is correct', () => {
     const date = '2019-02-18'
     const referenceDate = moment(date, 'YYYY-MM-DD')
-    const { days } = render({ initialReferenceDate: referenceDate, numDays })
+    const { days } = render({ initialDate: referenceDate, numDays })
 
     const [numWeeks, weekLength] = gridViews[numDays]
 
@@ -117,7 +117,7 @@ describe.each([35, 7, 4])('%i day view', numDays => {
     const event = { date: referenceDate, title: 'Event Title' }
 
     const { children, days } = render({
-      initialReferenceDate: referenceDate,
+      initialDate: referenceDate,
       numDays,
       children,
       events: [event]
@@ -142,7 +142,7 @@ describe('props', () => {
       const referenceDate = moment(date, 'YYYY-MM-DD')
 
       const { children, days } = render({
-        initialReferenceDate: referenceDate,
+        initialDate: referenceDate,
         numDays: 7,
         children,
         startOfWeek

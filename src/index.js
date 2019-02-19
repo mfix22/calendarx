@@ -32,7 +32,7 @@ class Calendarx extends React.Component {
   static days = DAYS
 
   state = {
-    referenceDate: format(this.props.initialReferenceDate)
+    referenceDate: format(this.props.initialDate)
   }
 
   updateReferenceDate = newDate => this.setState({ referenceDate: format(newDate) })
