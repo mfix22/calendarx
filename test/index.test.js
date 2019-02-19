@@ -1,11 +1,13 @@
 import React from 'react'
 import { render as rtlRender } from 'react-testing-library'
-import moment, { calendarFormat } from 'moment'
+import moment from 'moment'
 
 import Calendar from '../src'
 
 function render(options) {
-  return rtlRender(React.createElement(Calendar, options, options.children))
+  const children = jest.fn(() => null)
+  rtlRender(React.createElement(Calendar, options, children))
+  return { children, days: children.mock.calls[0][0].days }
 }
 
 const BASIC_CASES = [
@@ -65,13 +67,11 @@ const BASIC_CASES = [
 ]
 
 test.each(BASIC_CASES)('basic rendering with (%i days)', (numDays, daysInView) => {
-  const children = jest.fn(() => null)
   const referenceDate = moment('2019-02-18', 'YYYY-MM-DD')
-  render({ initialReferenceDate: referenceDate, numDays, children })
 
-  const firstCall = children.mock.calls[0][0]
+  const { children, days } = render({ initialReferenceDate: referenceDate, numDays })
 
-  const flattenedDays = [].concat(...firstCall.days)
+  const flattenedDays = [].concat(...days)
 
   expect(flattenedDays.length).toBe(numDays)
   expect(flattenedDays.map(d => d.date).map(iso => iso.split('T')[0])).toEqual(daysInView)
@@ -91,12 +91,9 @@ test.each(BASIC_CASES)('basic rendering with (%i days)', (numDays, daysInView) =
 test.each([[35, 5, 7], [7, 1, 7], [4, 1, 4]])(
   'grid size is correct (%i days)',
   (numDays, numWeeks, weekLength) => {
-    const children = jest.fn(() => null)
     const date = '2019-02-18'
     const referenceDate = moment(date, 'YYYY-MM-DD')
-    render({ initialReferenceDate: referenceDate, numDays, children })
-
-    const { days } = children.mock.calls[0][0]
+    const { days } = render({ initialReferenceDate: referenceDate, numDays })
 
     expect(days.length).toBe(numWeeks)
     days.map(week => {
@@ -106,15 +103,18 @@ test.each([[35, 5, 7], [7, 1, 7], [4, 1, 4]])(
 )
 
 test.each([35])('day information (%i days)', numDays => {
-  const children = jest.fn(() => null)
   const date = '2019-02-18'
   const referenceDate = moment(date, 'YYYY-MM-DD')
   const event = { date: referenceDate, title: 'Event Title' }
-  render({ initialReferenceDate: referenceDate, numDays, children, events: [event] })
 
-  const firstCall = children.mock.calls[0][0]
+  const { children, days } = render({
+    initialReferenceDate: referenceDate,
+    numDays,
+    children,
+    events: [event]
+  })
 
-  const flattenedDays = [].concat(...firstCall.days)
+  const flattenedDays = [].concat(...days)
 
   const today = flattenedDays[19]
   expect(today.isToday).toBe(true)
@@ -124,18 +124,16 @@ test.each([35])('day information (%i days)', numDays => {
 test.each([[Calendar.days.MONDAY, 0], [Calendar.days.TUESDAY, 6], [Calendar.days.SATURDAY, 2]])(
   'start of the week is variable',
   (startOfWeek, index) => {
-    const children = jest.fn(() => null)
     const date = '2019-02-18'
     const referenceDate = moment(date, 'YYYY-MM-DD')
 
-    render({
+    const { children, days } = render({
       initialReferenceDate: referenceDate,
       numDays: 7,
       children,
       startOfWeek
     })
 
-    const firstCall = children.mock.calls[0][0]
-    expect(firstCall.days[0][index].date.split('T')[0]).toBe(date)
+    expect(days[0][index].date.split('T')[0]).toBe(date)
   }
 )
