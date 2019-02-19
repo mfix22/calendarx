@@ -88,7 +88,7 @@ class Calendarx extends React.Component {
 
     const days = this.getChunkedDays(referenceDate, numDays, startOfWeek, events)
 
-    const Component = this.props.children
+    const Component = this.props.children || this.props.render
     return (
       <Component
         {...{
