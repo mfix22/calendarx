@@ -94,9 +94,8 @@ class Calendarx extends React.Component {
 
     const adjustedNumDays = Math.max(numDays, 0)
 
-    const days = this.getChunkedDays(referenceDate, adjustedNumDays, startOfWeek, events)
-
     const date = new Date(referenceDate)
+    const days = this.getChunkedDays(date, adjustedNumDays, startOfWeek, events)
 
     const Component = this.props.children || this.props.render
     return (

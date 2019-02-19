@@ -29,10 +29,7 @@ export function add(date, n, units) {
   return newDate
 }
 
-export function isSame(date1, date2, precision = 'day') {
-  const d1 = new Date(date1)
-  const d2 = new Date(date2)
-
+export function isSame(d1, d2, precision = 'day') {
   if (d1.getFullYear() !== d2.getFullYear()) {
     return false
   }
@@ -88,7 +85,7 @@ function getDays(refDate, numDays, { startOfWeek }) {
 
   if (numDays <= 10) {
     return countMap(index => {
-      const currDayOfWeek = new Date(refDate).getDay()
+      const currDayOfWeek = refDate.getDay()
 
       const correction = startOfWeek > currDayOfWeek ? startOfWeek - 7 : startOfWeek
       return add(refDate, index - currDayOfWeek + correction, 'd')
@@ -99,7 +96,7 @@ function getDays(refDate, numDays, { startOfWeek }) {
 
   // TODO implement startOfWeek for month view
   // chunks days into week arrays of day arrays
-  const pivotDate = new Date(refDate).getDate()
+  const pivotDate = refDate.getDate()
   return countMap(i => add(refDate, i - pivotDate - 1, 'd'), correctedNumDays)
 }
 
