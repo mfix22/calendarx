@@ -1,4 +1,5 @@
 import React from 'react'
+import memoizeOne from 'memoize-one'
 
 import { add, getMappedDays, getChunkedDays } from './util'
 
@@ -22,7 +23,10 @@ class Calendarx extends React.Component {
   static days = DAY_MAP
 
   state = {
-    referenceDate: this.props.initialReferenceDate || new Date()
+    referenceDate: (this.props.initialReferenceDate
+      ? new Date(this.props.initialReferenceDate)
+      : new Date()
+    ).toISOString()
   }
 
   updateReferenceDate = newDate => this.setState({ referenceDate: new Date(newDate).toISOString() })
@@ -44,12 +48,9 @@ class Calendarx extends React.Component {
 
   today = () => this.updateReferenceDate(new Date())
 
-  render() {
-    const { referenceDate } = this.state
-    const { events, numDays, startOfWeek } = this.props
-
-    // TODO create this during construction and add addEvent and removeEvent hooks?
-    const eventCache = events.reduce((map, event) => {
+  // TODO create this during construction and add addEvent and removeEvent hooks?
+  createEventCache = memoizeOne(events =>
+    events.reduce((map, event) => {
       if (!event.date) {
         return map
       }
@@ -62,6 +63,10 @@ class Calendarx extends React.Component {
 
       return map.set(key, list)
     }, new Map())
+  )
+
+  getChunkedDays = memoizeOne((referenceDate, numDays, startOfWeek, events) => {
+    const eventCache = this.createEventCache(events)
 
     const days = getMappedDays(referenceDate, numDays, { startOfWeek })
 
@@ -74,15 +79,23 @@ class Calendarx extends React.Component {
       }
     })
 
-    const chunkedDays = getChunkedDays(daysWithEvents, numDays)
+    return getChunkedDays(daysWithEvents, numDays)
+  })
+
+  render() {
+    const { referenceDate } = this.state
+    const { events, numDays, startOfWeek } = this.props
+
+    const days = this.getChunkedDays(referenceDate, numDays, startOfWeek, events)
 
     const Component = this.props.children
     return (
       <Component
         {...{
-          referenceDate,
-          unix: new Date(referenceDate).valueOf(),
-          days: chunkedDays,
+          referenceDate, // TODO should be date object?
+          isoDate: referenceDate,
+          unixDate: new Date(referenceDate).valueOf(),
+          days,
           jump: this.jump,
           goToNext: this.next,
           goToPrev: this.prev,

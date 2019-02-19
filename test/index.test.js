@@ -74,7 +74,8 @@ describe.each([35, 7, 4])('%i day view', numDays => {
     )
     expect(children).toHaveBeenCalledWith(
       expect.objectContaining({
-        // referenceDate,
+        isoDate: '2019-02-18T08:00:00.000Z',
+        unixDate: 1550476800000,
         jump: expect.any(Function),
         goToNext: expect.any(Function),
         goToPrev: expect.any(Function),

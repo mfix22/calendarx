@@ -12,7 +12,9 @@
     "watch": "yarn build watch",
     "lint": "eslint src test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "memoize-one": "^5.0.0"
+  },
   "peerDependencies": {
     "react": "^15"
   },

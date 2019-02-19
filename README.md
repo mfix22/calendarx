@@ -1,6 +1,6 @@
 ## &lt;Calenda**Rx** /&gt;
 
-_Prescribed_ React Calendar component.
+> _Prescribed_ React Calendar component.
 
 ## Getting Started
 
