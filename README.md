@@ -1,6 +1,8 @@
 # 📅 Calenda**Rx**
 
-> The simplest React Calendar container
+> A React state container for building Calendar components
+
+Calendarx is a state container for creating calendar components with a simple API for displaying days and events sanely and advancing between the months, weeks, or days with ease.
 
 [![npm](https://img.shields.io/npm/v/calendarx.svg?style=flat)](https://www.npmjs.org/package/calendarx)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
@@ -21,7 +23,7 @@ or
 npm install calendarx
 ```
 
-## Example usage
+## Examples
 
 ```javascript
 import Calendar from 'calendarx'
@@ -45,7 +47,7 @@ export default () => (
             {week.map((day, j) => (
               <Column key={j}>
                 {day.events.map(event => (
-                  <Event key={event.id} {...event} />
+                  <Event isToday={day.isToday} key={event.id} {...event} />
                 ))}
               </Column>
             ))}
@@ -57,18 +59,20 @@ export default () => (
 )
 ```
 
-[![Edit CalendarX Sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/q7x1mpy5xj)
+for an **Advanced** example, check out:
+
+[![Advanced CalendarX Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/q7x1mpy5xj)
 
 ## Props
 
-| Option                 | Default      | Type                                  | Description                                                                                     |
-| :--------------------- | :----------- | :------------------------------------ | :---------------------------------------------------------------------------------------------- |
-| **`children`**         | `undefined`  | `Function`                            | Render prop component. See [docs below](#render-props) for the options passed                   |
-| `initialReferenceDate` | `new Date()` | `Date`, `String`, `Number`, `Moment`  | Sets the initial state of `referenceDate` for uncontrolled usage                                |
-| `numDays`              | `35`         | `Number`                              | Number of days the calendar should display.                                                     |
-| `events`               | `[]`         | `Array<{ date: Date|String|Number }>` | Events passed into the calendar. These objects will be injected into the correct array by date. |
-| `startOfWeek`          | `0`          | `Number[0-6]`                         | Weekday to start the week on. Sunday (0) - Saturday (6)                                         |
-| `render`               | `undefined`  | `Function`                            | Optional, same as `children`                                                                    |
+| Option                 | Default      | Type                                  | Description                                                                                                  |
+| :--------------------- | :----------- | :------------------------------------ | :----------------------------------------------------------------------------------------------------------- |
+| **`children`**         | `undefined`  | `Function`                            | Render prop component. See [docs below](#render-props) for the options passed                                |
+| `initialReferenceDate` | `new Date()` | `Date`, `String`, `Number`, `Moment`  | Sets the initial state of `referenceDate` for uncontrolled usage                                             |
+| `numDays`              | `35`         | `Number`                              | Number of days the calendar should display. If `numDays` > 10, this will be raised to the next multiple of 7 |
+| `events`               | `[]`         | `Array<{ date: Date|String|Number }>` | Events passed into the calendar. These objects will be injected into the correct array by date.              |
+| `startOfWeek`          | `0`          | `Number[0-6]`                         | Weekday to start the week on. Sunday (0) - Saturday (6)                                                      |
+| `render`               | `undefined`  | `Function`                            | Optional, same as `children`                                                                                 |
 
 **Note**: the `Calendarx` days grid will adapt depending on the number of days that are specified
 in `numDays`. If 4 is passed in, the first column will start with your

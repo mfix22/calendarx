@@ -104,6 +104,7 @@ class Calendarx extends React.Component {
         {...{
           date,
           days,
+          // TODO add `headers`
           jump: this.jump,
           goToNext: this.next,
           goToPrev: this.prev,
