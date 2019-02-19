@@ -1,6 +1,6 @@
 {
   "name": "calendarx",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "A simple, extensible calendar component for React",
   "main": "dist/calendarx.js",
   "umd:main": "dist/calendarx.umd.js",
@@ -11,7 +11,8 @@
     "build": "microbundle --name Calendarx --jsx React.createElement --target web",
     "watch": "yarn build watch",
     "lint": "eslint src test",
-    "format": "prettier {src,test}/*.js --single-quote --no-semi --print-width=100 --write"
+    "format": "prettier {src,test}/*.js --single-quote --no-semi --print-width=100 --write",
+    "prepublish": "yarn test && yarn build"
   },
   "dependencies": {
     "memoize-one": "^5.0.0"
