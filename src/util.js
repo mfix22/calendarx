@@ -62,14 +62,19 @@ function countMap(f, c, step = 1) {
 }
 
 export function getDays(refDate, numDays, { startOfWeek }) {
-  if (numDays <= 4) return countMap(offset => add(refDate, offset, 'd'), numDays)
-  if (numDays <= 10)
+  if (numDays <= 4) {
+    return countMap(offset => add(refDate, offset, 'd'), numDays)
+  }
+
+  if (numDays <= 10) {
     return countMap(index => {
       const currDayOfWeek = new Date(refDate).getDay()
 
       const correction = startOfWeek > currDayOfWeek ? startOfWeek - 7 : startOfWeek
       return add(refDate, index - currDayOfWeek + correction, 'd')
     }, numDays)
+  }
+
   const correctedNumDays = Math.ceil(numDays / 7) * 7
 
   // chunks days into week arrays of day arrays
