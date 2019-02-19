@@ -1,6 +1,13 @@
 # 📅 Calenda**Rx**
 
-> _Prescribed_ React Calendar component
+> The simplest React Calendar container
+
+[![npm](https://img.shields.io/npm/v/calendarx.svg?style=flat)](https://www.npmjs.org/package/calendarx)
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+
+---
 
 ## Getting Started
 
@@ -71,7 +78,7 @@ month. This is useful for displaying a full month in an even 5x7 grid.
 
 | Option      | Type                                                          | Description                                                                                       |
 | :---------- | :------------------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
-| `days`      | `{ date: String, events: [], isToday: Boolean }[][]`          | 2-dimentional grid of objects                                                                     |
+| `days`      | `{ date: String, events: [] }[][]`                            | 2-dimentional grid of objects representing each calendar day                                      |
 | `isoDate`   | `String`                                                      | ISO representation of current date state                                                          |
 | `unixDate`  | `Number`                                                      | Unix representation of current date state                                                         |
 | `jump`      | `Function(n: Number, units: 'years'|'months'|'weeks'|'days')` | Function to jump a specific amount of time                                                        |
@@ -88,6 +95,10 @@ Please do! If you have ideas, bug fixes, or examples to showcase, please [submit
 2. `yarn test`
 3. `yarn build`
 
-## Inspiration
+## License
+
+MIT
+
+## Inspiration 💫
 
 This project was inspired by Kyle Stetz's [CLNDR](http://kylestetz.github.io/CLNDR/).

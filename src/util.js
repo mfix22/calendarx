@@ -81,8 +81,8 @@ export function getMappedDays(refDate, numDays, { startOfWeek }) {
   // if numDays < 10, create a week view with dayOfTheWeek offset
   return getDays(refDate, numDays, { startOfWeek }).map(date => {
     return {
-      date: date.toISOString(),
-      isToday: isSame(date, new Date())
+      date: date.toISOString()
+      // isToday: isSame(date, new Date())
       // isThisWeek: mom.isSame(today, 'week'),
       // isThisMonth: mom.isSame(today, 'month'),
       // isThisYear: mom.isSame(today, 'year')
