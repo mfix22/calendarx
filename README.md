@@ -23,6 +23,8 @@ npm install calendarx
 
 ## Example usage
 
+[![Edit CalendarX Sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/q7x1mpy5xj)
+
 ```javascript
 import Calendar from 'calendarx'
 
@@ -36,9 +38,9 @@ export default () => (
       <div>
         <Row>
           <span>{new Date(isoDate).toDateString()}</span>
-          <button onClick={goToPrev}>Prev</Button>
-          <button onClick={goToToday}>Today</Button>
-          <button onClick={goToNext}>Next</Button>
+          <button onClick={goToPrev}>Prev</button>
+          <button onClick={goToToday}>Today</button>
+          <button onClick={goToNext}>Next</button>
         </Row>
         {days.map((week, i) => (
           <Row key={i}>

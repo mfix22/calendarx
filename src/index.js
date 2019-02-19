@@ -43,7 +43,8 @@ class Calendarx extends React.Component {
     if (numDays <= 10) {
       return this.jump(x, 'weeks')
     }
-    return this.jump(1, 'months')
+
+    return this.jump(x, 'months')
   }
 
   prev = (x = -1) => this.next(x)
