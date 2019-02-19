@@ -22,6 +22,19 @@ function format(dateLike) {
   return date.toISOString()
 }
 
+function getButtonProps({ label, onClick }) {
+  return ({ onClick: userOnClick = () => {} } = {}) => {
+    return {
+      role: 'button',
+      'aria-label': label,
+      onClick: () => {
+        onClick()
+        userOnClick()
+      }
+    }
+  }
+}
+
 class Calendarx extends React.Component {
   static defaultProps = {
     numDays: 35,
@@ -88,6 +101,11 @@ class Calendarx extends React.Component {
     return chunkDays(daysWithEvents, numDays)
   })
 
+  // https://ej2.syncfusion.com/documentation/calendar/accessibility/
+  getTodayButtonProps = getButtonProps({ label: 'Go to today', onClick: this.goToToday })
+  getNextButtonProps = getButtonProps({ label: 'Go to next', onClick: this.goToNext })
+  getPrevButtonProps = getButtonProps({ label: 'Go to previous', onClick: this.goToPrev })
+
   render() {
     const { referenceDate } = this.state
     const { events, numDays, startOfWeek } = this.props
@@ -108,7 +126,10 @@ class Calendarx extends React.Component {
           goToNext: this.next,
           goToPrev: this.prev,
           goToToday: this.today,
-          goToDate: this.updateReferenceDate
+          goToDate: this.updateReferenceDate,
+          getPrevButtonProps: this.getPrevButtonProps,
+          getNextButtonProps: this.getNextButtonProps,
+          getTodayButtonProps: this.getTodayButtonProps
         }}
       />
     )

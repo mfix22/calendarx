@@ -82,7 +82,10 @@ describe.each([35, 7, 4])('%i day view', numDays => {
         goToNext: expect.any(Function),
         goToPrev: expect.any(Function),
         goToToday: expect.any(Function),
-        goToDate: expect.any(Function)
+        goToDate: expect.any(Function),
+        getPrevButtonProps: expect.any(Function),
+        getNextButtonProps: expect.any(Function),
+        getTodayButtonProps: expect.any(Function)
       }),
       expect.anything()
     )
