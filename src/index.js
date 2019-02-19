@@ -48,7 +48,6 @@ class Calendarx extends React.Component {
 
   today = () => this.updateReferenceDate(new Date())
 
-  // TODO create this during construction and add addEvent and removeEvent hooks?
   createEventCache = memoizeOne(events =>
     events.reduce((map, event) => {
       if (!event.date) {
@@ -88,13 +87,15 @@ class Calendarx extends React.Component {
 
     const days = this.getChunkedDays(referenceDate, numDays, startOfWeek, events)
 
+    const date = new Date(referenceDate)
+
     const Component = this.props.children || this.props.render
     return (
       <Component
         {...{
-          referenceDate, // TODO should be date object?
+          date,
           isoDate: referenceDate,
-          unixDate: new Date(referenceDate).valueOf(),
+          unixDate: date.valueOf(),
           days,
           jump: this.jump,
           goToNext: this.next,
