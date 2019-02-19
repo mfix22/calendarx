@@ -16,7 +16,7 @@ export function add(date, n, units) {
     case 'weeks':
     case 'week':
     case 'w': {
-      newDate.setDate(date.getDate() + n * 7)
+      newDate.setDate(newDate.getDate() + n * 7)
       return newDate
     }
     case 'days':
@@ -26,6 +26,7 @@ export function add(date, n, units) {
       return newDate
     }
   }
+  return newDate
 }
 
 export function isSame(date1, date2) {
