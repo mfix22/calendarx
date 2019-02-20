@@ -56,7 +56,7 @@ export function isSame(d1, d2, precision = 'day') {
   }
 
   if (precision === 'week') {
-    return getStartOfWeek(d1).getTime() === getStartOfWeek(d2).getTime()
+    return getStartOfWeek(d1) - getStartOfWeek(d2) === 0
   }
 
   return d1.getDate() === d2.getDate()
@@ -89,31 +89,47 @@ function countMap(f, c, step = 1) {
   }, 0)
 }
 
+function toDateArray(start, numDays) {
+  return countMap(offset => add(start, offset, 'd'), numDays)
+}
+
 function getDays(refDate, numDays, { startOfWeek }) {
   if (numDays <= 4) {
-    return countMap(offset => add(refDate, offset, 'd'), numDays)
+    return toDateArray(refDate, numDays)
   }
 
   if (numDays <= 10) {
     const currDayOfWeek = refDate.getDay()
     const correction = startOfWeek > currDayOfWeek ? startOfWeek - 7 : startOfWeek
 
-    return countMap(i => add(refDate, i - currDayOfWeek + correction, 'd'), numDays)
+    const startDate = add(refDate, -currDayOfWeek + correction, 'd')
+
+    return toDateArray(startDate, numDays)
   }
 
-  // Round up to multiple of 7
-  const correctedNumDays = Math.ceil(numDays / 7) * 7
+  if (numDays <= 365) {
+    // Round up to multiple of 7
+    const correctedNumDays = Math.ceil(numDays / 7) * 7
 
-  const pivotDate = refDate.getDate() - 1 // 0th based month indexing
+    const pivotDate = refDate.getDate() - 1 // 0th based month indexing
 
-  const firstDate = new Date(refDate)
-  firstDate.setDate(1)
-  const firstDay = firstDate.getDay()
+    const firstDate = new Date(refDate)
+    firstDate.setDate(1)
+    const firstDay = firstDate.getDay()
 
-  const currDayOfWeek = pivotDate + firstDay
-  const correction = startOfWeek > firstDay ? startOfWeek - 7 : startOfWeek
+    const currDayOfWeek = pivotDate + firstDay
+    const correction = startOfWeek > firstDay ? startOfWeek - 7 : startOfWeek
 
-  return countMap(i => add(refDate, i - currDayOfWeek + correction, 'd'), correctedNumDays)
+    const startDate = add(refDate, -currDayOfWeek + correction, 'd')
+
+    return toDateArray(startDate, correctedNumDays)
+  }
+
+  const startDate = new Date(refDate)
+  startDate.setDate(1)
+  startDate.setMonth(0)
+
+  return toDateArray(startDate, numDays)
 }
 
 export function getMappedDays(refDate, numDays, { startOfWeek }) {
