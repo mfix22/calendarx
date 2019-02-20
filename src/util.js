@@ -82,15 +82,11 @@ function unfold(func, s) {
   return go(func, s, [])
 }
 
-function countMap(f, c, step = 1) {
+function toDateArray(start, numDays) {
   return unfold(x => {
-    if (x < c * step) return [f(x), x + step]
+    if (x < numDays) return [add(start, x, 'd'), x + 1]
     return null
   }, 0)
-}
-
-function toDateArray(start, numDays) {
-  return countMap(offset => add(start, offset, 'd'), numDays)
 }
 
 function getDays(refDate, numDays, { view, startOfWeek }) {
