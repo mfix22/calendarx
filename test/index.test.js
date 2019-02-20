@@ -183,19 +183,19 @@ describe('props', () => {
     )
 
     const { children: children2 } = render({
-      initialDate,
+      initialDate: moment('2019-02-20', 'YYYY-MM-DD'),
       numDays: 4,
-      startOfWeek: Calendar.days.MONDAY,
-      headers: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
+      // TODO try passing array and different startOfWeek
+      headers: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
     })
 
     expect(children2).toHaveBeenCalledWith(
       expect.objectContaining({
         headers: [
-          { title: 'Dienstag', day: 1 },
-          { title: 'Mittwoch', day: 2 },
-          { title: 'Donnerstag', day: 3 },
-          { title: 'Freitag', day: 4 }
+          { title: 'Mittwoch', day: 3 },
+          { title: 'Donnerstag', day: 4 },
+          { title: 'Freitag', day: 5 },
+          { title: 'Samstag', day: 6 }
         ]
       }),
       expect.anything()

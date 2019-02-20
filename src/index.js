@@ -123,9 +123,9 @@ class Calendarx extends React.Component {
     return chunk(daysWithEvents, 7)
   })
 
-  getHeaders = memoizeOne((headers, length, startOfWeek) => {
+  getHeaders = memoizeOne((headers, starting, length) => {
     return Array.from({ length }, (_, i) => {
-      const day = (startOfWeek + i) % headers.length
+      const day = (starting + i) % headers.length
       return {
         title: headers[day],
         day
@@ -148,7 +148,11 @@ class Calendarx extends React.Component {
     const date = new Date(referenceDate)
     const days = this.getChunkedDays(date, adjustedNumDays, startOfWeek, events)
 
-    const headers = this.getHeaders(this.props.headers, days[0].length, startOfWeek)
+    const headers = this.getHeaders(
+      this.props.headers,
+      view === 'day' ? date.getDay() : startOfWeek,
+      days[0].length
+    )
 
     const Component = this.props.children || this.props.render
     return (
