@@ -134,9 +134,9 @@ class Calendarx extends React.Component {
   })
 
   // https://ej2.syncfusion.com/documentation/calendar/accessibility/
-  getTodayButtonProps = getButtonProps({ label: 'Go to today', onClick: this.goToToday })
-  getNextButtonProps = getButtonProps({ label: 'Go to next', onClick: this.goToNext })
-  getPrevButtonProps = getButtonProps({ label: 'Go to previous', onClick: this.goToPrev })
+  getTodayButtonProps = getButtonProps({ label: 'Go to today', onClick: this.today })
+  getNextButtonProps = getButtonProps({ label: 'Go to next', onClick: this.next })
+  getPrevButtonProps = getButtonProps({ label: 'Go to previous', onClick: this.prev })
 
   render() {
     const { referenceDate } = this.state
