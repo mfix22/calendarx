@@ -113,10 +113,9 @@ function getDays(refDate, numDays, { view, startOfWeek }) {
     firstDate.setDate(1)
     const firstDay = firstDate.getDay()
 
-    const currDayOfWeek = pivotDate + firstDay
     const correction = startOfWeek > firstDay ? startOfWeek - 7 : startOfWeek
 
-    const startDate = add(refDate, -currDayOfWeek + correction, 'd')
+    const startDate = add(refDate, -pivotDate - firstDay + correction, 'd')
 
     return toDateArray(startDate, correctedNumDays)
   }
