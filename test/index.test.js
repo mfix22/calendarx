@@ -68,9 +68,9 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
   const numDays = view === 'month' ? 35 : view === 'week' ? 7 : 4
 
   test('basic rendering ', () => {
-    const referenceDate = moment('2019-02-18', 'YYYY-MM-DD')
+    const initialDate = moment('2019-02-18', 'YYYY-MM-DD')
 
-    const { children, days } = render({ initialDate: referenceDate, numDays })
+    const { children, days } = render({ initialDate, numDays })
 
     const flattenedDays = [].concat(...days)
 
@@ -100,8 +100,8 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
   }
   test('grid size is correct', () => {
     const date = '2019-02-18'
-    const referenceDate = moment(date, 'YYYY-MM-DD')
-    const { days } = render({ initialDate: referenceDate, numDays })
+    const initialDate = moment(date, 'YYYY-MM-DD')
+    const { days } = render({ initialDate, numDays })
 
     const [numWeeks, weekLength] = gridViews[numDays]
 
@@ -145,10 +145,10 @@ describe('props', () => {
     'test starting week on index: %s',
     (startOfWeek, index) => {
       const date = '2019-02-18'
-      const referenceDate = moment(date, 'YYYY-MM-DD')
+      const initialDate = moment(date, 'YYYY-MM-DD')
 
       const { children, days } = render({
-        initialDate: referenceDate,
+        initialDate,
         numDays: 7,
         children,
         startOfWeek
@@ -157,4 +157,48 @@ describe('props', () => {
       expect(getDateKey(days[0][index].date)).toBe(date)
     }
   )
+
+  test('headers', () => {
+    const initialDate = moment('2019-02-18', 'YYYY-MM-DD')
+
+    const { children } = render({
+      initialDate,
+      numDays: 35,
+      startOfWeek: Calendar.days.THURSDAY
+    })
+
+    expect(children).toHaveBeenCalledWith(
+      expect.objectContaining({
+        headers: [
+          { title: 'Thursday', day: 4 },
+          { title: 'Friday', day: 5 },
+          { title: 'Saturday', day: 6 },
+          { title: 'Sunday', day: 0 },
+          { title: 'Monday', day: 1 },
+          { title: 'Tuesday', day: 2 },
+          { title: 'Wednesday', day: 3 }
+        ]
+      }),
+      expect.anything()
+    )
+
+    const { children: children2 } = render({
+      initialDate,
+      numDays: 4,
+      startOfWeek: Calendar.days.MONDAY,
+      headers: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
+    })
+
+    expect(children2).toHaveBeenCalledWith(
+      expect.objectContaining({
+        headers: [
+          { title: 'Dienstag', day: 1 },
+          { title: 'Mittwoch', day: 2 },
+          { title: 'Donnerstag', day: 3 },
+          { title: 'Freitag', day: 4 }
+        ]
+      }),
+      expect.anything()
+    )
+  })
 })

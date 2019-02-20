@@ -20,6 +20,8 @@ const VIEWS = {
   YEAR: 'year'
 }
 
+const HEADERS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
 function getDateKey(date) {
   return date.toISOString().split('T')[0]
 }
@@ -60,7 +62,8 @@ class Calendarx extends React.Component {
   static defaultProps = {
     numDays: 35,
     events: [],
-    startOfWeek: DAYS.SUNDAY
+    startOfWeek: DAYS.SUNDAY,
+    headers: HEADERS
   }
 
   static days = DAYS
@@ -120,6 +123,16 @@ class Calendarx extends React.Component {
     return chunk(daysWithEvents, 7)
   })
 
+  getHeaders = memoizeOne((headers, length, startOfWeek) => {
+    return Array.from({ length }, (_, i) => {
+      const day = (startOfWeek + i) % headers.length
+      return {
+        title: headers[day],
+        day
+      }
+    })
+  })
+
   // https://ej2.syncfusion.com/documentation/calendar/accessibility/
   getTodayButtonProps = getButtonProps({ label: 'Go to today', onClick: this.goToToday })
   getNextButtonProps = getButtonProps({ label: 'Go to next', onClick: this.goToNext })
@@ -135,13 +148,15 @@ class Calendarx extends React.Component {
     const date = new Date(referenceDate)
     const days = this.getChunkedDays(date, adjustedNumDays, startOfWeek, events)
 
+    const headers = this.getHeaders(this.props.headers, days[0].length, startOfWeek)
+
     const Component = this.props.children || this.props.render
     return (
       <Component
         {...{
           date,
           days,
-          // TODO add `headers`
+          headers,
           view,
           jump: this.jump,
           goToNext: this.next,
