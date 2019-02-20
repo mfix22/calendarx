@@ -84,20 +84,25 @@ function getDays(refDate, numDays, { startOfWeek }) {
   }
 
   if (numDays <= 10) {
-    return countMap(index => {
-      const currDayOfWeek = refDate.getDay()
+    const currDayOfWeek = refDate.getDay()
+    const correction = startOfWeek > currDayOfWeek ? startOfWeek - 7 : startOfWeek
 
-      const correction = startOfWeek > currDayOfWeek ? startOfWeek - 7 : startOfWeek
-      return add(refDate, index - currDayOfWeek + correction, 'd')
-    }, numDays)
+    return countMap(i => add(refDate, i - currDayOfWeek + correction, 'd'), numDays)
   }
 
+  // Round up to multiple of 7
   const correctedNumDays = Math.ceil(numDays / 7) * 7
 
-  // TODO implement startOfWeek for month view
-  // chunks days into week arrays of day arrays
-  const pivotDate = refDate.getDate()
-  return countMap(i => add(refDate, i - pivotDate - 1, 'd'), correctedNumDays)
+  const pivotDate = refDate.getDate() - 1 // 0th based month indexing
+
+  const firstDate = new Date(refDate)
+  firstDate.setDate(1)
+  const firstDay = firstDate.getDay()
+
+  const currDayOfWeek = pivotDate + firstDay
+  const correction = startOfWeek > firstDay ? startOfWeek - 7 : startOfWeek
+
+  return countMap(i => add(refDate, i - currDayOfWeek + correction, 'd'), correctedNumDays)
 }
 
 export function getMappedDays(refDate, numDays, { startOfWeek }) {
