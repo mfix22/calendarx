@@ -29,6 +29,15 @@ export function add(date, n, units) {
   return newDate
 }
 
+function getStartOfWeek(d, { startOfWeek }) {
+  const date = new Date(d)
+  const day = date.getDay()
+  const correction = startOfWeek > day ? startOfWeek - 7 : startOfWeek
+  date.setDate(date.getDate() - correction)
+  date.setHours(0, 0, 0, 0)
+  return date
+}
+
 export function isSame(d1, d2, precision = 'day') {
   if (d1.getFullYear() !== d2.getFullYear()) {
     return false
@@ -46,7 +55,9 @@ export function isSame(d1, d2, precision = 'day') {
     return true
   }
 
-  // TODO calculate same week
+  if (precision === 'week') {
+    return getStartOfWeek(d1).getTime() === getStartOfWeek(d2).getTime()
+  }
 
   return d1.getDate() === d2.getDate()
 }
