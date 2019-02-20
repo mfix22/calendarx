@@ -1,7 +1,7 @@
 import React from 'react'
 import memoizeOne from 'memoize-one'
 
-import { add, getMappedDays, chunkDays } from './util'
+import { add, getMappedDays, chunk } from './util'
 
 const DAYS = {
   SUNDAY: 0,
@@ -112,7 +112,12 @@ class Calendarx extends React.Component {
       return day
     })
 
-    return chunkDays(daysWithEvents, numDays)
+    if (view === VIEWS.DAY || view === VIEWS.WEEK) {
+      return [daysWithEvents]
+    }
+
+    // chunks days into week arrays of day arrays
+    return chunk(daysWithEvents, 7)
   })
 
   // https://ej2.syncfusion.com/documentation/calendar/accessibility/

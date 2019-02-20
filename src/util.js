@@ -140,12 +140,6 @@ export function getMappedDays(refDate, numDays, { view, startOfWeek }) {
   )
 }
 
-export function chunkDays(days, numDays) {
-  if (numDays <= 10) return [days]
-  // chunks days into week arrays of day arrays
-  return chunk(days, 7)
-}
-
 class ComparativeDate {
   constructor(referenceDate, date) {
     this.referenceDate = referenceDate
