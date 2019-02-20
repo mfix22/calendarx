@@ -29,7 +29,7 @@ export function add(date, n, units) {
   return newDate
 }
 
-function getStartOfWeek(d, { startOfWeek }) {
+function getStartOfWeek(d, startOfWeek = 0) {
   const date = new Date(d)
   const day = date.getDay()
   const correction = startOfWeek > day ? startOfWeek - 7 : startOfWeek
@@ -38,7 +38,7 @@ function getStartOfWeek(d, { startOfWeek }) {
   return date
 }
 
-export function isSame(d1, d2, precision = 'day') {
+function isSame(d1, d2, precision = 'day', startOfWeek = 0) {
   if (d1.getFullYear() !== d2.getFullYear()) {
     return false
   }
@@ -56,7 +56,7 @@ export function isSame(d1, d2, precision = 'day') {
   }
 
   if (precision === 'week') {
-    return getStartOfWeek(d1) - getStartOfWeek(d2) === 0
+    return getStartOfWeek(d1, startOfWeek) - getStartOfWeek(d2, startOfWeek) === 0
   }
 
   return d1.getDate() === d2.getDate()
@@ -132,18 +132,23 @@ function getDays(refDate, numDays, { view, startOfWeek }) {
 
 export function getMappedDays(refDate, numDays, { view, startOfWeek }) {
   return getDays(refDate, numDays, { view, startOfWeek }).map(
-    date => new ComparativeDate(refDate, date)
+    date => new ComparativeDate(refDate, date, { view, startOfWeek })
   )
 }
 
 class ComparativeDate {
-  constructor(referenceDate, date) {
+  constructor(referenceDate, date, { startOfWeek }) {
     this.referenceDate = referenceDate
     this.date = new Date(date)
+    this.startOfWeek = startOfWeek
   }
 
   get isToday() {
-    return isSame(this.referenceDate, this.date)
+    return isSame(this.referenceDate, this.date, 'day')
+  }
+
+  get isThisWeek() {
+    return isSame(this.referenceDate, this.date, 'week', this.startOfWeek)
   }
 
   get isThisMonth() {
@@ -156,12 +161,11 @@ class ComparativeDate {
 
   // TODO custom getters:
   // isPreviousDay: mom.isBefore(today, 'day'),
+  // isNextWeek: mom.isAfter(today, 'week'),
+  // isPreviousWeek: mom.isBefore(today, 'week'),
   // isPreviousMonth: mom.isBefore(today, 'month'),
   // isPreviousYear: mom.isBefore(today, 'year'),
   // isNextDay: mom.isAfter(today, 'day'),
   // isNextMonth: mom.isAfter(today, 'month'),
   // isNextYear: mom.isAfter(today, 'year')
-  // isThisWeek: mom.isSame(today, 'week'),),
-  // isNextWeek: mom.isAfter(today, 'week'),
-  // isPreviousWeek: mom.isBefore(today, 'week'),
 }
