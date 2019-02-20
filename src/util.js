@@ -93,12 +93,12 @@ function toDateArray(start, numDays) {
   return countMap(offset => add(start, offset, 'd'), numDays)
 }
 
-function getDays(refDate, numDays, { startOfWeek }) {
-  if (numDays <= 4) {
+function getDays(refDate, numDays, { view, startOfWeek }) {
+  if (view === 'day') {
     return toDateArray(refDate, numDays)
   }
 
-  if (numDays <= 10) {
+  if (view === 'week') {
     const currDayOfWeek = refDate.getDay()
     const correction = startOfWeek > currDayOfWeek ? startOfWeek - 7 : startOfWeek
 
@@ -107,7 +107,7 @@ function getDays(refDate, numDays, { startOfWeek }) {
     return toDateArray(startDate, numDays)
   }
 
-  if (numDays <= 365) {
+  if (view === 'month') {
     // Round up to multiple of 7
     const correctedNumDays = Math.ceil(numDays / 7) * 7
 
@@ -125,16 +125,19 @@ function getDays(refDate, numDays, { startOfWeek }) {
     return toDateArray(startDate, correctedNumDays)
   }
 
-  const startDate = new Date(refDate)
-  startDate.setDate(1)
-  startDate.setMonth(0)
+  if (view === 'year') {
+    const startDate = new Date(refDate)
+    startDate.setDate(1)
+    startDate.setMonth(0)
 
-  return toDateArray(startDate, numDays)
+    return toDateArray(startDate, numDays)
+  }
 }
 
-export function getMappedDays(refDate, numDays, { startOfWeek }) {
-  // if numDays < 10, create a week view with dayOfTheWeek offset
-  return getDays(refDate, numDays, { startOfWeek }).map(date => new ComparativeDate(refDate, date))
+export function getMappedDays(refDate, numDays, { view, startOfWeek }) {
+  return getDays(refDate, numDays, { view, startOfWeek }).map(
+    date => new ComparativeDate(refDate, date)
+  )
 }
 
 export function chunkDays(days, numDays) {

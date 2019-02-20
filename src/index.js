@@ -29,6 +29,20 @@ function format(dateLike) {
   return date.toISOString()
 }
 
+function getView(numDays) {
+  // TODO set cutoff points in props
+  if (numDays <= 4) {
+    return VIEWS.DAY
+  }
+  if (numDays <= 10) {
+    return VIEWS.WEEK
+  }
+  if (numDays <= 365) {
+    return VIEWS.MONTH
+  }
+  return VIEWS.YEAR
+}
+
 function getButtonProps({ label, onClick }) {
   return ({ onClick: userOnClick = () => {} } = {}) => {
     return {
@@ -62,7 +76,7 @@ class Calendarx extends React.Component {
 
   next = (x = 1) => {
     const jumpBy = typeof x === 'number' ? x : 1
-    const view = this.getView()
+    const view = getView(this.props.numDays)
 
     return this.jump(jumpBy, view)
   }
@@ -70,21 +84,6 @@ class Calendarx extends React.Component {
   prev = (x = -1) => this.next(x)
 
   today = () => this.updateReferenceDate(new Date())
-
-  getView() {
-    const { numDays } = this.props
-    // TODO set cutoff points in props
-    if (numDays <= 4) {
-      return VIEWS.DAY
-    }
-    if (numDays <= 10) {
-      return VIEWS.WEEK
-    }
-    if (numDays <= 365) {
-      return VIEWS.MONTH
-    }
-    return VIEWS.YEAR
-  }
 
   createEventCache = memoizeOne(events =>
     events.reduce((map, event) => {
@@ -103,8 +102,9 @@ class Calendarx extends React.Component {
 
   getChunkedDays = memoizeOne((referenceDate, numDays, startOfWeek, events) => {
     const eventCache = this.createEventCache(events)
+    const view = getView(numDays)
 
-    const days = getMappedDays(referenceDate, numDays, { startOfWeek })
+    const days = getMappedDays(referenceDate, numDays, { startOfWeek, view })
 
     const daysWithEvents = days.map(day => {
       const key = getDateKey(day.date)
@@ -123,7 +123,7 @@ class Calendarx extends React.Component {
   render() {
     const { referenceDate } = this.state
     const { events, numDays, startOfWeek } = this.props
-    const view = this.getView()
+    const view = getView(numDays)
 
     const adjustedNumDays = Math.max(numDays, 0)
 
