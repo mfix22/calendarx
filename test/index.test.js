@@ -64,7 +64,9 @@ const BASIC_CASES = {
   ]
 }
 
-describe.each([35, 7, 4])('%i day view', numDays => {
+describe.each(['month', 'week', 'day'])('%s view', view => {
+  const numDays = view === 'month' ? 35 : view === 'week' ? 7 : 4
+
   test('basic rendering ', () => {
     const referenceDate = moment('2019-02-18', 'YYYY-MM-DD')
 
@@ -140,7 +142,7 @@ describe.each([35, 7, 4])('%i day view', numDays => {
 
 describe('props', () => {
   test.each([[Calendar.days.MONDAY, 0], [Calendar.days.TUESDAY, 6], [Calendar.days.SATURDAY, 2]])(
-    'test starting week as index %s',
+    'test starting week on index: %s',
     (startOfWeek, index) => {
       const date = '2019-02-18'
       const referenceDate = moment(date, 'YYYY-MM-DD')
