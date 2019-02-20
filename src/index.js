@@ -13,6 +13,13 @@ const DAYS = {
   SATURDAY: 6
 }
 
+const VIEWS = {
+  DAY: 'day',
+  WEEK: 'week',
+  MONTH: 'month',
+  YEAR: 'year'
+}
+
 function getDateKey(date) {
   return date.toISOString().split('T')[0]
 }
@@ -43,6 +50,7 @@ class Calendarx extends React.Component {
   }
 
   static days = DAYS
+  static views = VIEWS
 
   state = {
     referenceDate: format(this.props.initialDate)
@@ -54,23 +62,29 @@ class Calendarx extends React.Component {
 
   next = (x = 1) => {
     const jumpBy = typeof x === 'number' ? x : 1
+    const view = this.getView()
 
-    const { numDays } = this.props
-
-    // TODO set cutoff points in props
-    if (numDays <= 4) {
-      return this.jump(jumpBy, 'days')
-    }
-    if (numDays <= 10) {
-      return this.jump(jumpBy, 'weeks')
-    }
-
-    return this.jump(jumpBy, 'months')
+    return this.jump(jumpBy, view)
   }
 
   prev = (x = -1) => this.next(x)
 
   today = () => this.updateReferenceDate(new Date())
+
+  getView() {
+    const { numDays } = this.props
+    // TODO set cutoff points in props
+    if (numDays <= 4) {
+      return VIEWS.DAY
+    }
+    if (numDays <= 10) {
+      return VIEWS.WEEK
+    }
+    if (numDays <= 365) {
+      return VIEWS.MONTH
+    }
+    return VIEWS.YEAR
+  }
 
   createEventCache = memoizeOne(events =>
     events.reduce((map, event) => {
@@ -109,6 +123,7 @@ class Calendarx extends React.Component {
   render() {
     const { referenceDate } = this.state
     const { events, numDays, startOfWeek } = this.props
+    const view = this.getView()
 
     const adjustedNumDays = Math.max(numDays, 0)
 
@@ -122,6 +137,7 @@ class Calendarx extends React.Component {
           date,
           days,
           // TODO add `headers`
+          view,
           jump: this.jump,
           goToNext: this.next,
           goToPrev: this.prev,
