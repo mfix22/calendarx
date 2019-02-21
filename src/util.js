@@ -121,11 +121,19 @@ function getDays(refDate, numDays, { view, weekStartsOn }) {
   }
 
   if (view === 'year') {
-    const startDate = new Date(refDate)
-    startDate.setDate(1)
-    startDate.setMonth(0)
+    // Round up to multiple of 7
+    const correctedNumDays = Math.ceil(numDays / 7) * 7
 
-    return toDateArray(startDate, numDays)
+    const firstDate = new Date(refDate)
+    firstDate.setDate(1)
+    firstDate.setMonth(0)
+    const firstDay = firstDate.getDay()
+
+    const correction = weekStartsOn > firstDay ? weekStartsOn - 7 : weekStartsOn
+
+    const startDate = add(firstDate, -firstDay + correction, 'd')
+
+    return toDateArray(startDate, correctedNumDays)
   }
 }
 
