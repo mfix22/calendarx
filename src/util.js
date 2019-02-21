@@ -29,12 +29,18 @@ export function add(date, n, units) {
   return newDate
 }
 
+function getWeekdayOffset(dayIndex, weekStartsOn) {
+  const correction = weekStartsOn > dayIndex ? weekStartsOn - 7 : weekStartsOn
+
+  return -dayIndex + correction
+}
+
 function getStartOfWeek(d, weekStartsOn = 0) {
   const date = new Date(d)
   const day = date.getDay()
-  const correction = weekStartsOn > day ? weekStartsOn - 7 : weekStartsOn
+  const correction = getWeekdayOffset(day, weekStartsOn)
 
-  date.setDate(date.getDate() - day + correction)
+  date.setDate(date.getDate() + correction)
   date.setHours(0, 0, 0, 0)
   return date
 }
@@ -97,9 +103,9 @@ function getDays(refDate, numDays, { view, weekStartsOn }) {
 
   if (view === 'week') {
     const currDayOfWeek = refDate.getDay()
-    const correction = weekStartsOn > currDayOfWeek ? weekStartsOn - 7 : weekStartsOn
+    const correction = getWeekdayOffset(currDayOfWeek, weekStartsOn)
 
-    const startDate = add(refDate, -currDayOfWeek + correction, 'd')
+    const startDate = add(refDate, correction, 'd')
 
     return toDateArray(startDate, numDays)
   }
@@ -114,9 +120,9 @@ function getDays(refDate, numDays, { view, weekStartsOn }) {
     firstDate.setDate(1)
     const firstDay = firstDate.getDay()
 
-    const correction = weekStartsOn > firstDay ? weekStartsOn - 7 : weekStartsOn
+    const correction = getWeekdayOffset(firstDay, weekStartsOn)
 
-    const startDate = add(refDate, -pivotDate - firstDay + correction, 'd')
+    const startDate = add(refDate, -pivotDate + correction, 'd')
 
     return toDateArray(startDate, correctedNumDays)
   }
@@ -130,9 +136,9 @@ function getDays(refDate, numDays, { view, weekStartsOn }) {
     firstDate.setMonth(0)
     const firstDay = firstDate.getDay()
 
-    const correction = weekStartsOn > firstDay ? weekStartsOn - 7 : weekStartsOn
+    const correction = getWeekdayOffset(firstDay, weekStartsOn)
 
-    const startDate = add(firstDate, -firstDay + correction, 'd')
+    const startDate = add(firstDate, correction, 'd')
 
     return toDateArray(startDate, correctedNumDays)
   }
