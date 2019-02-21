@@ -71,7 +71,7 @@ for an **Advanced** example, check out:
 | `initialDate`  | `new Date()` | `Date`, `String`, `Number`, `Moment` | Sets the initial state of `referenceDate` for uncontrolled usage                                             |
 | `numDays`      | `35`         | `Number`                             | Number of days the calendar should display. If `numDays` > 10, this will be raised to the next multiple of 7 |
 | `events`       | `[]`         | `Array<{ date: DateLike }>`          | Events passed into the calendar. These objects will be injected into the correct array by date.              |
-| `startOfWeek`  | `0`          | `Number[0-6]`                        | Weekday to start the week on. Sunday (0) - Saturday (6)                                                      |
+| `weekStartsOn` | `0`          | `Number[0-6]`                        | Weekday to start the week on. Sunday (0) - Saturday (6)                                                      |
 | `render`       | `undefined`  | `Function`                           | Optional, same as `children`                                                                                 |
 
 **Note**: the `Calendarx` days grid will adapt depending on the number of days that are specified

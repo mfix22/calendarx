@@ -62,7 +62,7 @@ class Calendarx extends React.Component {
   static defaultProps = {
     numDays: 35,
     events: [],
-    startOfWeek: DAYS.SUNDAY,
+    weekStartsOn: DAYS.SUNDAY,
     headers: HEADERS
   }
 
@@ -103,11 +103,11 @@ class Calendarx extends React.Component {
     }, new Map())
   )
 
-  getChunkedDays = memoizeOne((referenceDate, numDays, startOfWeek, events) => {
+  getChunkedDays = memoizeOne((referenceDate, numDays, weekStartsOn, events) => {
     const eventCache = this.createEventCache(events)
     const view = getView(numDays)
 
-    const days = getMappedDays(referenceDate, numDays, { startOfWeek, view })
+    const days = getMappedDays(referenceDate, numDays, { weekStartsOn, view })
 
     const daysWithEvents = days.map(day => {
       const key = getDateKey(day.date)
@@ -140,17 +140,17 @@ class Calendarx extends React.Component {
 
   render() {
     const { referenceDate } = this.state
-    const { events, numDays, startOfWeek } = this.props
+    const { events, numDays, weekStartsOn } = this.props
     const view = getView(numDays)
 
     const adjustedNumDays = Math.max(numDays, 0)
 
     const date = new Date(referenceDate)
-    const days = this.getChunkedDays(date, adjustedNumDays, startOfWeek, events)
+    const days = this.getChunkedDays(date, adjustedNumDays, weekStartsOn, events)
 
     const headers = this.getHeaders(
       this.props.headers,
-      view === 'day' ? date.getDay() : startOfWeek,
+      view === 'day' ? date.getDay() : weekStartsOn,
       days[0].length
     )
 

@@ -143,7 +143,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
 describe('props', () => {
   test.each([[Calendar.days.MONDAY, 0], [Calendar.days.TUESDAY, 6], [Calendar.days.SATURDAY, 2]])(
     'test starting week on index: %s',
-    (startOfWeek, index) => {
+    (weekStartsOn, index) => {
       const date = '2019-02-18'
       const initialDate = moment(date, 'YYYY-MM-DD')
 
@@ -151,7 +151,7 @@ describe('props', () => {
         initialDate,
         numDays: 7,
         children,
-        startOfWeek
+        weekStartsOn
       })
 
       expect(getDateKey(days[0][index].date)).toBe(date)
@@ -164,7 +164,7 @@ describe('props', () => {
     const { children } = render({
       initialDate,
       numDays: 35,
-      startOfWeek: Calendar.days.THURSDAY
+      weekStartsOn: Calendar.days.THURSDAY
     })
 
     expect(children).toHaveBeenCalledWith(
@@ -185,7 +185,7 @@ describe('props', () => {
     const { children: children2 } = render({
       initialDate: moment('2019-02-20', 'YYYY-MM-DD'),
       numDays: 4,
-      // TODO try passing array and different startOfWeek
+      // TODO try passing array and different weekStartsOn
       headers: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
     })
 

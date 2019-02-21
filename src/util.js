@@ -29,16 +29,16 @@ export function add(date, n, units) {
   return newDate
 }
 
-function getStartOfWeek(d, startOfWeek = 0) {
+function getweekStartsOn(d, weekStartsOn = 0) {
   const date = new Date(d)
   const day = date.getDay()
-  const correction = startOfWeek > day ? startOfWeek - 7 : startOfWeek
+  const correction = weekStartsOn > day ? weekStartsOn - 7 : weekStartsOn
   date.setDate(date.getDate() - correction)
   date.setHours(0, 0, 0, 0)
   return date
 }
 
-function isSame(d1, d2, precision = 'day', startOfWeek = 0) {
+function isSame(d1, d2, precision = 'day', weekStartsOn = 0) {
   if (d1.getFullYear() !== d2.getFullYear()) {
     return false
   }
@@ -56,7 +56,7 @@ function isSame(d1, d2, precision = 'day', startOfWeek = 0) {
   }
 
   if (precision === 'week') {
-    return getStartOfWeek(d1, startOfWeek) - getStartOfWeek(d2, startOfWeek) === 0
+    return getweekStartsOn(d1, weekStartsOn) - getweekStartsOn(d2, weekStartsOn) === 0
   }
 
   return d1.getDate() === d2.getDate()
@@ -89,14 +89,14 @@ function toDateArray(start, numDays) {
   }, 0)
 }
 
-function getDays(refDate, numDays, { view, startOfWeek }) {
+function getDays(refDate, numDays, { view, weekStartsOn }) {
   if (view === 'day') {
     return toDateArray(refDate, numDays)
   }
 
   if (view === 'week') {
     const currDayOfWeek = refDate.getDay()
-    const correction = startOfWeek > currDayOfWeek ? startOfWeek - 7 : startOfWeek
+    const correction = weekStartsOn > currDayOfWeek ? weekStartsOn - 7 : weekStartsOn
 
     const startDate = add(refDate, -currDayOfWeek + correction, 'd')
 
@@ -113,7 +113,7 @@ function getDays(refDate, numDays, { view, startOfWeek }) {
     firstDate.setDate(1)
     const firstDay = firstDate.getDay()
 
-    const correction = startOfWeek > firstDay ? startOfWeek - 7 : startOfWeek
+    const correction = weekStartsOn > firstDay ? weekStartsOn - 7 : weekStartsOn
 
     const startDate = add(refDate, -pivotDate - firstDay + correction, 'd')
 
@@ -129,17 +129,17 @@ function getDays(refDate, numDays, { view, startOfWeek }) {
   }
 }
 
-export function getMappedDays(refDate, numDays, { view, startOfWeek }) {
-  return getDays(refDate, numDays, { view, startOfWeek }).map(
-    date => new ComparativeDate(refDate, date, { view, startOfWeek })
+export function getMappedDays(refDate, numDays, { view, weekStartsOn }) {
+  return getDays(refDate, numDays, { view, weekStartsOn }).map(
+    date => new ComparativeDate(refDate, date, { view, weekStartsOn })
   )
 }
 
 class ComparativeDate {
-  constructor(referenceDate, date, { startOfWeek }) {
+  constructor(referenceDate, date, { weekStartsOn }) {
     this.referenceDate = referenceDate
     this.date = new Date(date)
-    this.startOfWeek = startOfWeek
+    this.weekStartsOn = weekStartsOn
   }
 
   get isToday() {
@@ -147,7 +147,7 @@ class ComparativeDate {
   }
 
   get isThisWeek() {
-    return isSame(this.referenceDate, this.date, 'week', this.startOfWeek)
+    return isSame(this.referenceDate, this.date, 'week', this.weekStartsOn)
   }
 
   get isThisMonth() {
