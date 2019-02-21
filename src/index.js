@@ -39,7 +39,7 @@ function getView(numDays) {
   if (numDays <= 10) {
     return VIEWS.WEEK
   }
-  if (numDays <= 365) {
+  if (numDays <= 364) {
     return VIEWS.MONTH
   }
   return VIEWS.YEAR

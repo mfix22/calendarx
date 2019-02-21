@@ -64,6 +64,18 @@ const BASIC_CASES = {
   ]
 }
 
+describe('year', () => {
+  test('basic rendering', () => {
+    const initialDate = moment('2019-02-18', 'YYYY-MM-DD')
+
+    const { days } = render({ initialDate, numDays: 365 })
+
+    expect(days[0]).toHaveLength(7)
+    expect(getDateKey(days[0][0].date)).toBe('2018-12-30')
+    expect(getDateKey(days[days.length - 1][6].date)).toBe('2020-01-04')
+  })
+})
+
 describe.each(['month', 'week', 'day'])('%s view', view => {
   const numDays = view === 'month' ? 35 : view === 'week' ? 7 : 4
 
