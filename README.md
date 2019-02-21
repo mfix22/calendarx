@@ -2,7 +2,7 @@
 
 > A React state container for building Calendar components
 
-Calendarx is a state container for creating calendar components with a simple API for displaying days and events sanely and advancing between the months, weeks, or days with ease.
+Calendarx is a state container for creating calendar components with a simple API for displaying days and events simply and advancing between the months, weeks, and days with ease.
 
 [![npm](https://img.shields.io/npm/v/calendarx.svg?style=flat)](https://www.npmjs.org/package/calendarx)
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
