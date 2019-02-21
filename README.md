@@ -82,15 +82,16 @@ month. This is useful for displaying a full month in an even 5x7 grid.
 
 ## Children Properties
 
-| Option      | Type                                                            | Description                                                                                       |
-| :---------- | :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
-| `days`      | `Day[][]`                                                       | 2-dimentional grid of objects representing each calendar day                                      |
-| `date`      | `Date`                                                          | Current date state                                                                                |
-| `jump`      | `Function(n: Number, units: {'years','months','weeks','days'})` | Function to jump a specific amount of time                                                        |
-| `goToNext`  | `Function()`                                                    | Sets `referenceDate` to next day if `numDays` is <= 4, next week if <= 10, and next month if > 10 |
-| `goToToday` | `Function()`                                                    | Set the `referenceDate` to today                                                                  |
-| `goToPrev`  | `Function()`                                                    | Save as `goToNext`, but in reverse                                                                |
-| `goToDate`  | `Function(date: DateLike)`                                      | Set `referenceDate` to arbitrary date                                                             |
+| Option      | Type                                                            | Description                                                                        |
+| :---------- | :-------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+| `days`      | `Day[][]`                                                       | 2-dimentional grid of objects representing each calendar day                       |
+| `date`      | `Date`                                                          | Current `date` state                                                               |
+| `view`      | `String{'years','months','weeks','days'}`                       | View according to `numDays`. `day` if <=4, `week` if <= 10, month <=365, or `year` |
+| `jump`      | `Function(n: Number, units: {'years','months','weeks','days'})` | Function to jump a specific amount of time                                         |
+| `goToNext`  | `Function()`                                                    | Sets `date` state to next date according to `numDays/view`                         |
+| `goToToday` | `Function()`                                                    | Set the `date` state to today                                                      |
+| `goToPrev`  | `Function()`                                                    | Same as `goToNext`, but in reverse                                                 |
+| `goToDate`  | `Function(date: DateLike)`                                      | Set `referenceDate` to arbitrary date                                              |
 
 ## Types
 
