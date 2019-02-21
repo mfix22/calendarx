@@ -73,9 +73,9 @@ class Calendarx extends React.Component {
     referenceDate: format(this.props.initialDate)
   }
 
-  updateReferenceDate = newDate => this.setState({ referenceDate: format(newDate) })
+  setReferenceDate = newDate => this.setState({ referenceDate: format(newDate) })
 
-  jump = (n, unit = 'days') => this.updateReferenceDate(add(this.state.referenceDate, n, unit))
+  jump = (n, unit = 'days') => this.setReferenceDate(add(this.state.referenceDate, n, unit))
 
   next = (x = 1) => {
     const jumpBy = typeof x === 'number' ? x : 1
@@ -86,7 +86,7 @@ class Calendarx extends React.Component {
 
   prev = (x = -1) => this.next(x)
 
-  today = () => this.updateReferenceDate(new Date())
+  today = () => this.setReferenceDate(new Date())
 
   createEventCache = memoizeOne(events =>
     events.reduce((map, event) => {
@@ -167,7 +167,7 @@ class Calendarx extends React.Component {
           goToNext: this.next,
           goToPrev: this.prev,
           goToToday: this.today,
-          goToDate: this.updateReferenceDate,
+          goToDate: this.setReferenceDate,
           getPrevButtonProps: this.getPrevButtonProps,
           getNextButtonProps: this.getNextButtonProps,
           getTodayButtonProps: this.getTodayButtonProps
