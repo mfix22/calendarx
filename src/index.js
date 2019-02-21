@@ -140,6 +140,7 @@ class Calendarx extends React.Component {
 
   render() {
     const { referenceDate } = this.state
+    // TODO make numDays uncontrolled with `setNumDays`, `setMonthView` etc.
     const { events, numDays, weekStartsOn } = this.props
     const view = getView(numDays)
 
