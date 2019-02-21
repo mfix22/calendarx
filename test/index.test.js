@@ -80,7 +80,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
   const numDays = view === 'month' ? 35 : view === 'week' ? 7 : 4
 
   test('basic rendering ', () => {
-    const initialDate = moment('2019-02-18', 'YYYY-MM-DD')
+    const initialDate = moment('2019-02-18T08:00:00.000Z')
 
     const { children, days } = render({ initialDate, numDays })
 
