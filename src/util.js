@@ -29,16 +29,17 @@ export function add(date, n, units) {
   return newDate
 }
 
-function getweekStartsOn(d, weekStartsOn = 0) {
+function getStartOfWeek(d, weekStartsOn = 0) {
   const date = new Date(d)
   const day = date.getDay()
   const correction = weekStartsOn > day ? weekStartsOn - 7 : weekStartsOn
-  date.setDate(date.getDate() - correction)
+
+  date.setDate(date.getDate() - day + correction)
   date.setHours(0, 0, 0, 0)
   return date
 }
 
-function isSame(d1, d2, precision = 'day', weekStartsOn = 0) {
+export function isSame(d1, d2, precision = 'day', weekStartsOn = 0) {
   if (d1.getFullYear() !== d2.getFullYear()) {
     return false
   }
@@ -56,7 +57,7 @@ function isSame(d1, d2, precision = 'day', weekStartsOn = 0) {
   }
 
   if (precision === 'week') {
-    return getweekStartsOn(d1, weekStartsOn) - getweekStartsOn(d2, weekStartsOn) === 0
+    return getStartOfWeek(d1, weekStartsOn) - getStartOfWeek(d2, weekStartsOn) === 0
   }
 
   return d1.getDate() === d2.getDate()
