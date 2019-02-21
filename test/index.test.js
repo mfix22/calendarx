@@ -1,5 +1,5 @@
 import React from 'react'
-import { render as rtlRender } from 'react-testing-library'
+import { render as rtlRender, fireEvent } from 'react-testing-library'
 import moment from 'moment'
 
 import Calendar from '../src'
@@ -200,5 +200,45 @@ describe('props', () => {
       }),
       expect.anything()
     )
+  })
+})
+
+function renderButtons(options) {
+  const children = jest.fn(
+    ({ date, getPrevButtonProps, getNextButtonProps, getTodayButtonProps }) => (
+      <div>
+        <span>{getDateKey(date)}</span>
+        <button {...getPrevButtonProps({ onClick: options.onClick })}>Prev</button>
+        <button {...getTodayButtonProps({ onClick: options.onClick })}>Today</button>
+        <button {...getNextButtonProps({ onClick: options.onClick })}>Next</button>
+      </div>
+    )
+  )
+  return rtlRender(React.createElement(Calendar, options, children))
+}
+
+describe('actions', () => {
+  test('prop getters', () => {
+    const onClick = jest.fn()
+    const initialDate = moment('2019-02-18', 'YYYY-MM-DD')
+    const { getByText } = renderButtons({ initialDate, onClick })
+
+    fireEvent.click(getByText('Prev'))
+    getByText('2019-01-18')
+    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('Next'))
+    getByText('2019-03-18')
+    fireEvent.click(getByText('Today'))
+    getByText(getDateKey(new Date()))
+
+    expect(onClick).toHaveBeenCalledTimes(4)
+
+    const buttons = ['Next', 'Prev', 'Today']
+    buttons.forEach(title => {
+      const button = getByText(title)
+
+      expect(button.getAttribute('aria-label')).toContain(`Go to ${title.toLowerCase()}`)
+      expect(button.getAttribute('role')).toBe('button')
+    })
   })
 })
