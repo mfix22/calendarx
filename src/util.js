@@ -114,15 +114,13 @@ function getDays(refDate, numDays, { view, weekStartsOn }) {
     // Round up to multiple of 7
     const correctedNumDays = Math.ceil(numDays / 7) * 7
 
-    const pivotDate = refDate.getDate() - 1 // 0th based month indexing
-
     const firstDate = new Date(refDate)
     firstDate.setDate(1)
     const firstDay = firstDate.getDay()
 
     const correction = getWeekdayOffset(firstDay, weekStartsOn)
 
-    const startDate = add(refDate, -pivotDate + correction, 'd')
+    const startDate = add(firstDate, correction, 'd')
 
     return toDateArray(startDate, correctedNumDays)
   }
