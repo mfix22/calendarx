@@ -70,10 +70,21 @@ class Calendarx extends React.Component {
   static views = VIEWS
 
   state = {
-    referenceDate: format(this.props.initialDate)
+    referenceDate: format(this.props.initialDate),
+    numDays: this.props.initialNumDays
   }
 
-  setReferenceDate = newDate => this.setState({ referenceDate: format(newDate) })
+  setReferenceDate = newDate => {
+    if (!this.props.referenceDate) {
+      this.setState({ referenceDate: format(newDate) })
+    }
+  }
+
+  setNumDays = numDays => {
+    if (!this.props.numDays) {
+      this.setState({ numDays })
+    }
+  }
 
   jump = (n, unit = 'days') => this.setReferenceDate(add(this.state.referenceDate, n, unit))
 
@@ -139,9 +150,11 @@ class Calendarx extends React.Component {
   getPrevButtonProps = getButtonProps({ label: 'Go to previous', onClick: this.prev })
 
   render() {
-    const { referenceDate } = this.state
-    // TODO make numDays uncontrolled with `setNumDays`, `setMonthView` etc.
-    const { events, numDays, weekStartsOn } = this.props
+    const referenceDate = this.props.referenceDate || this.state.referenceDate
+    const numDays = this.props.numDays || this.state.numDays
+
+    const { events, weekStartsOn } = this.props
+
     const view = getView(numDays)
 
     const adjustedNumDays = Math.max(numDays, 0)
@@ -163,14 +176,17 @@ class Calendarx extends React.Component {
           days,
           headers,
           view,
+          numDays,
           jump: this.jump,
+          // TODO make these deeper so you don't have to read through too many props when getting started?
           goToNext: this.next,
           goToPrev: this.prev,
           goToToday: this.today,
           goToDate: this.setReferenceDate,
           getPrevButtonProps: this.getPrevButtonProps,
           getNextButtonProps: this.getNextButtonProps,
-          getTodayButtonProps: this.getTodayButtonProps
+          getTodayButtonProps: this.getTodayButtonProps,
+          setNumDays: this.setNumDays
         }}
       />
     )
