@@ -125,7 +125,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
       initialDate: referenceDate,
       numDays,
       children,
-      events: [event]
+      events: [event, { invalidEvent: new Date() }]
     })
 
     const flattenedDays = [].concat(...days)
