@@ -68,17 +68,14 @@ for an **Advanced** example, check out:
 | Option         | Default      | Type                                 | Description                                                                                                  |
 | :------------- | :----------- | :----------------------------------- | :----------------------------------------------------------------------------------------------------------- |
 | **`children`** | `undefined`  | `Function`                           | Render prop component. See [docs below](#render-props) for the options passed                                |
-| `initialDate`  | `new Date()` | `Date`, `String`, `Number`, `Moment` | Sets the initial state of `referenceDate` for uncontrolled usage                                             |
+| `initialDate`  | `new Date()` | `Date`, `String`, `Number`, `Moment` | Sets the initial state of `date` for uncontrolled usage                                                      |
 | `numDays`      | `35`         | `Number`                             | Number of days the calendar should display. If `numDays` > 10, this will be raised to the next multiple of 7 |
 | `events`       | `[]`         | `Array<{ date: DateLike }>`          | Events passed into the calendar. These objects will be injected into the correct array by date.              |
-| `weekStartsOn` | `0`          | `Number[0-6]`                        | Weekday to start the week on. Sunday (0) - Saturday (6)                                                      |
+| `weekStartsOn` | `0`          | `Number[0-6]`                        | Weekday to start the week on. Sunday (0) - Saturday (6).                                                     |
 | `render`       | `undefined`  | `Function`                           | Optional, same as `children`                                                                                 |
 
 **Note**: the `Calendarx` days grid will adapt depending on the number of days that are specified
-in `numDays`. If 4 is passed in, the first column will start with your
-`referenceDate`, where if 7 is passed in the calendar will align itself to a
-week view, and if >10 (the default is 35) is passed in, the calendar will pivot to return the entire
-month. This is useful for displaying a full month in an even 5x7 grid.
+in `numDays`. For example, if 4 is passed in, the first column will start with your `initialDate`. If 7 is passed in (anything <10), the calendar will align itself to the beginning of the week. If `10 < numDays < 365` (the default is 35), the calendar will align to include the entire month and potentially parts of the previous/next month in order to align the grid with your start of the week (default is Sunday).
 
 ## Children Properties
 
@@ -91,7 +88,7 @@ month. This is useful for displaying a full month in an even 5x7 grid.
 | `goToNext`  | `Function()`                                                    | Sets `date` state to next date according to `numDays/view`                         |
 | `goToToday` | `Function()`                                                    | Set the `date` state to today                                                      |
 | `goToPrev`  | `Function()`                                                    | Same as `goToNext`, but in reverse                                                 |
-| `goToDate`  | `Function(date: DateLike)`                                      | Set `referenceDate` to arbitrary date                                              |
+| `goToDate`  | `Function(date: DateLike)`                                      | Set `date` state to arbitrary date                                                 |
 
 ## Types
 
