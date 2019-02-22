@@ -72,7 +72,7 @@ for an **Advanced** example, check out:
 | `initialNumDays`, `numDays` | `35`                                                                             | `Number`                             | Number of days the calendar should display. If `numDays` > 10, this will be raised to the next multiple of 7. Use `initialNumDays` for uncontrolled usage, `numDays` for controlled |
 | `events`                    | `[]`                                                                             | `Array<{ date: DateLike }>`          | Events passed into the calendar. These objects will be injected into the correct array by date.                                                                                     |
 | `weekStartsOn`              | `0`                                                                              | `Number[0-6]`                        | Weekday to start the week on. Sunday (0) - Saturday (6).                                                                                                                            |
-| `headers`                   | `['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']` | `String[]`                           | Replace the headers that get passed to children() for convience.                                                                                                                    |
+| `headers`                   | `['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']` | `String[]`                           | Replace the headers that get passed to `children`, for convience.                                                                                                                   |
 | `render`                    | `undefined`                                                                      | `Function`                           | Optional, same as `children`                                                                                                                                                        |
 
 **Note**: the `Calendarx` days grid will adapt depending on the number of days that are specified
@@ -104,7 +104,7 @@ This object contains the following fields/getters:
 - `isThisMonth`: `Boolean`
 - `isThisYear`: `Boolean`
 
-### `Event`:
+### `Event`
 
 `Event`s will include the other properties you pass alongside `date` in your `events` prop.
 
@@ -119,7 +119,7 @@ Please do! If you have ideas, bug fixes, or examples to showcase, please [submit
 
 ## License
 
-MIT
+[MIT](https://github.com/mfix22/calendarx/blob/master/LICENSE)
 
 ## Inspiration 💫
 
