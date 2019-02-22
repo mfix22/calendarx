@@ -199,7 +199,6 @@ describe('props', () => {
     const { children: children2 } = render({
       initialDate: moment('2019-02-20', 'YYYY-MM-DD'),
       numDays: 4,
-      // TODO try passing array and different weekStartsOn
       headers: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
     })
 
