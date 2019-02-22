@@ -1,4 +1,4 @@
-# 📅 Calenda**Rx**
+# 📅 Calenda**rx**
 
 > A React state container for building Calendar components
 
