@@ -1,6 +1,10 @@
 import moment from 'moment'
 import { add, isSame } from '../src/util'
 
+function getDateKey(date) {
+  return date.toISOString().split('T')[0]
+}
+
 describe('add', () => {
   const initialDate = moment('2019-02-18', 'YYYY-MM-DD')
   test.each([
@@ -40,5 +44,18 @@ describe('add', () => {
     const d2 = moment(compareDate, 'YYYY-MM-DD').toDate()
 
     expect(isSame(d1, d2, precision, weekStartsOn)).toBe(result)
+  })
+
+  describe.each(['day', 'week', 'month', 'year'])('%s', view => {
+    Array.from({ length: 367 }).forEach((_, i) => {
+      const date = moment('2018-01-01', 'YYYY-MM-DD').add(i, 'days')
+      const day = getDateKey(date.toDate())
+
+      test(`${i}) add(${day}, 1, ${view})`, () => {
+        const result = getDateKey(add(date, 1, view))
+        const exp = getDateKey(moment(date.add(1, view)).toDate())
+        expect(result).toBe(exp)
+      })
+    })
   })
 })

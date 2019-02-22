@@ -10,7 +10,11 @@ export function add(date, n, units) {
     case 'months':
     case 'month':
     case 'M': {
+      const previousDate = newDate.getDate()
+      newDate.setDate(1)
       newDate.setMonth(newDate.getMonth() + n)
+      const maxDay = getDaysInMonth(newDate)
+      newDate.setDate(Math.min(maxDay, previousDate))
       return newDate
     }
     case 'weeks':
@@ -27,6 +31,13 @@ export function add(date, n, units) {
     }
   }
   return newDate
+}
+
+function getDaysInMonth(date) {
+  const month = date.getMonth()
+  const year = date.getFullYear()
+
+  return new Date(year, month + 1, 0).getDate()
 }
 
 function getWeekdayOffset(dayIndex, weekStartsOn) {
