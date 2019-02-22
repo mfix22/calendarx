@@ -84,6 +84,15 @@ test('defaults', () => {
   expect(headers.map(h => h.day)).toEqual([0, 1, 2, 3, 4, 5, 6])
 })
 
+test('isToday', () => {
+  const { days } = render({
+    numDays: 4,
+    children: () => {}
+  })
+
+  expect(days[0][0].isToday).toBe(true)
+})
+
 describe('year', () => {
   test('basic rendering', () => {
     const initialDate = moment('2019-02-18', 'YYYY-MM-DD')
@@ -166,7 +175,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
 
     const today = flattenedDays[dayInformationMap[numDays]]
 
-    expect(today.isToday).toBe(true)
+    expect(today.isThisDay).toBe(true)
     expect(today.isThisWeek).toBe(true)
     expect(today.isThisMonth).toBe(true)
     expect(today.isThisYear).toBe(true)

@@ -155,6 +155,10 @@ class ComparativeDate {
   }
 
   get isToday() {
+    return isSame(this.referenceDate, new Date(), 'day')
+  }
+
+  get isThisDay() {
     return isSame(this.referenceDate, this.date, 'day')
   }
 
