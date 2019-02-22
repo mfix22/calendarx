@@ -7,7 +7,12 @@ import Calendar from '../src'
 function render(options) {
   const children = jest.fn(() => null)
   rtlRender(React.createElement(Calendar, options, children))
-  return { children, days: children.mock.calls[0][0].days }
+  return {
+    children,
+    days: children.mock.calls[0][0].days,
+    date: children.mock.calls[0][0].date,
+    numDays: children.mock.calls[0][0].numDays
+  }
 }
 
 function getDateKey(date) {
@@ -63,6 +68,13 @@ const BASIC_CASES = {
     '2019-02-23'
   ]
 }
+
+test('defaults', () => {
+  const { date, numDays } = render()
+
+  expect(getDateKey(date)).toBe(getDateKey(new Date()))
+  expect(numDays).toBe(35)
+})
 
 describe('year', () => {
   test('basic rendering', () => {
