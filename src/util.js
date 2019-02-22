@@ -35,7 +35,7 @@ function getWeekdayOffset(dayIndex, weekStartsOn) {
   return -dayIndex + correction
 }
 
-function getStartOfWeek(d, weekStartsOn = 0) {
+function getStartOfWeek(d, weekStartsOn) {
   const date = new Date(d)
   const day = date.getDay()
   const correction = getWeekdayOffset(day, weekStartsOn)
@@ -45,7 +45,7 @@ function getStartOfWeek(d, weekStartsOn = 0) {
   return date
 }
 
-export function isSame(d1, d2, precision = 'day', weekStartsOn = 0) {
+export function isSame(d1, d2, precision, weekStartsOn = 0) {
   if (d1.getFullYear() !== d2.getFullYear()) {
     return false
   }
@@ -97,10 +97,6 @@ function toDateArray(start, numDays) {
 }
 
 function getDays(refDate, numDays, { view, weekStartsOn }) {
-  if (view === 'day') {
-    return toDateArray(refDate, numDays)
-  }
-
   if (view === 'week') {
     const currDayOfWeek = refDate.getDay()
     const correction = getWeekdayOffset(currDayOfWeek, weekStartsOn)
@@ -140,6 +136,9 @@ function getDays(refDate, numDays, { view, weekStartsOn }) {
 
     return toDateArray(startDate, correctedNumDays)
   }
+
+  // view === 'day'
+  return toDateArray(refDate, numDays)
 }
 
 export function getMappedDays(refDate, numDays, { view, weekStartsOn }) {

@@ -30,14 +30,15 @@ describe('add', () => {
     ['2019-02-19', 'day', false],
     ['2019-02-19', 'week', true],
     ['2019-02-24', 'week', false],
+    ['2019-02-19', 'week', false, 2],
     ['2019-02-28', 'month', true],
     ['2019-03-01', 'month', false],
     ['2019-07-09', 'year', true],
     ['2020-07-09', 'year', false]
-  ])('isSame(2019-02-18, %s, %s) === %s', (compareDate, precision, result) => {
+  ])('isSame(2019-02-18, %s, %s) === %s', (compareDate, precision, result, weekStartsOn = 0) => {
     const d1 = moment('2019-02-18', 'YYYY-MM-DD').toDate()
     const d2 = moment(compareDate, 'YYYY-MM-DD').toDate()
 
-    expect(isSame(d1, d2, precision)).toBe(result)
+    expect(isSame(d1, d2, precision, weekStartsOn)).toBe(result)
   })
 })
