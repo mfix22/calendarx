@@ -68,8 +68,8 @@ for an **Advanced** example, check out:
 | Option         | Default      | Type                                 | Description                                                                                                  |
 | :------------- | :----------- | :----------------------------------- | :----------------------------------------------------------------------------------------------------------- |
 | **`children`** | `undefined`  | `Function`                           | Render prop component. See [docs below](#render-props) for the options passed                                |
-| `initialDate`  | `new Date()` | `Date`, `String`, `Number`, `Moment` | Sets the initial state of `date` for uncontrolled usage                                                      |
-| `numDays`      | `35`         | `Number`                             | Number of days the calendar should display. If `numDays` > 10, this will be raised to the next multiple of 7 |
+| `initialDate`, `date`  | `new Date()` | `Date`, `String`, `Number`, `Moment` | `initialDate` sets the initial state of `date` for uncontrolled usage, otherwise use `date` for controlled usage                                                      |
+| `initialNumDays`, `numDays`      | `35`         | `Number`                             | Number of days the calendar should display. If `numDays` > 10, this will be raised to the next multiple of 7. Use `initialNumDays` for uncontrolled usage, `numDays` for controlled |
 | `events`       | `[]`         | `Array<{ date: DateLike }>`          | Events passed into the calendar. These objects will be injected into the correct array by date.              |
 | `weekStartsOn` | `0`          | `Number[0-6]`                        | Weekday to start the week on. Sunday (0) - Saturday (6).                                                     |
 | `render`       | `undefined`  | `Function`                           | Optional, same as `children`                                                                                 |
