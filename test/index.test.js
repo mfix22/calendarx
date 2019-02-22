@@ -9,9 +9,7 @@ function render(options) {
   rtlRender(React.createElement(Calendar, options, children))
   return {
     children,
-    days: children.mock.calls[0][0].days,
-    date: children.mock.calls[0][0].date,
-    numDays: children.mock.calls[0][0].numDays
+    ...children.mock.calls[0][0]
   }
 }
 
@@ -70,10 +68,20 @@ const BASIC_CASES = {
 }
 
 test('defaults', () => {
-  const { date, numDays } = render()
+  const { date, numDays, headers } = render()
 
   expect(getDateKey(date)).toBe(getDateKey(new Date()))
   expect(numDays).toBe(35)
+  expect(headers.map(h => h.title)).toEqual([
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ])
+  expect(headers.map(h => h.day)).toEqual([0, 1, 2, 3, 4, 5, 6])
 })
 
 describe('year', () => {
