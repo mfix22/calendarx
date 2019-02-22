@@ -2,7 +2,7 @@
 
 > A React state container for building Calendar components
 
-Calendarx is a state container for creating calendar components with a simple API for displaying days and events simply and advancing between the months, weeks, and days with ease.
+Calendarx is a state container for creating calendar components. With a simple API, Calendarx makes it easy to display days and events, changes views, and a advance between the months, weeks, and days.
 
 [![npm](https://img.shields.io/npm/v/calendarx.svg?style=flat)](https://www.npmjs.org/package/calendarx)
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
@@ -65,7 +65,7 @@ for an **Advanced** example, check out:
 
 ## Props
 
-| Option                      | Default      | Type                                 | Description                                                                                                                                                                         |
+| Name                        | Default      | Type                                 | Description                                                                                                                                                                         |
 | :-------------------------- | :----------- | :----------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`children`**              | `undefined`  | `Function`                           | Render prop component. See [docs below](#render-props) for the options passed                                                                                                       |
 | `initialDate`, `date`       | `new Date()` | `Date`, `String`, `Number`, `Moment` | `initialDate` sets the initial state of `date` for uncontrolled usage, otherwise use `date` for controlled usage                                                                    |
