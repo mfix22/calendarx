@@ -92,6 +92,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
       expect.objectContaining({
         date: new Date('2019-02-18T08:00:00.000Z'),
         days: expect.any(Array),
+        numDays,
         jump: expect.any(Function),
         goToNext: expect.any(Function),
         goToPrev: expect.any(Function),
@@ -99,7 +100,8 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
         goToDate: expect.any(Function),
         getPrevButtonProps: expect.any(Function),
         getNextButtonProps: expect.any(Function),
-        getTodayButtonProps: expect.any(Function)
+        getTodayButtonProps: expect.any(Function),
+        setNumDays: expect.any(Function)
       }),
       expect.anything()
     )
