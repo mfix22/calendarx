@@ -149,10 +149,10 @@ export function getMappedDays(refDate, numDays, { view, weekStartsOn }) {
 }
 
 class ComparativeDate {
-  constructor(referenceDate, date, { weekStartsOn }) {
+  constructor(referenceDate, date, options) {
     this.referenceDate = referenceDate
-    this.date = new Date(date)
-    this.weekStartsOn = weekStartsOn
+    this.date = date
+    this.options = options
   }
 
   get isToday() {
@@ -160,7 +160,7 @@ class ComparativeDate {
   }
 
   get isThisWeek() {
-    return isSame(this.referenceDate, this.date, 'week', this.weekStartsOn)
+    return isSame(this.referenceDate, this.date, 'week', this.options.weekStartsOn)
   }
 
   get isThisMonth() {
