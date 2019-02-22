@@ -65,14 +65,14 @@ for an **Advanced** example, check out:
 
 ## Props
 
-| Option         | Default      | Type                                 | Description                                                                                                  |
-| :------------- | :----------- | :----------------------------------- | :----------------------------------------------------------------------------------------------------------- |
-| **`children`** | `undefined`  | `Function`                           | Render prop component. See [docs below](#render-props) for the options passed                                |
-| `initialDate`, `date`  | `new Date()` | `Date`, `String`, `Number`, `Moment` | `initialDate` sets the initial state of `date` for uncontrolled usage, otherwise use `date` for controlled usage                                                      |
-| `initialNumDays`, `numDays`      | `35`         | `Number`                             | Number of days the calendar should display. If `numDays` > 10, this will be raised to the next multiple of 7. Use `initialNumDays` for uncontrolled usage, `numDays` for controlled |
-| `events`       | `[]`         | `Array<{ date: DateLike }>`          | Events passed into the calendar. These objects will be injected into the correct array by date.              |
-| `weekStartsOn` | `0`          | `Number[0-6]`                        | Weekday to start the week on. Sunday (0) - Saturday (6).                                                     |
-| `render`       | `undefined`  | `Function`                           | Optional, same as `children`                                                                                 |
+| Option                      | Default      | Type                                 | Description                                                                                                                                                                         |
+| :-------------------------- | :----------- | :----------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`children`**              | `undefined`  | `Function`                           | Render prop component. See [docs below](#render-props) for the options passed                                                                                                       |
+| `initialDate`, `date`       | `new Date()` | `Date`, `String`, `Number`, `Moment` | `initialDate` sets the initial state of `date` for uncontrolled usage, otherwise use `date` for controlled usage                                                                    |
+| `initialNumDays`, `numDays` | `35`         | `Number`                             | Number of days the calendar should display. If `numDays` > 10, this will be raised to the next multiple of 7. Use `initialNumDays` for uncontrolled usage, `numDays` for controlled |
+| `events`                    | `[]`         | `Array<{ date: DateLike }>`          | Events passed into the calendar. These objects will be injected into the correct array by date.                                                                                     |
+| `weekStartsOn`              | `0`          | `Number[0-6]`                        | Weekday to start the week on. Sunday (0) - Saturday (6).                                                                                                                            |
+| `render`                    | `undefined`  | `Function`                           | Optional, same as `children`                                                                                                                                                        |
 
 **Note**: the `Calendarx` days grid will adapt depending on the number of days that are specified
 in `numDays`. For example, if 4 is passed in, the first column will start with your `initialDate`. If 7 is passed in (anything <10), the calendar will align itself to the beginning of the week. If `10 < numDays < 365` (the default is 35), the calendar will align to include the entire month and potentially parts of the previous/next month in order to align the grid with your start of the week (default is Sunday).
