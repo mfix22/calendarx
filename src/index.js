@@ -60,7 +60,7 @@ function getButtonProps({ label, onClick }) {
 
 class Calendarx extends React.Component {
   static defaultProps = {
-    numDays: 35,
+    initialNumDays: 35,
     events: [],
     weekStartsOn: DAYS.SUNDAY,
     headers: HEADERS
@@ -86,11 +86,11 @@ class Calendarx extends React.Component {
     }
   }
 
-  jump = (n, unit = 'days') => this.setReferenceDate(add(this.state.referenceDate, n, unit))
+  jump = (n, unit = 'days') => this.setReferenceDate(add(this.getDate(), n, unit))
 
   next = (x = 1) => {
     const jumpBy = typeof x === 'number' ? x : 1
-    const view = getView(this.props.numDays)
+    const view = getView(this.getNumDays())
 
     return this.jump(jumpBy, view)
   }
@@ -113,6 +113,9 @@ class Calendarx extends React.Component {
       return map.set(key, list)
     }, new Map())
   )
+
+  getDate = () => this.props.referenceDate || this.state.referenceDate
+  getNumDays = () => this.props.numDays || this.state.numDays
 
   getChunkedDays = memoizeOne((referenceDate, numDays, weekStartsOn, events) => {
     const eventCache = this.createEventCache(events)
@@ -150,8 +153,8 @@ class Calendarx extends React.Component {
   getPrevButtonProps = getButtonProps({ label: 'Go to previous', onClick: this.prev })
 
   render() {
-    const referenceDate = this.props.referenceDate || this.state.referenceDate
-    const numDays = this.props.numDays || this.state.numDays
+    const referenceDate = this.getDate()
+    const numDays = this.getNumDays()
 
     const { events, weekStartsOn } = this.props
 
