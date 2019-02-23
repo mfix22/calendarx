@@ -2107,10 +2107,10 @@ eslint-plugin-import@^2.16.0:
     read-pkg-up "^2.0.0"
     resolve "^1.9.0"
 
-eslint-plugin-react-hooks@^1.1.0-alpha.1:
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.1.0-alpha.1.tgz#4df0ee992cee25b6b256beb529aa58478e5dc869"
-  integrity sha512-mliA3yxdvED1124X883LEqZhry/c30syJ2hMMOHdiWvqgtPNgf8d7waMxUZx72iAHXwGkt/lGDaWkq5+d9Zn6A==
+eslint-plugin-react-hooks@1.1.0-rc.0:
+  version "1.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.1.0-rc.0.tgz#78a1edf2c528312875df68d6e64083b44864c947"
+  integrity sha512-ujQtPGcBgKw+diEqVxqjK60K2Mg4m4ImfF9AyTPmC6PQCjII2o7gXkLnW/B4PjnST/vbgzmwcYyUX1da7K1m8A==
 
 eslint-plugin-react@^7.12.4:
   version "7.12.4"
