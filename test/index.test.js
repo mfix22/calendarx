@@ -175,10 +175,10 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
 
     const today = flattenedDays[dayInformationMap[numDays]]
 
-    expect(today.isThisDay).toBe(true)
-    expect(today.isThisWeek).toBe(true)
-    expect(today.isThisMonth).toBe(true)
-    expect(today.isThisYear).toBe(true)
+    expect(today.isSame('day')).toBe(true)
+    expect(today.isSame('week')).toBe(true)
+    expect(today.isSame('month')).toBe(true)
+    expect(today.isSame('year')).toBe(true)
     expect(today.events).toEqual([event])
   })
 })

@@ -169,29 +169,9 @@ class ComparativeDate {
     return isSame(this.referenceDate, new Date(), 'day')
   }
 
-  get isThisDay() {
-    return isSame(this.referenceDate, this.date, 'day')
+  isSame(unit = 'day') {
+    return isSame(this.referenceDate, this.date, unit, this.options.weekStartsOn)
   }
 
-  get isThisWeek() {
-    return isSame(this.referenceDate, this.date, 'week', this.options.weekStartsOn)
-  }
-
-  get isThisMonth() {
-    return isSame(this.referenceDate, this.date, 'month')
-  }
-
-  get isThisYear() {
-    return isSame(this.referenceDate, this.date, 'year')
-  }
-
-  // TODO custom getters:
-  // isPreviousDay: mom.isBefore(today, 'day'),
-  // isNextWeek: mom.isAfter(today, 'week'),
-  // isPreviousWeek: mom.isBefore(today, 'week'),
-  // isPreviousMonth: mom.isBefore(today, 'month'),
-  // isPreviousYear: mom.isBefore(today, 'year'),
-  // isNextDay: mom.isAfter(today, 'day'),
-  // isNextMonth: mom.isAfter(today, 'month'),
-  // isNextYear: mom.isAfter(today, 'year')
+  // TODO isPrev, isNext
 }

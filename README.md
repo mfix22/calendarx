@@ -100,9 +100,7 @@ This object contains the following fields/getters:
 - `date`: `Date`
 - `events`: `Event[]`
 - `isToday`: `Boolean`
-- `isThisWeek`: `Boolean`
-- `isThisMonth`: `Boolean`
-- `isThisYear`: `Boolean`
+- `isSame(unit: 'year'|'week'|'month'|'day'): Boolean`: `Function`
 
 ### `Event`
 
