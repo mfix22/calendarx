@@ -153,25 +153,20 @@ function getDays(refDate, numDays, { view, weekStartsOn }) {
 }
 
 export function getMappedDays(refDate, numDays, { view, weekStartsOn }) {
-  return getDays(refDate, numDays, { view, weekStartsOn }).map(
-    date => new ComparativeDate(refDate, date, { view, weekStartsOn })
+  return getDays(refDate, numDays, { view, weekStartsOn }).map(date =>
+    ComparativeDate(refDate, date, { view, weekStartsOn })
   )
 }
 
-class ComparativeDate {
-  constructor(referenceDate, date, options) {
-    this.referenceDate = referenceDate
-    this.date = date
-    this.options = options
+function ComparativeDate(referenceDate, date, options) {
+  return {
+    date,
+    get isToday() {
+      return isSame(referenceDate, new Date(), 'day')
+    },
+    isSame(unit = 'day') {
+      return isSame(referenceDate, date, unit, options.weekStartsOn)
+    }
+    // TODO isPrev, isNext
   }
-
-  get isToday() {
-    return isSame(this.referenceDate, new Date(), 'day')
-  }
-
-  isSame(unit = 'day') {
-    return isSame(this.referenceDate, this.date, unit, this.options.weekStartsOn)
-  }
-
-  // TODO isPrev, isNext
 }
