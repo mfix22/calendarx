@@ -91,6 +91,7 @@ test('isToday', () => {
   })
 
   expect(days[0][0].isToday).toBe(true)
+  expect(days[0][1].isToday).toBe(false)
 })
 
 describe('year', () => {

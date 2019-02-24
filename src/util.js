@@ -162,7 +162,7 @@ function ComparativeDate(referenceDate, date, options) {
   return {
     date,
     get isToday() {
-      return isSame(referenceDate, new Date(), 'day')
+      return isSame(date, new Date(), 'day')
     },
     isSame(unit = 'day') {
       return isSame(referenceDate, date, unit, options.weekStartsOn)
