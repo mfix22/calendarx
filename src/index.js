@@ -58,6 +58,21 @@ function getButtonProps({ label, onClick }) {
   }
 }
 
+function createEventCache(events) {
+  return events.reduce((map, event) => {
+    if (!event.date) {
+      return map
+    }
+
+    const key = getDateKey(event.date)
+
+    const list = map.get(key) || []
+    list.push(event)
+
+    return map.set(key, list)
+  }, new Map())
+}
+
 class Calendarx extends React.Component {
   static defaultProps = {
     initialNumDays: 35,
@@ -95,30 +110,15 @@ class Calendarx extends React.Component {
     return this.jump(jumpBy, view)
   }
 
-  prev = (x = -1) => this.next(x)
+  prev = (x = 1) => this.next(-x)
 
   today = () => this.setReferenceDate(new Date())
-
-  createEventCache = memoizeOne(events =>
-    events.reduce((map, event) => {
-      if (!event.date) {
-        return map
-      }
-
-      const key = getDateKey(event.date)
-
-      const list = map.get(key) || []
-      list.push(event)
-
-      return map.set(key, list)
-    }, new Map())
-  )
 
   getDate = () => this.props.referenceDate || this.state.referenceDate
   getNumDays = () => this.props.numDays || this.state.numDays
 
   getChunkedDays = memoizeOne((referenceDate, numDays, weekStartsOn, events) => {
-    const eventCache = this.createEventCache(events)
+    const eventCache = createEventCache(events)
     const view = getView(numDays)
 
     const days = getMappedDays(referenceDate, numDays, { weekStartsOn, view })
