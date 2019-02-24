@@ -1,9 +1,8 @@
 import React from 'react'
-import memoizeOne from 'memoize-one'
 
 import { add, getMappedDays, chunk } from './util'
 
-const DAYS = {
+export const DAYS = {
   SUNDAY: 0,
   MONDAY: 1,
   TUESDAY: 2,
@@ -13,7 +12,7 @@ const DAYS = {
   SATURDAY: 6
 }
 
-const VIEWS = {
+export const VIEWS = {
   DAY: 'day',
   WEEK: 'week',
   MONTH: 'month',
@@ -73,55 +72,73 @@ function createEventCache(events) {
   }, new Map())
 }
 
-class Calendarx extends React.Component {
-  static defaultProps = {
-    initialNumDays: 35,
-    events: [],
-    weekStartsOn: DAYS.SUNDAY,
-    headers: HEADERS
-  }
+export function useCalendar(props) {
+  const [dateState, setDateState] = React.useState(format(props.initialDate))
+  const [numDaysState, setNumDaysState] = React.useState(Math.max(props.initialNumDays, 0))
 
-  static days = DAYS
-  static views = VIEWS
+  const referenceDate = props.referenceDate || dateState
+  const numDays = props.numDays || numDaysState
 
-  state = {
-    referenceDate: format(this.props.initialDate),
-    numDays: Math.max(this.props.initialNumDays, 0)
-  }
+  const setReferenceDate = React.useCallback(
+    newDate => {
+      if (!props.referenceDate) {
+        setDateState(format(newDate))
+      }
+    },
+    [props.referenceDate]
+  )
 
-  setReferenceDate = newDate => {
-    if (!this.props.date) {
-      this.setState({ referenceDate: format(newDate) })
-    }
-  }
+  const setNumDays = React.useCallback(
+    numDays => {
+      if (!props.numDays) {
+        setNumDaysState(Math.max(numDays, 0))
+      }
+    },
+    [props.numDays]
+  )
 
-  setNumDays = numDays => {
-    if (!this.props.numDays) {
-      this.setState({ numDays: Math.max(numDays, 0) })
-    }
-  }
+  const jump = React.useCallback(
+    (n, unit = 'days') => setReferenceDate(add(referenceDate, n, unit)),
+    [referenceDate, setReferenceDate]
+  )
 
-  jump = (n, unit = 'days') => this.setReferenceDate(add(this.getDate(), n, unit))
+  const next = React.useCallback(
+    (x = 1) => {
+      const jumpBy = typeof x === 'number' ? x : 1
+      const view = getView(numDays)
 
-  next = (x = 1) => {
-    const jumpBy = typeof x === 'number' ? x : 1
-    const view = getView(this.getNumDays())
+      return jump(jumpBy, view)
+    },
+    [jump, numDays]
+  )
 
-    return this.jump(jumpBy, view)
-  }
+  const prev = React.useCallback((x = 1) => next(-x), [next])
 
-  prev = (x = 1) => this.next(-x)
+  const today = React.useCallback(() => setReferenceDate(new Date()), [setReferenceDate])
 
-  today = () => this.setReferenceDate(new Date())
+  // https://ej2.syncfusion.com/documentation/calendar/accessibility/
+  const getTodayButtonProps = React.useMemo(
+    () => getButtonProps({ label: 'Go to today', onClick: today }),
+    [today]
+  )
+  const getNextButtonProps = React.useMemo(
+    () => getButtonProps({ label: 'Go to next', onClick: next }),
+    [next]
+  )
+  const getPrevButtonProps = React.useMemo(
+    () => getButtonProps({ label: 'Go to previous', onClick: prev }),
+    [prev]
+  )
 
-  getDate = () => this.props.date || this.state.referenceDate
-  getNumDays = () => this.props.numDays || this.state.numDays
+  const { events, weekStartsOn } = props
 
-  getChunkedDays = memoizeOne((referenceDate, numDays, weekStartsOn, events) => {
+  const date = new Date(referenceDate)
+
+  const days = React.useMemo(() => {
     const eventCache = createEventCache(events)
     const view = getView(numDays)
 
-    const days = getMappedDays(referenceDate, numDays, { weekStartsOn, view })
+    const days = getMappedDays(date, numDays, { weekStartsOn, view })
 
     const daysWithEvents = days.map(day => {
       const key = getDateKey(day.date)
@@ -135,62 +152,58 @@ class Calendarx extends React.Component {
 
     // chunks days into week arrays of day arrays
     return chunk(daysWithEvents, 7)
-  })
+  }, [numDays, date, events, weekStartsOn])
 
-  getHeaders = memoizeOne((headers, starting, length) => {
-    return Array.from({ length }, (_, i) => {
-      const day = (starting + i) % headers.length
-      return {
-        title: headers[day],
-        day
-      }
-    })
-  })
+  const view = getView(numDays)
 
-  // https://ej2.syncfusion.com/documentation/calendar/accessibility/
-  getTodayButtonProps = getButtonProps({ label: 'Go to today', onClick: this.today })
-  getNextButtonProps = getButtonProps({ label: 'Go to next', onClick: this.next })
-  getPrevButtonProps = getButtonProps({ label: 'Go to previous', onClick: this.prev })
+  const starting = view === 'day' ? date.getDay() : weekStartsOn
+  const length = days[0].length
+  const headers = React.useMemo(
+    () =>
+      Array.from({ length }, (_, i) => {
+        const day = (starting + i) % props.headers.length
+        return {
+          title: props.headers[day],
+          day
+        }
+      }),
+    [props.headers, length, starting]
+  )
 
-  render() {
-    const referenceDate = this.getDate()
-    const numDays = this.getNumDays()
-
-    const { events, weekStartsOn } = this.props
-
-    const view = getView(numDays)
-
-    const date = new Date(referenceDate)
-    const days = this.getChunkedDays(date, numDays, weekStartsOn, events)
-
-    const headers = this.getHeaders(
-      this.props.headers,
-      view === 'day' ? date.getDay() : weekStartsOn,
-      days[0].length
-    )
-
-    const Component = this.props.children || this.props.render
-    return (
-      <Component
-        {...{
-          date,
-          days,
-          headers,
-          view,
-          numDays,
-          jump: this.jump,
-          goToNext: this.next,
-          goToPrev: this.prev,
-          goToToday: this.today,
-          goToDate: this.setReferenceDate,
-          getPrevButtonProps: this.getPrevButtonProps,
-          getNextButtonProps: this.getNextButtonProps,
-          getTodayButtonProps: this.getTodayButtonProps,
-          setNumDays: this.setNumDays
-        }}
-      />
-    )
+  return {
+    date,
+    days,
+    headers,
+    view,
+    numDays,
+    jump,
+    // TODO make these deeper so you don't have to read through too many props when getting started?
+    goToNext: next,
+    goToPrev: prev,
+    goToToday: today,
+    goToDate: setReferenceDate,
+    getPrevButtonProps,
+    getNextButtonProps,
+    getTodayButtonProps,
+    setNumDays
   }
 }
 
-export default Calendarx
+export function Calendar(props) {
+  const stuff = useCalendar(props)
+
+  const Component = props.children || props.render
+  return React.createElement(Component, stuff)
+}
+
+Calendar.defaultProps = {
+  initialNumDays: 35,
+  events: [],
+  weekStartsOn: DAYS.SUNDAY,
+  headers: HEADERS
+}
+
+Calendar.days = DAYS
+Calendar.views = VIEWS
+
+export default Calendar

@@ -14,15 +14,12 @@
     "format": "prettier {src,test}/*.js --single-quote --no-semi --print-width=100 --write",
     "prepublish": "yarn test && yarn build"
   },
-  "dependencies": {
-    "memoize-one": "^5.0.0"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": "^15"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
-    "@babel/plugin-proposal-class-properties": "^7.3.3",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
