@@ -81,6 +81,8 @@ in `numDays`. For example, if 4 is passed in, the first column will start with y
 
 ## Children Properties
 
+The following will be passed to your `props.children` or `props.render` function:
+
 | Option      | Type                                                            | Description                                                                        |
 | :---------- | :-------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
 | `days`      | `Day[][]`                                                       | 2-dimentional grid of objects representing each calendar day                       |
@@ -101,7 +103,7 @@ This object contains the following fields/getters:
 - `date`: `Date`
 - `events`: `Event[]`
 - `isToday`: `Boolean`
-- `isSame(unit: 'year'|'week'|'month'|'day'): Boolean`: `Function`
+- `isSame(unit: 'year'|'month'|'week'|'day'): Boolean`: `Function`
 
 ### `Event`
 
