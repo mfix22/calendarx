@@ -1,4 +1,4 @@
-# 📅 Calenda**rx**
+# 📅 `Calendarx`
 
 > Your go-to, prescribed, Calendar component for React
 
