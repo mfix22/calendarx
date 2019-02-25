@@ -13,7 +13,7 @@ module.exports = {
     },
     sourceType: 'module'
   },
-  plugins: ['react', 'import', 'react-hooks'],
+  plugins: ['import', 'react', 'react-hooks'],
   rules: {
     'no-console': 'warn',
     'react/prop-types': 'off',
@@ -24,7 +24,7 @@ module.exports = {
   },
   settings: {
     react: {
-      version: '16.8'
+      version: 'detect'
     }
   }
 }
