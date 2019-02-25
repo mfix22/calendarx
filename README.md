@@ -1,6 +1,6 @@
 # 📅 Calenda**rx**
 
-> A React state container for building Calendar components
+> Your go-to, prescribed, Calendar component for React
 
 Calendarx is a state container for creating calendar components. With a simple API, Calendarx makes it easy to display days and events, changes views, and advance between the months, weeks, and days.
 
