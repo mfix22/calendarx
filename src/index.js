@@ -86,7 +86,7 @@ class Calendarx extends React.Component {
 
   state = {
     referenceDate: format(this.props.initialDate),
-    numDays: this.props.initialNumDays
+    numDays: Math.max(this.props.initialNumDays, 0)
   }
 
   setReferenceDate = newDate => {
@@ -97,7 +97,7 @@ class Calendarx extends React.Component {
 
   setNumDays = numDays => {
     if (!this.props.numDays) {
-      this.setState({ numDays })
+      this.setState({ numDays: Math.max(numDays, 0) })
     }
   }
 
@@ -160,10 +160,8 @@ class Calendarx extends React.Component {
 
     const view = getView(numDays)
 
-    const adjustedNumDays = Math.max(numDays, 0)
-
     const date = new Date(referenceDate)
-    const days = this.getChunkedDays(date, adjustedNumDays, weekStartsOn, events)
+    const days = this.getChunkedDays(date, numDays, weekStartsOn, events)
 
     const headers = this.getHeaders(
       this.props.headers,
@@ -181,7 +179,6 @@ class Calendarx extends React.Component {
           view,
           numDays,
           jump: this.jump,
-          // TODO make these deeper so you don't have to read through too many props when getting started?
           goToNext: this.next,
           goToPrev: this.prev,
           goToToday: this.today,
