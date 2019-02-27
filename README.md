@@ -137,7 +137,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://www.buymeacoffee.com/fix"><img src="https://avatars0.githubusercontent.com/u/8397708?v=4" width="100px;" alt="Michael Fix"/><br /><sub><b>Michael Fix</b></sub></a><br /><a href="https://github.com/mfix22/calendarx/commits?author=mfix22" title="Code">💻</a> <a href="#ideas-mfix22" title="Ideas, Planning, & Feedback">🤔</a></td></tr></table>
+<table><tr><td align="center"><a href="https://www.buymeacoffee.com/fix"><img src="https://avatars0.githubusercontent.com/u/8397708?v=4" width="100px;" alt="Michael Fix"/><br /><sub><b>Michael Fix</b></sub></a><br /><a href="https://github.com/mfix22/calendarx/commits?author=mfix22" title="Code">💻</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
