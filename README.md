@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="assets/logo.png" width="512" alt="calendarx">
-</p>
-
 # 📅 `Calendarx`
 
 > Your go-to, prescribed, Calendar component for React
@@ -129,3 +125,9 @@ Please do! If you have ideas, bug fixes, or examples to showcase, please [submit
 ## Inspiration 💫
 
 This project was inspired by Kyle Stetz's [CLNDR](http://kylestetz.github.io/CLNDR/).
+
+---
+
+<p align="center">
+  <img src="assets/logo.png" width="100%" alt="calendarx">
+</p>
