@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" width="512" alt="calendarx">
+</p>
+
 # 📅 `Calendarx`
 
 > Your go-to, prescribed, Calendar component for React
