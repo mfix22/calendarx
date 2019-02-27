@@ -24,7 +24,7 @@ or
 npm install calendarx
 ```
 
-## Examples
+## Example Usage
 
 ```javascript
 import Calendar from 'calendarx'
