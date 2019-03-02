@@ -177,7 +177,6 @@ export function useCalendar(props) {
     view,
     numDays,
     jump,
-    // TODO make these deeper so you don't have to read through too many props when getting started?
     goToNext: next,
     goToPrev: prev,
     goToToday: today,
