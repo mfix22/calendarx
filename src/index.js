@@ -21,6 +21,13 @@ export const VIEWS = {
 
 const HEADERS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
+const DEFAULTS = {
+  initialNumDays: 35,
+  events: [],
+  weekStartsOn: DAYS.SUNDAY,
+  headers: HEADERS
+}
+
 function getDateKey(date) {
   return date.toISOString().split('T')[0]
 }
@@ -72,29 +79,37 @@ function createEventCache(events) {
   }, new Map())
 }
 
-export function useCalendar(props) {
-  const [dateState, setDateState] = React.useState(format(props.initialDate))
-  const [numDaysState, setNumDaysState] = React.useState(Math.max(props.initialNumDays, 0))
+export function useCalendar({
+  initialDate,
+  initialNumDays = DEFAULTS.initialNumDays,
+  date: dateProp,
+  numDays: numDaysProp,
+  events = DEFAULTS.weekStartsOn,
+  weekStartsOn = DEFAULTS.weekStartsOn,
+  headers: headersProp = DEFAULTS.headers
+} = DEFAULTS) {
+  const [dateState, setDateState] = React.useState(format(initialDate))
+  const [numDaysState, setNumDaysState] = React.useState(Math.max(initialNumDays, 0))
 
-  const referenceDate = props.referenceDate || dateState
-  const numDays = props.numDays || numDaysState
+  const referenceDate = dateProp || dateState
+  const numDays = numDaysProp || numDaysState
 
   const setReferenceDate = React.useCallback(
     newDate => {
-      if (!props.referenceDate) {
+      if (!dateProp) {
         setDateState(format(newDate))
       }
     },
-    [props.referenceDate]
+    [dateProp]
   )
 
   const setNumDays = React.useCallback(
     numDays => {
-      if (!props.numDays) {
+      if (!numDaysProp) {
         setNumDaysState(Math.max(numDays, 0))
       }
     },
-    [props.numDays]
+    [numDaysProp]
   )
 
   const jump = React.useCallback(
@@ -130,8 +145,6 @@ export function useCalendar(props) {
     [prev]
   )
 
-  const { events, weekStartsOn } = props
-
   const date = new Date(referenceDate)
 
   const days = React.useMemo(() => {
@@ -161,13 +174,13 @@ export function useCalendar(props) {
   const headers = React.useMemo(
     () =>
       Array.from({ length }, (_, i) => {
-        const day = (starting + i) % props.headers.length
+        const day = (starting + i) % headersProp.length
         return {
-          title: props.headers[day],
+          title: headersProp[day],
           day
         }
       }),
-    [props.headers, length, starting]
+    [headersProp, length, starting]
   )
 
   return {
@@ -195,12 +208,7 @@ export function Calendar(props) {
   return React.createElement(Component, stuff)
 }
 
-Calendar.defaultProps = {
-  initialNumDays: 35,
-  events: [],
-  weekStartsOn: DAYS.SUNDAY,
-  headers: HEADERS
-}
+Calendar.defaultProps = DEFAULTS
 
 Calendar.days = DAYS
 Calendar.views = VIEWS
