@@ -1,6 +1,6 @@
 {
   "name": "calendarx",
-  "version": "1.1.0-1",
+  "version": "1.1.0-2",
   "description": "React calendar component library",
   "main": "dist/calendarx.js",
   "umd:main": "dist/calendarx.umd.js",
