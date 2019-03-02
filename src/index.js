@@ -2,7 +2,7 @@ import React from 'react'
 
 import { add, getMappedDays, chunk } from './util'
 
-export const DAYS = {
+const DAYS = {
   SUNDAY: 0,
   MONDAY: 1,
   TUESDAY: 2,
@@ -12,7 +12,7 @@ export const DAYS = {
   SATURDAY: 6
 }
 
-export const VIEWS = {
+const VIEWS = {
   DAY: 'day',
   WEEK: 'week',
   MONTH: 'month',
@@ -79,7 +79,7 @@ function createEventCache(events) {
   }, new Map())
 }
 
-export function useCalendar({
+function useCalendar({
   initialDate,
   initialNumDays = DEFAULTS.initialNumDays,
   date: dateProp,
@@ -201,7 +201,7 @@ export function useCalendar({
   }
 }
 
-export function Calendar(props) {
+function Calendar(props) {
   const stuff = useCalendar(props)
 
   const Component = props.children || props.render
@@ -209,6 +209,8 @@ export function Calendar(props) {
 }
 
 Calendar.defaultProps = DEFAULTS
+
+Calendar.useCalendar = useCalendar
 
 Calendar.days = DAYS
 Calendar.views = VIEWS
