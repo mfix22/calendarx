@@ -90,7 +90,7 @@ class Calendarx extends React.Component {
   }
 
   setReferenceDate = newDate => {
-    if (!this.props.referenceDate) {
+    if (!this.props.date) {
       this.setState({ referenceDate: format(newDate) })
     }
   }
@@ -114,7 +114,7 @@ class Calendarx extends React.Component {
 
   today = () => this.setReferenceDate(new Date())
 
-  getDate = () => this.props.referenceDate || this.state.referenceDate
+  getDate = () => this.props.date || this.state.referenceDate
   getNumDays = () => this.props.numDays || this.state.numDays
 
   getChunkedDays = memoizeOne((referenceDate, numDays, weekStartsOn, events) => {
