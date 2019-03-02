@@ -84,7 +84,7 @@ function useCalendar({
   initialNumDays = DEFAULTS.initialNumDays,
   date: dateProp,
   numDays: numDaysProp,
-  events = DEFAULTS.weekStartsOn,
+  events = DEFAULTS.events,
   weekStartsOn = DEFAULTS.weekStartsOn,
   headers: headersProp = DEFAULTS.headers
 } = DEFAULTS) {

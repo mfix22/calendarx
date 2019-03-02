@@ -67,6 +67,21 @@ const BASIC_CASES = {
   ]
 }
 
+test('hooks defaults', () => {
+  const cases = [{}, undefined]
+  cases.forEach(options => {
+    function MyCalendar() {
+      const { date } = Calendar.useCalendar(options)
+
+      return getDateKey(date)
+    }
+
+    const { container } = rtlRender(React.createElement(MyCalendar))
+
+    expect(container.firstChild.textContent).toBe(getDateKey(new Date()))
+  })
+})
+
 test('defaults', () => {
   const { date, numDays, headers } = render()
 
@@ -247,7 +262,7 @@ describe('props', () => {
 })
 
 function renderButtons(options) {
-  const children = jest.fn(
+  const render = jest.fn(
     ({ date, getPrevButtonProps, getNextButtonProps, getTodayButtonProps }) => (
       <div>
         <span>{getDateKey(date)}</span>
@@ -257,7 +272,8 @@ function renderButtons(options) {
       </div>
     )
   )
-  return rtlRender(React.createElement(Calendar, options, children))
+  options.render = render
+  return rtlRender(React.createElement(Calendar, options))
 }
 
 describe('actions', () => {
