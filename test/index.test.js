@@ -197,6 +197,41 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
     expect(today.isSame('year')).toBe(true)
     expect(today.events).toEqual([event])
   })
+
+  test('multi-day events span all the relevant days', () => {
+    const date1 = moment('2019-02-18', 'YYYY-MM-DD'),
+      date2 =  moment('2019-02-20', 'YYYY-MM-DD'),
+      event = { date: date1, date2, title: 'Multi-day Event Title' };
+
+    const { children, days } = render({
+      initialDate: date1,
+      numDays: numDays < 5 ? 5 : numDays, // Have at least 5 days so we can test days before, during (at start, between, and end), and after events
+      children,
+      events: [event]
+    });
+
+    const getDay = (date) => {
+      for (const week of days) {
+        for (const day of week) {
+          if (date.isSame(day.date, "day")) {
+            return day;
+          }
+        }
+      }
+    };
+
+    const before = getDay(moment('2019-02-17', 'YYYY-MM-DD')),
+      d1 = getDay(date1),
+      d2 = getDay(moment('2019-02-19', 'YYYY-MM-DD')),
+      d3 = getDay(date2),
+      after = getDay(moment('2019-02-21', 'YYYY-MM-DD'));
+
+    expect(before.events).toEqual([]);
+    expect(d1.events).toEqual([event]);
+    expect(d2.events).toEqual([event]);
+    expect(d3.events).toEqual([event]);
+    expect(after.events).toEqual([]);
+  })
 })
 
 describe('props', () => {

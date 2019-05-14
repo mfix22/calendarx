@@ -168,3 +168,26 @@ function ComparativeDate(referenceDate, date, options) {
     // TODO isPrev, isNext
   }
 }
+
+export function getDaysEvents(day, events) {
+  if (!events || events.length === 0) {
+    return [];
+  }
+
+  const result = [];
+    
+  for (const event of events) {
+    const { date, date2 } = event,
+      date1 = date || event.date1;
+
+    if (!date1) {
+      continue;
+    }
+
+    if (date1.isSame(day.date) || (date2 && date1.isSameOrBefore(day.date) && date2.isSameOrAfter(day.date))) {
+      result.push(event);
+    }
+  }
+
+  return result;
+}
