@@ -132,9 +132,9 @@ function useCalendar({
   events.map(event => {
     const { date, startDate, endDate } = event;
   
-    date && (event.date = new Date(event.date));
-    startDate && (event.startDate = new Date(event.startDate));
-    endDate && (event.endDate = new Date(event.endDate));
+    date && (event.date = new Date(date));
+    startDate && (event.startDate = new Date(startDate));
+    endDate && (event.endDate = new Date(endDate));
   
     return event;
   })

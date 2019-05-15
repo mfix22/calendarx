@@ -3,7 +3,7 @@ import { render as rtlRender, fireEvent } from 'react-testing-library'
 import moment from 'moment'
 
 import Calendar from '../src'
-import { isSameDay } from '../src/util';
+import { isSame } from '../src/util';
 
 function render(options) {
   const children = jest.fn(() => null)
@@ -216,7 +216,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
     const getDay = (date) => {
       for (const week of days) {
         for (const day of week) {
-          if (isSameDay(date, day.date)) {
+          if (isSame(date, day.date, "day")) {
             return day;
           }
         }
