@@ -7,7 +7,7 @@ Calendarx is a state container that makes creating custom calendar components a 
 [![npm](https://img.shields.io/npm/v/calendarx.svg?style=flat)](https://www.npmjs.org/package/calendarx)
 [![bundle size](https://badgen.net/bundlephobia/min/calendarx)](https://bundlephobia.com/result?p=rexrex)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 
@@ -137,7 +137,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://www.buymeacoffee.com/fix"><img src="https://avatars0.githubusercontent.com/u/8397708?v=4" width="100px;" alt="Michael Fix"/><br /><sub><b>Michael Fix</b></sub></a><br /><a href="https://github.com/mfix22/calendarx/commits?author=mfix22" title="Code">💻</a></td></tr></table>
+<table><tr><td align="center"><a href="https://www.buymeacoffee.com/fix"><img src="https://avatars0.githubusercontent.com/u/8397708?v=4" width="100px;" alt="Michael Fix"/><br /><sub><b>Michael Fix</b></sub></a><br /><a href="https://github.com/mfix22/calendarx/commits?author=mfix22" title="Code">💻</a></td><td align="center"><a href="https://github.com/filipemir"><img src="https://avatars2.githubusercontent.com/u/13949291?v=4" width="100px;" alt="Filipe"/><br /><sub><b>Filipe</b></sub></a><br /><a href="https://github.com/mfix22/calendarx/commits?author=filipemir" title="Code">💻</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
