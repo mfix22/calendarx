@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { add, getMappedDays, chunk } from './util'
+import { add, getMappedDays, chunk, getDaysEvents } from './util'
 
 const DAYS = {
   SUNDAY: 0,
@@ -26,10 +26,6 @@ const DEFAULTS = {
   events: [],
   weekStartsOn: DAYS.SUNDAY,
   headers: HEADERS
-}
-
-function getDateKey(date) {
-  return date.toISOString().split('T')[0]
 }
 
 function format(dateLike) {
@@ -62,21 +58,6 @@ function getButtonProps({ label, onClick }) {
       }
     }
   }
-}
-
-function createEventCache(events) {
-  return events.reduce((map, event) => {
-    if (!event.date) {
-      return map
-    }
-
-    const key = getDateKey(event.date)
-
-    const list = map.get(key) || []
-    list.push(event)
-
-    return map.set(key, list)
-  }, new Map())
 }
 
 function useCalendar({
@@ -147,15 +128,24 @@ function useCalendar({
 
   const date = new Date(referenceDate)
 
+  // Ensure events dates are stored as Date objects
+  events.map(event => {
+    const { date, startDate, endDate } = event;
+  
+    date && (event.date = new Date(date));
+    startDate && (event.startDate = new Date(startDate));
+    endDate && (event.endDate = new Date(endDate));
+  
+    return event;
+  })
+
   const days = React.useMemo(() => {
-    const eventCache = createEventCache(events)
     const view = getView(numDays)
 
     const days = getMappedDays(date, numDays, { weekStartsOn, view })
 
     const daysWithEvents = days.map(day => {
-      const key = getDateKey(day.date)
-      day.events = eventCache.get(key) || []
+      day.events = getDaysEvents(day, events);
       return day
     })
 

@@ -168,3 +168,30 @@ function ComparativeDate(referenceDate, date, options) {
     // TODO isPrev, isNext
   }
 }
+
+function dateWithinRange(date, rangeStart, rangeEnd) {
+  return date.getTime() >= rangeStart.getTime() && date.getTime() <= rangeEnd.getTime();
+}
+
+export function getDaysEvents(day, events) {
+  if (!events || events.length === 0) {
+    return [];
+  }
+
+  const result = [];
+    
+  for (const event of events) {
+    const { date, startDate, endDate } = event;
+
+    if (date && isSame(day.date, date, "day")) {
+      result.push(event);
+      continue;
+    }
+
+    if (startDate && endDate && dateWithinRange(day.date, startDate, endDate)) {
+      result.push(event);
+    }
+  }
+
+  return result;
+}

@@ -3,6 +3,7 @@ import { render as rtlRender, fireEvent } from 'react-testing-library'
 import moment from 'moment'
 
 import Calendar from '../src'
+import { isSame } from '../src/util';
 
 function render(options) {
   const children = jest.fn(() => null)
@@ -196,6 +197,44 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
     expect(today.isSame('month')).toBe(true)
     expect(today.isSame('year')).toBe(true)
     expect(today.events).toEqual([event])
+  })
+
+  test('multi-day events span all the relevant days', () => {
+    const startDate = '2019-02-19',
+      endDate =  '2019-02-21',
+      event1 = { startDate: startDate, endDate: endDate, title: 'Multi-day Event Title' },
+      event2 = { startDate: '2019-02-20', endDate: '2019-02-22', title: 'Another Multi-day Event Title' };
+
+    const { children, days } = render({
+      initialDate: '2019-02-19',
+      weekStartsOn: 0,
+      numDays: numDays < 5 ? 5 : numDays, // Have at least 5 days so we can test days before, during (at start, between, and end), and after events
+      children,
+      events: [event1, event2]
+    });
+
+    const getDay = (date) => {
+      for (const week of days) {
+        for (const day of week) {
+          if (isSame(date, day.date, "day")) {
+            return day;
+          }
+        }
+      }
+    };
+
+    const before = getDay(new Date('2019-02-18')),
+      d1 = getDay(new Date(startDate)),
+      d2 = getDay(new Date('2019-02-20')),
+      d3 = getDay(new Date(endDate)),
+      after = getDay(new Date('2019-02-22'));
+
+    expect(before.events).toEqual([]);
+    expect(d1.events).toEqual([event1]);
+    expect(d2.events).toEqual([event1, event2]);
+    expect(d3.events).toEqual([event1, event2]);
+    expect(after.events).toEqual([event2]);
+
   })
 })
 
