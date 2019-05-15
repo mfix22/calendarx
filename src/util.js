@@ -169,6 +169,29 @@ function ComparativeDate(referenceDate, date, options) {
   }
 }
 
+/**
+ * @param {Date} date
+ * @param {Date} rangeStart 
+ * @param {Date} rangeEnd 
+ */
+function dateWithinRange(date, rangeStart, rangeEnd) {
+  return date.getTime() >= rangeStart.getTime() && date.getTime() <= rangeEnd.getTime();
+}
+
+/**
+ * @param {Date} date1 
+ * @param {Date} date2 
+ */
+export function isSameDay(date1, date2) {
+  return date1.getFullYear() === date2.getFullYear()
+    && date1.getMonth() === date2.getMonth()
+    && date1.getDate() === date2.getDate();
+}
+
+/**
+ * @param {CalendarxDay} day 
+ * @param {CalendarxEvent[]} events 
+ */
 export function getDaysEvents(day, events) {
   if (!events || events.length === 0) {
     return [];
@@ -177,14 +200,14 @@ export function getDaysEvents(day, events) {
   const result = [];
     
   for (const event of events) {
-    const { date, date2 } = event,
-      date1 = date || event.date1;
+    const { date, startDate, endDate } = event;
 
-    if (!date1) {
+    if (date && isSameDay(day.date, date)) {
+      result.push(event);
       continue;
     }
 
-    if (date1.isSame(day.date) || (date2 && date1.isSameOrBefore(day.date) && date2.isSameOrAfter(day.date))) {
+    if (startDate && endDate && dateWithinRange(day.date, startDate, endDate)) {
       result.push(event);
     }
   }

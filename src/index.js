@@ -128,6 +128,17 @@ function useCalendar({
 
   const date = new Date(referenceDate)
 
+  // Ensure events dates are stored as Date objects
+  events.map(event => {
+    const { date, startDate, endDate } = event;
+  
+    date && (event.date = new Date(event.date));
+    startDate && (event.startDate = new Date(event.startDate));
+    endDate && (event.endDate = new Date(event.endDate));
+  
+    return event;
+  })
+
   const days = React.useMemo(() => {
     const view = getView(numDays)
 
