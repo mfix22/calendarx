@@ -1,5 +1,5 @@
 import React from 'react'
-import { render as rtlRender, fireEvent } from 'react-testing-library'
+import { render as rtlRender, fireEvent } from '@testing-library/react'
 import moment from 'moment'
 
 import Calendar from '../src'

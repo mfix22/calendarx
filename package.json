@@ -22,6 +22,7 @@
     "@babel/core": "^7.3.3",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
+    "@testing-library/react": "^8.0.1",
     "all-contributors-cli": "^6.1.2",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
@@ -34,8 +35,7 @@
     "moment": "^2.24.0",
     "prettier": "^1.16.4",
     "react": "^16.8.3",
-    "react-dom": "^16.8.3",
-    "react-testing-library": "^5.8.0"
+    "react-dom": "^16.8.3"
   },
   "license": "MIT",
   "repository": {
@@ -54,7 +54,7 @@
   "jest": {
     "clearMocks": true,
     "setupFilesAfterEnv": [
-      "react-testing-library/cleanup-after-each"
+      "@testing-library/react/cleanup-after-each"
     ]
   }
 }
