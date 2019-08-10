@@ -129,14 +129,20 @@ function useCalendar({
   const date = new Date(referenceDate)
 
   // Ensure events dates are stored as Date objects
-  events.map(event => {
-    const { date, startDate, endDate } = event;
-  
-    date && (event.date = new Date(date));
-    startDate && (event.startDate = new Date(startDate));
-    endDate && (event.endDate = new Date(endDate));
-  
-    return event;
+  events.forEach(event => {
+    const { date, startDate, endDate } = event
+
+    if (date) {
+      event.date = new Date(date)
+    }
+    if (startDate) {
+      event.startDate = new Date(startDate)
+    }
+    if (endDate) {
+      event.endDate = new Date(endDate)
+    }
+
+    return event
   })
 
   const days = React.useMemo(() => {
@@ -144,10 +150,10 @@ function useCalendar({
 
     const days = getMappedDays(date, numDays, { weekStartsOn, view })
 
-    const daysWithEvents = days.map(day => {
-      day.events = getDaysEvents(day, events);
-      return day
-    })
+    const daysWithEvents = days.map(day => ({
+      ...day,
+      events: getDaysEvents(day, events)
+    }))
 
     if (view === VIEWS.DAY || view === VIEWS.WEEK) {
       return [daysWithEvents]
