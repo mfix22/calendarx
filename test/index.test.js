@@ -212,7 +212,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
     const { children, days } = render({
       initialDate: '2019-02-19',
       weekStartsOn: 0,
-      numDays: numDays < 5 ? 5 : numDays, // Have at least 5 days so we can test days before, during (at start, between, and end), and after events
+      numDays: 35,
       children,
       events: [event1, event2]
     })
