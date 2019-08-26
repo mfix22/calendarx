@@ -217,7 +217,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
       events: [event1, event2]
     })
 
-    let getDay = date => {
+    const getDay = date => {
       for (const week of days) {
         for (const day of week) {
           if (isSame(date, day.date, 'day')) {
@@ -231,17 +231,6 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
     const d1 = getDay(new Date(startDate))
     const d2 = getDay(new Date('2019-02-20'))
     const d3 = getDay(new Date(endDate))
-
-    getDay = date => {
-      for (const week of days) {
-        for (const day of week) {
-          console.log(date, day.date)
-          if (isSame(date, day.date, 'day')) {
-            return day
-          }
-        }
-      }
-    }
     const after = getDay(new Date('2019-02-22'))
 
     expect(before.events).toEqual([])
