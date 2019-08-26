@@ -212,14 +212,12 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
     const { children, days } = render({
       initialDate: '2019-02-19',
       weekStartsOn: 0,
-      numDays: numDays < 5 ? 5 : numDays, // Have at least 5 days so we can test days before, during (at start, between, and end), and after events
+      numDays: 35,
       children,
       events: [event1, event2]
     })
 
-    console.log(JSON.stringify(days, null, 2))
-
-    const getDay = date => {
+    let getDay = date => {
       for (const week of days) {
         for (const day of week) {
           if (isSame(date, day.date, 'day')) {
@@ -233,6 +231,17 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
     const d1 = getDay(new Date(startDate))
     const d2 = getDay(new Date('2019-02-20'))
     const d3 = getDay(new Date(endDate))
+
+    getDay = date => {
+      for (const week of days) {
+        for (const day of week) {
+          console.log(date, day.date)
+          if (isSame(date, day.date, 'day')) {
+            return day
+          }
+        }
+      }
+    }
     const after = getDay(new Date('2019-02-22'))
 
     expect(before.events).toEqual([])
