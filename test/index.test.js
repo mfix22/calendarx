@@ -217,6 +217,8 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
       events: [event1, event2]
     })
 
+    console.log(JSON.stringify(days, null, 2))
+
     const getDay = date => {
       for (const week of days) {
         for (const day of week) {
