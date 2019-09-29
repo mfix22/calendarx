@@ -22,23 +22,23 @@
     "react": "^16.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.4",
-    "@babel/preset-env": "^7.5.4",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
-    "@testing-library/react": "^8.0.4",
-    "all-contributors-cli": "^6.7.0",
-    "babel-eslint": "^10.0.2",
-    "babel-jest": "^24.8.0",
-    "eslint": "^6.0.1",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-react": "^7.14.2",
-    "eslint-plugin-react-hooks": "^1.6.1",
-    "jest": "^24.8.0",
+    "@testing-library/react": "^9.2.0",
+    "all-contributors-cli": "^6.9.1",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.5.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.1.1",
+    "jest": "^24.9.0",
     "microbundle": "^0.11.0",
     "moment": "^2.24.0",
     "prettier": "^1.18.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1"
   },
   "license": "MIT",
   "repository": {
@@ -55,9 +55,6 @@
   },
   "homepage": "https://github.com/mfix22/calendarx#readme",
   "jest": {
-    "clearMocks": true,
-    "setupFilesAfterEnv": [
-      "@testing-library/react/cleanup-after-each"
-    ]
+    "clearMocks": true
   }
 }
