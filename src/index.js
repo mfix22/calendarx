@@ -126,7 +126,7 @@ function useCalendar({
     [prev]
   )
 
-  const date = new Date(referenceDate)
+  const date = React.useMemo(() => new Date(referenceDate), [referenceDate])
 
   // Ensure events dates are stored as Date objects
   events.forEach(event => {
