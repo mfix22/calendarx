@@ -2,9 +2,7 @@ import * as React from "react";
 
 export type DateLike = Date | string | number
 
-export interface Event {
-    date: Date;
-}
+export type Event = { date: DateLike } | { startDate: DateLike, endDate: DateLike }
 
 export type View = 'year' | 'month' | 'week' | 'day'
 
@@ -58,13 +56,13 @@ declare namespace Calendarx {
     function useCalendar(options: Options): Properties;
 
     const days: {
-        SUNDAY: number;
-        MONDAY: number;
-        TUESDAY: number;
-        WEDNESDAY: number;
-        THURSDAY: number;
-        FRIDAY: number;
-        SATURDAY: number;
+        SUNDAY: 0;
+        MONDAY: 1;
+        TUESDAY: 2;
+        WEDNESDAY: 3;
+        THURSDAY: 4;
+        FRIDAY: 5;
+        SATURDAY: 6;
     };
 
     const defaultProps: {
@@ -75,10 +73,10 @@ declare namespace Calendarx {
     };
 
     const views: {
-        DAY: string;
-        WEEK: string;
-        MONTH: string;
-        YEAR: string;
+        DAY: 'day';
+        WEEK: 'week';
+        MONTH: 'month';
+        YEAR: 'year';
     };
 }
 
