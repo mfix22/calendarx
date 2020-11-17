@@ -17,6 +17,8 @@ export type Day = {
     isSame: (view: View) => boolean
 }
 
+export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6
+
 export type Properties = {
     date: Date,
     days: Day[][],
@@ -40,7 +42,7 @@ export interface Options {
     date?: DateLike;
     numDays?: number,
     events?: Event[];
-    weekStartsOn?: number;
+    weekStartsOn?: Weekday;
     headers?: string[];
 }
 
@@ -69,7 +71,7 @@ declare namespace Calendarx {
         events: Event[];
         headers: string[];
         initialNumDays: number;
-        weekStartsOn: number;
+        weekStartsOn: Weekday;
     };
 
     const views: {
