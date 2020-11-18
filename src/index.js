@@ -60,7 +60,7 @@ function getButtonProps({ label, onClick }) {
   }
 }
 
-function useCalendar({
+export function useCalendar({
   initialDate,
   initialNumDays = DEFAULTS.initialNumDays,
   date: dateProp,
