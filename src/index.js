@@ -9,14 +9,14 @@ const DAYS = {
   WEDNESDAY: 3,
   THURSDAY: 4,
   FRIDAY: 5,
-  SATURDAY: 6
+  SATURDAY: 6,
 }
 
 const VIEWS = {
   DAY: 'day',
   WEEK: 'week',
   MONTH: 'month',
-  YEAR: 'year'
+  YEAR: 'year',
 }
 
 const HEADERS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -25,7 +25,7 @@ const DEFAULTS = {
   initialNumDays: 35,
   events: [],
   weekStartsOn: DAYS.SUNDAY,
-  headers: HEADERS
+  headers: HEADERS,
 }
 
 function format(dateLike) {
@@ -55,7 +55,7 @@ function getButtonProps({ label, onClick }) {
       onClick: () => {
         onClick()
         userOnClick()
-      }
+      },
     }
   }
 }
@@ -67,7 +67,7 @@ function useCalendar({
   numDays: numDaysProp,
   events = DEFAULTS.events,
   weekStartsOn = DEFAULTS.weekStartsOn,
-  headers: headersProp = DEFAULTS.headers
+  headers: headersProp = DEFAULTS.headers,
 } = DEFAULTS) {
   const [dateState, setDateState] = React.useState(format(initialDate))
   const [numDaysState, setNumDaysState] = React.useState(Math.max(initialNumDays, 0))
@@ -76,7 +76,7 @@ function useCalendar({
   const numDays = numDaysProp || numDaysState
 
   const setReferenceDate = React.useCallback(
-    newDate => {
+    (newDate) => {
       if (!dateProp) {
         setDateState(format(newDate))
       }
@@ -85,7 +85,7 @@ function useCalendar({
   )
 
   const setNumDays = React.useCallback(
-    numDays => {
+    (numDays) => {
       if (!numDaysProp) {
         setNumDaysState(Math.max(numDays, 0))
       }
@@ -129,7 +129,7 @@ function useCalendar({
   const date = React.useMemo(() => new Date(referenceDate), [referenceDate])
 
   // Ensure events dates are stored as Date objects
-  events.forEach(event => {
+  events.forEach((event) => {
     const { date, startDate, endDate } = event
 
     if (date) {
@@ -150,9 +150,9 @@ function useCalendar({
 
     const days = getMappedDays(date, numDays, { weekStartsOn, view })
 
-    const daysWithEvents = days.map(day => ({
+    const daysWithEvents = days.map((day) => ({
       ...day,
-      events: getDaysEvents(day, events)
+      events: getDaysEvents(day, events),
     }))
 
     if (view === VIEWS.DAY || view === VIEWS.WEEK) {
@@ -173,7 +173,7 @@ function useCalendar({
         const day = (starting + i) % headersProp.length
         return {
           title: headersProp[day],
-          day
+          day,
         }
       }),
     [headersProp, length, starting]
@@ -193,11 +193,11 @@ function useCalendar({
     getPrevButtonProps,
     getNextButtonProps,
     getTodayButtonProps,
-    setNumDays
+    setNumDays,
   }
 }
 
-function Calendar(props) {
+export function Calendar(props) {
   const stuff = useCalendar(props)
 
   const Component = props.children || props.render

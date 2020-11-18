@@ -10,7 +10,7 @@ function render(options) {
   rtlRender(React.createElement(Calendar, options, children))
   return {
     children,
-    ...children.mock.calls[0][0]
+    ...children.mock.calls[0][0],
   }
 }
 
@@ -54,7 +54,7 @@ const BASIC_CASES = {
     '2019-02-27',
     '2019-02-28',
     '2019-03-01',
-    '2019-03-02'
+    '2019-03-02',
   ],
   4: ['2019-02-18', '2019-02-19', '2019-02-20', '2019-02-21'],
   7: [
@@ -64,13 +64,13 @@ const BASIC_CASES = {
     '2019-02-20',
     '2019-02-21',
     '2019-02-22',
-    '2019-02-23'
-  ]
+    '2019-02-23',
+  ],
 }
 
 test('hooks defaults', () => {
   const cases = [{}, undefined]
-  cases.forEach(options => {
+  cases.forEach((options) => {
     function MyCalendar() {
       const { date } = Calendar.useCalendar(options)
 
@@ -88,22 +88,22 @@ test('defaults', () => {
 
   expect(getDateKey(date)).toBe(getDateKey(new Date()))
   expect(numDays).toBe(35)
-  expect(headers.map(h => h.title)).toEqual([
+  expect(headers.map((h) => h.title)).toEqual([
     'Sunday',
     'Monday',
     'Tuesday',
     'Wednesday',
     'Thursday',
     'Friday',
-    'Saturday'
+    'Saturday',
   ])
-  expect(headers.map(h => h.day)).toEqual([0, 1, 2, 3, 4, 5, 6])
+  expect(headers.map((h) => h.day)).toEqual([0, 1, 2, 3, 4, 5, 6])
 })
 
 test('isToday', () => {
   const { days } = render({
     numDays: 4,
-    children: () => {}
+    children: () => {},
   })
 
   expect(days[0][0].isToday).toBe(true)
@@ -122,7 +122,7 @@ describe('year', () => {
   })
 })
 
-describe.each(['month', 'week', 'day'])('%s view', view => {
+describe.each(['month', 'week', 'day'])('%s view', (view) => {
   const numDays = view === 'month' ? 35 : view === 'week' ? 7 : 4
 
   test('basic rendering ', () => {
@@ -133,7 +133,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
     const flattenedDays = [].concat(...days)
 
     expect(flattenedDays.length).toBe(numDays)
-    expect(flattenedDays.map(d => getDateKey(d.date))).toEqual(BASIC_CASES[numDays])
+    expect(flattenedDays.map((d) => getDateKey(d.date))).toEqual(BASIC_CASES[numDays])
     expect(children).toHaveBeenCalledWith(
       expect.objectContaining({
         date: new Date('2019-02-18T08:00:00.000Z'),
@@ -147,7 +147,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
         getPrevButtonProps: expect.any(Function),
         getNextButtonProps: expect.any(Function),
         getTodayButtonProps: expect.any(Function),
-        setNumDays: expect.any(Function)
+        setNumDays: expect.any(Function),
       }),
       expect.anything()
     )
@@ -156,7 +156,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
   const gridViews = {
     35: [5, 7],
     7: [1, 7],
-    4: [1, 4]
+    4: [1, 4],
   }
   test('grid size is correct', () => {
     const date = '2019-02-18'
@@ -166,7 +166,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
     const [numWeeks, weekLength] = gridViews[numDays]
 
     expect(days.length).toBe(numWeeks)
-    days.map(week => {
+    days.map((week) => {
       expect(week.length).toBe(weekLength)
     })
   })
@@ -174,7 +174,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
   const dayInformationMap = {
     35: 22,
     7: 1,
-    4: 0
+    4: 0,
   }
   test('day information is correct', () => {
     const date = '2019-02-18'
@@ -185,7 +185,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
       initialDate: referenceDate,
       numDays,
       children,
-      events: [event, { invalidEvent: new Date() }]
+      events: [event, { invalidEvent: new Date() }],
     })
 
     const flattenedDays = [].concat(...days)
@@ -206,7 +206,7 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
       event2 = {
         startDate: '2019-02-20',
         endDate: '2019-02-22',
-        title: 'Another Multi-day Event Title'
+        title: 'Another Multi-day Event Title',
       }
 
     const { children, days } = render({
@@ -214,10 +214,10 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
       weekStartsOn: 0,
       numDays: 35,
       children,
-      events: [event1, event2]
+      events: [event1, event2],
     })
 
-    const getDay = date => {
+    const getDay = (date) => {
       for (const week of days) {
         for (const day of week) {
           if (isSame(date, day.date, 'day')) {
@@ -242,22 +242,23 @@ describe.each(['month', 'week', 'day'])('%s view', view => {
 })
 
 describe('props', () => {
-  test.each([[Calendar.days.MONDAY, 0], [Calendar.days.TUESDAY, 6], [Calendar.days.SATURDAY, 2]])(
-    'test starting week on index: %s',
-    (weekStartsOn, index) => {
-      const date = '2019-02-18'
-      const initialDate = moment(date, 'YYYY-MM-DD')
+  test.each([
+    [Calendar.days.MONDAY, 0],
+    [Calendar.days.TUESDAY, 6],
+    [Calendar.days.SATURDAY, 2],
+  ])('test starting week on index: %s', (weekStartsOn, index) => {
+    const date = '2019-02-18'
+    const initialDate = moment(date, 'YYYY-MM-DD')
 
-      const { children, days } = render({
-        initialDate,
-        numDays: 7,
-        children,
-        weekStartsOn
-      })
+    const { children, days } = render({
+      initialDate,
+      numDays: 7,
+      children,
+      weekStartsOn,
+    })
 
-      expect(getDateKey(days[0][index].date)).toBe(date)
-    }
-  )
+    expect(getDateKey(days[0][index].date)).toBe(date)
+  })
 
   test('headers', () => {
     const initialDate = moment('2019-02-18', 'YYYY-MM-DD')
@@ -265,7 +266,7 @@ describe('props', () => {
     const { children } = render({
       initialDate,
       numDays: 35,
-      weekStartsOn: Calendar.days.THURSDAY
+      weekStartsOn: Calendar.days.THURSDAY,
     })
 
     expect(children).toHaveBeenCalledWith(
@@ -277,8 +278,8 @@ describe('props', () => {
           { title: 'Sunday', day: 0 },
           { title: 'Monday', day: 1 },
           { title: 'Tuesday', day: 2 },
-          { title: 'Wednesday', day: 3 }
-        ]
+          { title: 'Wednesday', day: 3 },
+        ],
       }),
       expect.anything()
     )
@@ -286,7 +287,7 @@ describe('props', () => {
     const { children: children2 } = render({
       initialDate: moment('2019-02-20', 'YYYY-MM-DD'),
       numDays: 4,
-      headers: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
+      headers: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
     })
 
     expect(children2).toHaveBeenCalledWith(
@@ -295,8 +296,8 @@ describe('props', () => {
           { title: 'Mittwoch', day: 3 },
           { title: 'Donnerstag', day: 4 },
           { title: 'Freitag', day: 5 },
-          { title: 'Samstag', day: 6 }
-        ]
+          { title: 'Samstag', day: 6 },
+        ],
       }),
       expect.anything()
     )
@@ -335,7 +336,7 @@ describe('actions', () => {
     expect(onClick).toHaveBeenCalledTimes(4)
 
     const buttons = ['Next', 'Prev', 'Today']
-    buttons.forEach(title => {
+    buttons.forEach((title) => {
       const button = getByText(title)
 
       expect(button.getAttribute('aria-label')).toContain(`Go to ${title.toLowerCase()}`)
