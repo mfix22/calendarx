@@ -8,7 +8,13 @@ export type Event =
 
 export type View = 'year' | 'month' | 'week' | 'day';
 
-export type ButtonPropsGetter = () => { label: string; onClick: () => void };
+export type ButtonPropsGetter = (props?: {
+  onClick?: () => void;
+}) => {
+  role: string;
+  'aria-label': string;
+  onClick: () => void;
+};
 
 export type Day = {
   date: Date;
@@ -37,8 +43,8 @@ export type Properties = {
   view: View;
   numDays: number;
   jump: (n: number, v?: JumpUnit) => void;
-  goToNext: () => void;
-  goToPrev: () => void;
+  goToNext: (n?: number) => void;
+  goToPrev: (n?: number) => void;
   goToToday: () => void;
   goToDate: (date: DateLike) => void;
   getPrevButtonProps: ButtonPropsGetter;
