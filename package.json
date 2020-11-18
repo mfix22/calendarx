@@ -8,6 +8,7 @@
   "unpkg": "dist/calendarx.umd.js",
   "module": "dist/calendarx.module.js",
   "esmodule": "dist/calendarx.modern.js",
+  "types": "calendarx.d.ts",
   "files": [
     "dist"
   ],
