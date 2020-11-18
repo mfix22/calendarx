@@ -44,8 +44,8 @@ export interface Options {
     headers?: string[];
 }
 
-export type Props = Options & {
-    children?: (properties: Properties) => React.ReactNode
+export interface Props extends Options {
+    children: (properties: Properties) => React.ReactNode
 }
 
 export default Calendarx;
@@ -53,7 +53,7 @@ export default Calendarx;
 declare function Calendarx(props: Props): React.ReactNode;
 
 declare namespace Calendarx {
-    function useCalendar(options: Options): Properties;
+    function useCalendar(options?: Options): Properties;
 
     const days: {
         SUNDAY: 0;
