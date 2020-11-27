@@ -4,10 +4,10 @@
 
 Calendarx is a state container that makes creating custom calendar components a breeze. With a simple API, Calendarx makes it easy to display days and events, change views, and advance between the months, weeks, and days.
 
-[![npm](https://img.shields.io/npm/v/calendarx.svg?style=flat)](https://www.npmjs.org/package/calendarx)
+[![npm](https://img.shields.io/npm/v/calendarx.svg)](https://www.npmjs.org/package/calendarx)
 [![bundle size](https://badgen.net/bundlephobia/min/calendarx)](https://bundlephobia.com/result?p=rexrex)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg)](#contributors)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 
